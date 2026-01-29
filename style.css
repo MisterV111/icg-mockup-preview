@@ -637,23 +637,32 @@ ul {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--space-lg) var(--space-sm);
+    padding: var(--space-md) var(--space-sm);
     border: 1px solid var(--color-border);
     border-radius: 6px;
-    font-family: var(--font-heading);
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--color-gray-500);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
     text-align: center;
+    min-height: 80px;
+}
+
+.client-logo-item img {
+    height: 40px;
+    width: auto;
+    max-width: 120px;
+    object-fit: contain;
+    /* Make logos white/light on dark background */
+    filter: brightness(0) invert(1) opacity(0.5);
+    transition: filter 0.4s ease;
 }
 
 .client-logo-item:hover {
     border-color: var(--color-border-light);
-    color: var(--color-gray-300);
     background: var(--color-surface-2);
+}
+
+.client-logo-item:hover img {
+    /* Show original colors on hover */
+    filter: brightness(0) invert(1) opacity(1);
 }
 
 
