@@ -84,16 +84,12 @@
     <!-- Media Section -->
     <section class="project-media">
         <div class="container project-media-inner">
-            <div class="video-placeholder" data-project="btoys">
-                <img src="../assets/portfolio/07-btoys.jpg" alt="B.Teepee Commercial" loading="lazy" />
-                <div class="video-placeholder-overlay">
-                    <div class="video-play-icon">
-                        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" /></svg>
-                    </div>
-                    <span class="video-coming-soon">Video Coming Soon</span>
-                </div>
+                        <div class="video-embed">
+                <iframe src="https://player.vimeo.com/video/1160606762?title=0&byline=0&portrait=0" 
+                        style="position:absolute;top:0;left:0;width:100%;height:100%;" 
+                        frameborder="0" allow="autoplay; fullscreen; picture-in-picture" 
+                        allowfullscreen title="Project Video"></iframe>
             </div>
-        </div>
     </section>
 
     <!-- Project Navigation -->
@@ -132,14 +128,13 @@
                 </div>
                 <div class="footer-links">
                     <h4>Services</h4>
-                    <a href="../index.html#services">Inspired Sight</a>
-                    <a href="../index.html#services">Inspired Sound & Video</a>
-                    <a href="../index.html#services">AI Production</a>
+                    <a href="../index.html#services-sight">Inspired Sight</a>
+                    <a href="../index.html#services-sound-video">Inspired Sound & Video</a>
+                    <a href="../index.html#services-ai">Inspired A.I. Innovation</a>
                 </div>
                 <div class="footer-links">
                     <h4>Connect</h4>
-                    <a href="mailto:hello@inspiredcreativegroupinc.com">Email Us</a>
-                    <a href="https://www.inspiredcreativegroupinc.com" target="_blank">Current Website</a>
+                    <a href="mailto:info@inspiredcreativegroupinc.com">Email Us</a>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -151,6 +146,9 @@
 
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+        <button class="lightbox-prev" onclick="event.stopPropagation(); navigateLightbox(-1)">◀</button>
+        <button class="lightbox-next" onclick="event.stopPropagation(); navigateLightbox(1)">▶</button>
+        <span class="lightbox-counter" id="lightbox-counter"></span>
         <button class="lightbox-close" onclick="closeLightbox(event)">×</button>
         <img id="lightbox-img" src="" alt="" />
     </div>
@@ -170,15 +168,48 @@
         navLinks.classList.toggle('open');
     });
 
-    // Lightbox
+    // Gallery Lightbox with Navigation
+    let galleryImages = [];
+    let currentLightboxIndex = 0;
+
+    // Collect all gallery images
+    document.querySelectorAll('.gallery-item').forEach((item, index) => {
+        const img = item.querySelector('img');
+        if (img) {
+            galleryImages.push({ src: img.src, alt: img.alt });
+        }
+    });
+
     function openLightbox(el) {
         const img = el.querySelector('img');
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
+        
+        // Find index
+        currentLightboxIndex = galleryImages.findIndex(g => g.src === img.src);
+        if (currentLightboxIndex === -1) currentLightboxIndex = 0;
+        
         lightboxImg.src = img.src;
         lightboxImg.alt = img.alt;
+        updateLightboxCounter();
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
+    }
+
+    function navigateLightbox(dir) {
+        if (galleryImages.length === 0) return;
+        currentLightboxIndex = (currentLightboxIndex + dir + galleryImages.length) % galleryImages.length;
+        const lightboxImg = document.getElementById('lightbox-img');
+        lightboxImg.src = galleryImages[currentLightboxIndex].src;
+        lightboxImg.alt = galleryImages[currentLightboxIndex].alt;
+        updateLightboxCounter();
+    }
+
+    function updateLightboxCounter() {
+        const counter = document.getElementById('lightbox-counter');
+        if (counter && galleryImages.length > 1) {
+            counter.textContent = (currentLightboxIndex + 1) + ' / ' + galleryImages.length;
+        }
     }
 
     function closeLightbox(e) {
@@ -189,9 +220,15 @@
     }
 
     document.addEventListener('keydown', (e) => {
+        const lightbox = document.getElementById('lightbox');
+        if (!lightbox.classList.contains('active')) return;
         if (e.key === 'Escape') {
-            document.getElementById('lightbox').classList.remove('active');
+            lightbox.classList.remove('active');
             document.body.style.overflow = '';
+        } else if (e.key === 'ArrowLeft') {
+            navigateLightbox(-1);
+        } else if (e.key === 'ArrowRight') {
+            navigateLightbox(1);
         }
     });
     </script>
