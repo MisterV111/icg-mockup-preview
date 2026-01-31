@@ -1762,6 +1762,30 @@ a.work-card {
 
 
 /* ═══════════════════════════════════════════════════════════════
+   LINKEDIN EMBEDS
+   ═══════════════════════════════════════════════════════════════ */
+
+.linkedin-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+}
+
+.linkedin-embed {
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--color-surface);
+}
+
+.linkedin-embed iframe {
+    width: 100%;
+    min-height: 399px;
+    display: block;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════════════════════════════ */
 
@@ -2023,26 +2047,6 @@ a.pillar-card-link {
     color: var(--color-gray-500);
     margin-bottom: var(--space-lg);
 }
-
-.linkedin-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-md);
-}
-
-.linkedin-embed {
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    overflow: hidden;
-    background: var(--color-surface);
-}
-
-.linkedin-embed iframe {
-    width: 100%;
-    min-height: 399px;
-    display: block;
-}
-
 
 /* ═══════════════════════════════════════════════════════════════
    AI LAYER EXPANDABLE TOOLTIPS
