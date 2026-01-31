@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                const offsetTop = target.offsetTop - 72; // nav height
+                const offsetTop = target.getBoundingClientRect().top + window.scrollY - 72; // nav height
                 window.scrollTo({
                     top: offsetTop,
                     behavior: 'smooth'
