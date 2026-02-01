@@ -614,6 +614,16 @@ ul { list-style: none; }
     aspect-ratio: 16 / 9;
 }
 
+/* No hero image — all gallery items equal size (used when video is above gallery) */
+.project-gallery.no-hero-image .gallery-item:first-child {
+    grid-column: auto;
+}
+
+.project-gallery.no-hero-image .gallery-item:first-child img {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
 /* Two image gallery */
 .project-gallery.two-images {
     grid-template-columns: 1fr 1fr;
