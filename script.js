@@ -111,6 +111,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // ─── Portfolio Category Filters ─────────────────────────────
     const filterPills = document.querySelectorAll('.filter-pill');
     const workCards = document.querySelectorAll('.work-card');
+    const showreel = document.querySelector('.work-showreel');
+    const hiddenTiers = document.querySelectorAll('.work-tier--hidden');
+    const hiddenCards = document.querySelectorAll('.work-card--hidden-extra');
+    const showAllBtn = document.getElementById('showAllWork');
+    const showAllWrap = document.querySelector('.work-show-all');
+    const workGridFeatured = document.querySelector('.work-grid-featured');
 
     filterPills.forEach(pill => {
         pill.addEventListener('click', () => {
@@ -123,18 +129,50 @@ document.addEventListener('DOMContentLoaded', () => {
             pill.setAttribute('aria-selected', 'true');
 
             const filter = pill.dataset.filter;
+            const isAll = filter === 'all';
 
-            workCards.forEach(card => {
-                const categories = (card.dataset.categories || '').split(' ');
-                
-                if (filter === 'all' || categories.includes(filter)) {
-                    card.classList.remove('filter-hidden');
-                    card.classList.add('filter-visible');
-                } else {
-                    card.classList.remove('filter-visible');
-                    card.classList.add('filter-hidden');
+            // Show/hide showreel: visible only on "All"
+            if (showreel) {
+                showreel.style.display = isAll ? '' : 'none';
+            }
+
+            if (isAll) {
+                // Reset to default progressive disclosure state
+                workCards.forEach(card => {
+                    card.classList.remove('filter-hidden', 'filter-visible');
+                });
+                // Re-hide progressive disclosure items (unless already revealed)
+                if (showAllBtn && !showAllBtn.classList.contains('hidden')) {
+                    hiddenCards.forEach(c => c.classList.remove('revealed'));
+                    hiddenTiers.forEach(t => t.classList.remove('revealed'));
                 }
-            });
+                // Show the "View All" button wrapper
+                if (showAllWrap) showAllWrap.style.display = '';
+            } else {
+                // Filtering: reveal ALL tiers so we can filter across them
+                hiddenCards.forEach(c => c.classList.add('revealed'));
+                hiddenTiers.forEach(t => t.classList.add('revealed'));
+                // Hide "View All" button (not needed when filtering)
+                if (showAllWrap) showAllWrap.style.display = 'none';
+
+                // Filter cards
+                workCards.forEach(card => {
+                    const categories = (card.dataset.categories || '').split(' ');
+                    if (categories.includes(filter)) {
+                        card.classList.remove('filter-hidden');
+                        card.classList.add('filter-visible');
+                    } else {
+                        card.classList.remove('filter-visible');
+                        card.classList.add('filter-hidden');
+                    }
+                });
+            }
+
+            // Scroll to the work grid (below showreel) when filtering
+            if (!isAll && workGridFeatured) {
+                const offset = workGridFeatured.getBoundingClientRect().top + window.scrollY - 90;
+                window.scrollTo({ top: offset, behavior: 'smooth' });
+            }
         });
     });
 
@@ -246,18 +284,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ─── Portfolio Progressive Disclosure ──────────────────────
-    const showAllBtn = document.getElementById('showAllWork');
+    // (showAllBtn already declared in filter section above)
     if (showAllBtn) {
         showAllBtn.addEventListener('click', () => {
-            // Reveal hidden featured cards
-            document.querySelectorAll('.work-card--hidden-extra').forEach(card => {
-                card.classList.add('revealed');
-            });
-            // Reveal More Work tier
-            document.querySelectorAll('.work-tier--hidden').forEach(tier => {
-                tier.classList.add('revealed');
-            });
-            // Hide the button
+            hiddenCards.forEach(card => card.classList.add('revealed'));
+            hiddenTiers.forEach(tier => tier.classList.add('revealed'));
             showAllBtn.classList.add('hidden');
         });
     }
