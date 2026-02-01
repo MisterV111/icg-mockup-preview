@@ -117,6 +117,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const showAllBtn = document.getElementById('showAllWork');
     const showAllWrap = document.querySelector('.work-show-all');
     const workGridFeatured = document.querySelector('.work-grid-featured');
+    const workTiers = document.querySelectorAll('.work-tier');
+    const workTierAi = document.querySelector('.work-tier-ai');
 
     filterPills.forEach(pill => {
         pill.addEventListener('click', () => {
@@ -141,7 +143,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 workCards.forEach(card => {
                     card.classList.remove('filter-hidden', 'filter-visible');
                 });
-                // Re-hide progressive disclosure items (unless already revealed)
+                // Remove filtering class from tiers
+                workTiers.forEach(t => t.classList.remove('filtering'));
+                // Show AI tier again (remove filtering-hide)
+                if (workTierAi) workTierAi.classList.remove('filtering-hide');
+                // Re-hide progressive disclosure items (unless user already clicked "View All")
                 if (showAllBtn && !showAllBtn.classList.contains('hidden')) {
                     hiddenCards.forEach(c => c.classList.remove('revealed'));
                     hiddenTiers.forEach(t => t.classList.remove('revealed'));
@@ -149,13 +155,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Show the "View All" button wrapper
                 if (showAllWrap) showAllWrap.style.display = '';
             } else {
-                // Filtering: reveal ALL tiers so we can filter across them
+                // Filtering: reveal ALL work tiers so we can filter across them
                 hiddenCards.forEach(c => c.classList.add('revealed'));
                 hiddenTiers.forEach(t => t.classList.add('revealed'));
+                // Add filtering class to hide tier labels
+                workTiers.forEach(t => t.classList.add('filtering'));
+                // Hide AI/LinkedIn tier (not filterable by category)
+                if (workTierAi) workTierAi.classList.add('filtering-hide');
                 // Hide "View All" button (not needed when filtering)
                 if (showAllWrap) showAllWrap.style.display = 'none';
 
-                // Filter cards
+                // Filter ALL work cards across all tiers
                 workCards.forEach(card => {
                     const categories = (card.dataset.categories || '').split(' ');
                     if (categories.includes(filter)) {

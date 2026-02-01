@@ -2701,8 +2701,22 @@ a.pillar-card-link {
     display: block;
 }
 
+/* filter-hidden must override revealed */
+.work-card--hidden-extra.revealed.filter-hidden {
+    display: none;
+}
+
 .work-show-all-btn.hidden {
     display: none;
+}
+
+/* Hide tier labels and showreel during active filtering */
+.work-tier.filtering .work-tier-label {
+    display: none;
+}
+
+.work-tier-ai.filtering-hide {
+    display: none !important;
 }
 
 
