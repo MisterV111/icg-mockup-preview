@@ -109,6 +109,42 @@ ul {
 }
 
 
+/* ─── SKIP NAVIGATION (Accessibility) ────────────────────────── */
+.skip-nav {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-red);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0 0 8px 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    z-index: 10000;
+    text-decoration: none;
+    transition: top 0.2s ease;
+}
+
+.skip-nav:focus {
+    top: 0;
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+
+/* ─── GLOBAL FOCUS INDICATORS (Accessibility) ────────────────── */
+*:focus-visible {
+    outline: 2px solid var(--color-red);
+    outline-offset: 3px;
+}
+
+/* Remove the default outline only when :focus-visible is supported */
+*:focus:not(:focus-visible) {
+    outline: none;
+}
+
+
 /* ─── ANIMATION BASE ─────────────────────────────────────────── */
 .animate-in {
     opacity: 0;
@@ -1675,8 +1711,14 @@ a.work-card {
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-    outline: none;
     border-color: var(--color-red);
+}
+
+.form-group input:focus-visible,
+.form-group select:focus-visible,
+.form-group textarea:focus-visible {
+    outline: 2px solid var(--color-red);
+    outline-offset: 2px;
 }
 
 .form-group select {
@@ -2073,6 +2115,23 @@ a.pillar-card-link {
     cursor: pointer;
 }
 
+/* Button reset for accordion triggers */
+.ai-layer-btn {
+    all: unset;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    width: 100%;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.ai-layer-btn:focus-visible {
+    outline: 2px solid var(--color-red);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
 .ai-layer-toggle {
     font-size: 0.85rem;
     color: var(--color-red);
@@ -2179,5 +2238,43 @@ a.pillar-card-link {
     .filter-pill {
         font-size: 0.7rem;
         padding: 0.4rem 0.9rem;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   REDUCED MOTION (Accessibility)
+   Respects user's OS-level motion preferences.
+   ═══════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+    /* Kill all transitions and animations */
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    /* Show all animate-in elements immediately */
+    .animate-in {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    /* Stop logo carousel infinite scroll */
+    .logo-carousel-track {
+        animation: none !important;
+    }
+
+    /* Stop hero parallax effect */
+    .hero-content {
+        transform: none !important;
+    }
+
+    /* Accordion still works, just instant */
+    .ai-layer-detail {
+        transition: none !important;
     }
 }

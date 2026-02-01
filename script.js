@@ -221,7 +221,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (heroStats) heroObserver.observe(heroStats);
 
 
-    // ─── Layer hover ripple effect ───────────────────────────────
+    // ─── AI Layer Accordion (accessible) ────────────────────────
+    document.querySelectorAll('.ai-layer-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const layer = btn.closest('.ai-layer--expandable');
+            const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+            
+            btn.setAttribute('aria-expanded', !isExpanded);
+            layer.classList.toggle('expanded');
+        });
+    });
+
+    // Stagger entrance delay for layers
     document.querySelectorAll('.ai-layer').forEach((layer, i) => {
         layer.style.transitionDelay = `${i * 50}ms`;
     });

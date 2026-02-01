@@ -12,6 +12,9 @@
 </head>
 <body>
 
+    <!-- Skip Navigation Link (Accessibility) -->
+    <a href="#main-content" class="skip-nav">Skip to main content</a>
+
     <!-- ═══════════════════════════════════════ -->
     <!-- NAVIGATION                              -->
     <!-- ═══════════════════════════════════════ -->
@@ -39,6 +42,7 @@
     <!-- ═══════════════════════════════════════ -->
     <!-- HERO                                     -->
     <!-- ═══════════════════════════════════════ -->
+    <main id="main-content">
     <section class="hero" id="hero">
         <div class="hero-bg-grid"></div>
         <div class="hero-content" id="home">
@@ -331,7 +335,7 @@
                                 <li>Artists & performers</li>
                                 <li>Corporate videos</li>
                                 <li>Video game developers</li>
-                                <li>3G developers & distributors</li>
+                                <li>3D developers & distributors</li>
                                 <li>Advertising agencies</li>
                             </ul>
                         </div>
@@ -459,78 +463,88 @@
                 <p class="ai-system-intro">We've built a production system with 40 specialized AI agents organized across five layers — from strategy to final delivery. But the agents aren't the point. The point is what directs them.</p>
                 
                 <div class="ai-layers">
-                    <div class="ai-layer ai-layer--expandable" onclick="this.classList.toggle('expanded')">
-                        <span class="ai-layer-num">01</span>
-                        <div class="ai-layer-content">
-                            <h4>Strategic Layer <span class="ai-layer-toggle">+</span></h4>
-                            <p>Creative direction, research, ideation</p>
-                            <div class="ai-layer-detail">
-                                <ul>
-                                    <li><strong>Research Agents:</strong> Market analysis, competitor audits, trend identification, and audience profiling</li>
-                                    <li><strong>Script & Brief Generation:</strong> AI-drafted creative briefs, storyboards, and script outlines reviewed by human directors</li>
-                                    <li><strong>Mood Board Creation:</strong> Automated visual reference gathering aligned to brand guidelines</li>
-                                    <li><strong>Storyboarding:</strong> AI-assisted shot planning and narrative sequencing</li>
-                                </ul>
+                    <div class="ai-layer ai-layer--expandable">
+                        <button class="ai-layer-btn" aria-expanded="false" aria-controls="layer-01-detail">
+                            <span class="ai-layer-num">01</span>
+                            <div class="ai-layer-content">
+                                <h4>Strategic Layer <span class="ai-layer-toggle" aria-hidden="true">+</span></h4>
+                                <p>Creative direction, research, ideation</p>
                             </div>
+                        </button>
+                        <div class="ai-layer-detail" id="layer-01-detail" role="region" aria-labelledby="layer-01-heading">
+                            <ul>
+                                <li><strong>Research Agents:</strong> Market analysis, competitor audits, trend identification, and audience profiling</li>
+                                <li><strong>Script & Brief Generation:</strong> AI-drafted creative briefs, storyboards, and script outlines reviewed by human directors</li>
+                                <li><strong>Mood Board Creation:</strong> Automated visual reference gathering aligned to brand guidelines</li>
+                                <li><strong>Storyboarding:</strong> AI-assisted shot planning and narrative sequencing</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="ai-layer ai-layer--expandable" onclick="this.classList.toggle('expanded')">
-                        <span class="ai-layer-num">02</span>
-                        <div class="ai-layer-content">
-                            <h4>Coordination Layer <span class="ai-layer-toggle">+</span></h4>
-                            <p>Production management, workflow orchestration</p>
-                            <div class="ai-layer-detail">
-                                <ul>
-                                    <li><strong>Production Planner:</strong> Coordinates all agents, manages timelines, and sequences multi-asset workflows</li>
-                                    <li><strong>Asset Management:</strong> Tracks versions, formats, and delivery specifications across projects</li>
-                                    <li><strong>Workflow Orchestration:</strong> Routes tasks to specialist agents based on project requirements</li>
-                                </ul>
+                    <div class="ai-layer ai-layer--expandable">
+                        <button class="ai-layer-btn" aria-expanded="false" aria-controls="layer-02-detail">
+                            <span class="ai-layer-num">02</span>
+                            <div class="ai-layer-content">
+                                <h4>Coordination Layer <span class="ai-layer-toggle" aria-hidden="true">+</span></h4>
+                                <p>Production management, workflow orchestration</p>
                             </div>
+                        </button>
+                        <div class="ai-layer-detail" id="layer-02-detail" role="region">
+                            <ul>
+                                <li><strong>Production Planner:</strong> Coordinates all agents, manages timelines, and sequences multi-asset workflows</li>
+                                <li><strong>Asset Management:</strong> Tracks versions, formats, and delivery specifications across projects</li>
+                                <li><strong>Workflow Orchestration:</strong> Routes tasks to specialist agents based on project requirements</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="ai-layer ai-layer--expandable" onclick="this.classList.toggle('expanded')">
-                        <span class="ai-layer-num">03</span>
-                        <div class="ai-layer-content">
-                            <h4>Specialist Layer <span class="ai-layer-toggle">+</span></h4>
-                            <p>Video, image, music, audio generation</p>
-                            <div class="ai-layer-detail">
-                                <ul>
-                                    <li><strong>Image Generation:</strong> Brand-consistent visuals using multiple AI models, art-directed by Sandy</li>
-                                    <li><strong>Video Production:</strong> Text-to-video, image-to-video, motion control across multiple platforms</li>
-                                    <li><strong>Music Composition:</strong> Full-length original scores, sound design, and audio beds — no licensing issues</li>
-                                    <li><strong>Copywriting:</strong> Marketing copy, scripts, social captions — human-directed, AI-accelerated</li>
-                                </ul>
+                    <div class="ai-layer ai-layer--expandable">
+                        <button class="ai-layer-btn" aria-expanded="false" aria-controls="layer-03-detail">
+                            <span class="ai-layer-num">03</span>
+                            <div class="ai-layer-content">
+                                <h4>Specialist Layer <span class="ai-layer-toggle" aria-hidden="true">+</span></h4>
+                                <p>Video, image, music, audio generation</p>
                             </div>
+                        </button>
+                        <div class="ai-layer-detail" id="layer-03-detail" role="region">
+                            <ul>
+                                <li><strong>Image Generation:</strong> Brand-consistent visuals using multiple AI models, art-directed by Sandy</li>
+                                <li><strong>Video Production:</strong> Text-to-video, image-to-video, motion control across multiple platforms</li>
+                                <li><strong>Music Composition:</strong> Full-length original scores, sound design, and audio beds — no licensing issues</li>
+                                <li><strong>Copywriting:</strong> Marketing copy, scripts, social captions — human-directed, AI-accelerated</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="ai-layer ai-layer--expandable" onclick="this.classList.toggle('expanded')">
-                        <span class="ai-layer-num">04</span>
-                        <div class="ai-layer-content">
-                            <h4>Verification Layer <span class="ai-layer-toggle">+</span></h4>
-                            <p>Quality control, brand consistency</p>
-                            <div class="ai-layer-detail">
-                                <ul>
-                                    <li><strong>Quality Control:</strong> Automated checks for resolution, format compliance, and technical standards</li>
-                                    <li><strong>Brand Consistency:</strong> AI-powered brand guideline enforcement across all outputs</li>
-                                    <li><strong>Audio Mixing:</strong> Automated level balancing, noise reduction, and format optimization</li>
-                                    <li><strong>Color Grading:</strong> AI-assisted color matching and visual consistency across deliverables</li>
-                                </ul>
+                    <div class="ai-layer ai-layer--expandable">
+                        <button class="ai-layer-btn" aria-expanded="false" aria-controls="layer-04-detail">
+                            <span class="ai-layer-num">04</span>
+                            <div class="ai-layer-content">
+                                <h4>Verification Layer <span class="ai-layer-toggle" aria-hidden="true">+</span></h4>
+                                <p>Quality control, brand consistency</p>
                             </div>
+                        </button>
+                        <div class="ai-layer-detail" id="layer-04-detail" role="region">
+                            <ul>
+                                <li><strong>Quality Control:</strong> Automated checks for resolution, format compliance, and technical standards</li>
+                                <li><strong>Brand Consistency:</strong> AI-powered brand guideline enforcement across all outputs</li>
+                                <li><strong>Audio Mixing:</strong> Automated level balancing, noise reduction, and format optimization</li>
+                                <li><strong>Color Grading:</strong> AI-assisted color matching and visual consistency across deliverables</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="ai-layer ai-layer--expandable" onclick="this.classList.toggle('expanded')">
-                        <span class="ai-layer-num">05</span>
-                        <div class="ai-layer-content">
-                            <h4>Assembly Layer <span class="ai-layer-toggle">+</span></h4>
-                            <p>Final composition, delivery</p>
-                            <div class="ai-layer-detail">
-                                <ul>
-                                    <li><strong>Platform Optimization:</strong> Auto-formatting for Instagram, YouTube, TikTok, broadcast, and web specs</li>
-                                    <li><strong>Scheduling:</strong> Content calendar management and optimal posting time analysis</li>
-                                    <li><strong>Analytics:</strong> Performance tracking and engagement insights across platforms</li>
-                                    <li><strong>A/B Testing:</strong> Variant generation and automated performance comparison</li>
-                                </ul>
+                    <div class="ai-layer ai-layer--expandable">
+                        <button class="ai-layer-btn" aria-expanded="false" aria-controls="layer-05-detail">
+                            <span class="ai-layer-num">05</span>
+                            <div class="ai-layer-content">
+                                <h4>Assembly Layer <span class="ai-layer-toggle" aria-hidden="true">+</span></h4>
+                                <p>Final composition, delivery</p>
                             </div>
+                        </button>
+                        <div class="ai-layer-detail" id="layer-05-detail" role="region">
+                            <ul>
+                                <li><strong>Platform Optimization:</strong> Auto-formatting for Instagram, YouTube, TikTok, broadcast, and web specs</li>
+                                <li><strong>Scheduling:</strong> Content calendar management and optimal posting time analysis</li>
+                                <li><strong>Analytics:</strong> Performance tracking and engagement insights across platforms</li>
+                                <li><strong>A/B Testing:</strong> Variant generation and automated performance comparison</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -1047,6 +1061,7 @@
         </div>
     </footer>
 
+    </main>
     <script src="https://player.vimeo.com/api/player.js"></script>
     <script src="script.js"></script>
 </body>
