@@ -2108,28 +2108,109 @@ a.pillar-card-link {
 
 
 /* ═══════════════════════════════════════════════════════════════
+   PILLARS INTRO LINE
+   ═══════════════════════════════════════════════════════════════ */
+.pillars {
+    padding-top: var(--space-3xl);
+    padding-bottom: var(--space-2xl);
+}
+
+.pillars-intro {
+    text-align: center;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-gray-500);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-xl);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
    CLIENT LOGOS WITHIN ABOUT (THE GUIDE)
    ═══════════════════════════════════════════════════════════════ */
 .about-clients {
     margin-top: var(--space-3xl);
-    padding: var(--space-xl) 0;
-    border-top: 1px solid var(--color-border);
+    padding: var(--space-xl) var(--space-lg);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
 }
 
-.about-clients .section-header {
-    margin-bottom: var(--space-xl);
-}
-
-.about-clients .section-title {
-    font-size: 1.5rem;
+.about-clients-title {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-gray-400);
+    text-align: center;
+    margin-bottom: var(--space-md);
+    letter-spacing: 0.02em;
 }
 
 .about-clients .logo-carousel::before {
-    background: linear-gradient(to right, var(--color-black), transparent);
+    background: linear-gradient(to right, var(--color-surface), transparent);
 }
 
 .about-clients .logo-carousel::after {
-    background: linear-gradient(to left, var(--color-black), transparent);
+    background: linear-gradient(to left, var(--color-surface), transparent);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   FEATURED IN BADGES
+   ═══════════════════════════════════════════════════════════════ */
+.about-featured {
+    margin-top: var(--space-2xl);
+    text-align: center;
+}
+
+.about-featured-title {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-gray-500);
+    margin-bottom: var(--space-md);
+}
+
+.featured-badges {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+}
+
+.featured-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-md) var(--space-xl);
+    border: 1px solid var(--color-border-light);
+    border-radius: 8px;
+    background: var(--color-surface);
+    min-width: 200px;
+    transition: border-color 0.3s ease;
+}
+
+.featured-badge:hover {
+    border-color: var(--color-red);
+}
+
+.featured-badge-name {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--color-white);
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+}
+
+.featured-badge-context {
+    font-size: 0.8rem;
+    color: var(--color-gray-500);
+    margin-top: 0.25rem;
 }
 
 /* About CTA */
