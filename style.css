@@ -1834,6 +1834,120 @@ a.work-card {
 
 
 /* ═══════════════════════════════════════════════════════════════
+   THE PLAN
+   ═══════════════════════════════════════════════════════════════ */
+.plan {
+    background: var(--color-black);
+}
+
+.plan-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+}
+
+.plan-step {
+    text-align: center;
+    padding: var(--space-2xl) var(--space-lg);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-surface);
+    position: relative;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.plan-step:hover {
+    border-color: var(--color-red);
+    transform: translateY(-4px);
+}
+
+.plan-step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--color-red);
+    color: var(--color-white);
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+}
+
+.plan-step-title {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: var(--space-sm);
+}
+
+.plan-step-desc {
+    font-size: 0.95rem;
+    color: var(--color-gray-400);
+    line-height: 1.7;
+}
+
+.plan-cta {
+    text-align: center;
+}
+
+/* Service Collapse/Expand */
+.service-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: 1px solid var(--color-border-light);
+    border-radius: 4px;
+    padding: 0.5rem 1.25rem;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-gray-400);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: var(--space-md);
+}
+
+.service-toggle:hover {
+    border-color: var(--color-red);
+    color: var(--color-white);
+}
+
+.service-toggle[aria-expanded="true"] {
+    border-color: var(--color-red);
+    color: var(--color-white);
+}
+
+.service-toggle-icon {
+    transition: transform 0.3s ease;
+    font-size: 1rem;
+}
+
+.service-toggle[aria-expanded="true"] .service-toggle-icon {
+    transform: rotate(45deg);
+}
+
+.service-collapsible {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+    margin-top: 0;
+}
+
+.service-collapsible.expanded {
+    max-height: 800px;
+    opacity: 1;
+    margin-top: var(--space-md);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════════════════════════════ */
 
@@ -1855,6 +1969,11 @@ a.work-card {
     
     .team-member--reverse {
         grid-template-columns: 1fr 220px;
+    }
+    
+    .plan-steps {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
     }
     
     .service-details {
@@ -1980,6 +2099,10 @@ a.work-card {
     
     .team-member-image {
         max-width: 200px;
+    }
+    
+    .plan-steps {
+        grid-template-columns: 1fr;
     }
     
     .service-header {

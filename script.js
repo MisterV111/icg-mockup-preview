@@ -237,4 +237,18 @@ document.addEventListener('DOMContentLoaded', () => {
         layer.style.transitionDelay = `${i * 50}ms`;
     });
 
+
+    // ─── Service Block Collapse/Expand ─────────────────────────
+    document.querySelectorAll('.service-toggle').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const expanded = btn.getAttribute('aria-expanded') === 'true';
+            btn.setAttribute('aria-expanded', !expanded);
+            const targetId = btn.getAttribute('aria-controls');
+            const target = document.getElementById(targetId);
+            if (target) {
+                target.classList.toggle('expanded');
+            }
+        });
+    });
+
 });
