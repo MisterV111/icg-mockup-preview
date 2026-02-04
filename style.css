@@ -2648,14 +2648,6 @@ a.pillar-card-link {
         line-height: 1.6;
     }
     
-    /* Ensure text in cards doesn't get cut off */
-    .work-card-content,
-    .service-card,
-    .plan-card,
-    .ai-layer-detail {
-        overflow: visible !important;
-    }
-    
     /* Better spacing for mobile */
     .section {
         padding: var(--space-2xl) 0;
