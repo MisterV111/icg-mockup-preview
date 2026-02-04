@@ -1994,7 +1994,7 @@ a.work-card {
 }
 
 .service-collapsible.expanded {
-    max-height: 800px;
+    max-height: 5000px; /* Increased from 800px to prevent mobile text cropping */
     opacity: 1;
     margin-top: var(--space-md);
 }
@@ -2550,7 +2550,7 @@ a.pillar-card-link {
 }
 
 .ai-layer--expandable.expanded .ai-layer-detail {
-    max-height: 400px;
+    max-height: 3000px; /* Increased from 400px to prevent mobile text cropping */
     padding-top: var(--space-sm);
 }
 
@@ -2636,6 +2636,33 @@ a.pillar-card-link {
     .filter-pill {
         font-size: 0.7rem;
         padding: 0.4rem 0.9rem;
+    }
+    
+    /* Improved mobile typography */
+    .section-subtitle {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+    
+    .hero-subtitle {
+        line-height: 1.6;
+    }
+    
+    /* Ensure text in cards doesn't get cut off */
+    .work-card-content,
+    .service-card,
+    .plan-card,
+    .ai-layer-detail {
+        overflow: visible !important;
+    }
+    
+    /* Better spacing for mobile */
+    .section {
+        padding: var(--space-2xl) 0;
+    }
+    
+    .container {
+        padding: 0 var(--space-sm);
     }
 }
 
