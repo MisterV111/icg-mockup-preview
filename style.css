@@ -2313,6 +2313,28 @@ a.pillar-card-link {
     padding: var(--space-md) 0;
 }
 
+/* Mobile: enable touch scrolling while keeping auto-animation */
+@media (max-width: 768px) {
+    .logo-carousel {
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        /* Hide scrollbar but keep functionality */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    
+    .logo-carousel::-webkit-scrollbar {
+        display: none;
+    }
+    
+    /* Keep animation running - user can scroll to override temporarily */
+    .logo-carousel-track {
+        animation: logoScroll 40s linear infinite;
+    }
+}
+
 .logo-carousel::before,
 .logo-carousel::after {
     content: '';
@@ -2680,10 +2702,7 @@ a.pillar-card-link {
         transform: none !important;
     }
 
-    /* Stop logo carousel infinite scroll */
-    .logo-carousel-track {
-        animation: none !important;
-    }
+    /* Keep logo carousel animating (it's functional UI, not decorative) */
 
     /* Stop hero parallax effect */
     .hero-content {
