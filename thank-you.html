@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message Received — Inspired Creative Group Inc.</title>
+    <meta name="description" content="Thank you for contacting Inspired Creative Group Inc.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .thankyou-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            background: var(--color-bg, #0a0a0a);
+        }
+        .thankyou-logo {
+            margin-bottom: 3rem;
+        }
+        .thankyou-logo img {
+            height: 48px;
+            width: auto;
+        }
+        .thankyou-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(229, 62, 62, 0.1);
+            border: 2px solid var(--color-accent, #e53e3e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+        }
+        .thankyou-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: var(--color-accent, #e53e3e);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .thankyou-heading {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: var(--color-text, #ffffff);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        .thankyou-heading .text-accent {
+            color: var(--color-accent, #e53e3e);
+        }
+        .thankyou-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.125rem;
+            color: var(--color-text-secondary, #a0a0a0);
+            max-width: 520px;
+            margin: 0 auto 1rem;
+            line-height: 1.7;
+        }
+        .thankyou-timeline {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: var(--color-text-secondary, #a0a0a0);
+            margin-bottom: 2.5rem;
+            opacity: 0.8;
+        }
+        .thankyou-back {
+            display: inline-block;
+            padding: 0.875rem 2rem;
+            background: var(--color-accent, #e53e3e);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+        .thankyou-back:hover {
+            background: #c53030;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+    <div class="thankyou-page">
+        <a href="/" class="thankyou-logo">
+            <img src="assets/logo.png" alt="Inspired Creative Group Inc." />
+        </a>
+
+        <div class="thankyou-icon">
+            <svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+        </div>
+
+        <h1 class="thankyou-heading">Message <span class="text-accent">Received</span></h1>
+
+        <p class="thankyou-text">
+            Thank you for reaching out. We've received your message and we're excited to learn more about your project.
+        </p>
+
+        <p class="thankyou-timeline">
+            We typically respond within 24 hours.
+        </p>
+
+        <a href="/" class="thankyou-back">← Back to Home</a>
+    </div>
+</body>
+</html>
