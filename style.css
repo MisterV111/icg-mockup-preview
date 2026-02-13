@@ -2391,25 +2391,18 @@ a.pillar-card-link {
     padding: var(--space-md) 0;
 }
 
-/* Mobile: enable touch scrolling while keeping auto-animation */
+/* Mobile: keep animation, no manual scroll (iOS Safari conflicts with overflow-x + CSS animation) */
 @media (max-width: 768px) {
     .logo-carousel {
-        overflow-x: auto;
-        overflow-y: hidden;
-        -webkit-overflow-scrolling: touch;
-        scroll-behavior: smooth;
-        /* Hide scrollbar but keep functionality */
-        scrollbar-width: none;
-        -ms-overflow-style: none;
+        overflow: hidden;
     }
     
-    .logo-carousel::-webkit-scrollbar {
-        display: none;
-    }
-    
-    /* Keep animation running - user can scroll to override temporarily */
     .logo-carousel-track {
-        animation: logoScroll 40s linear infinite;
+        animation: logoScroll 30s linear infinite;
+    }
+
+    .logo-carousel .client-logo-item {
+        min-width: 140px;
     }
 }
 
