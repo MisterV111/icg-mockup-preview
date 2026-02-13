@@ -1141,10 +1141,8 @@
 
     <script src="https://player.vimeo.com/api/player.js"></script>
     <script src="script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
     (function() {
-        emailjs.init('A5NAOKGJSmiC6oDY5');
         var form = document.getElementById('contactForm');
         var btn = document.getElementById('submitBtn');
         var success = document.getElementById('formSuccess');
@@ -1173,35 +1171,34 @@
                 method: 'POST', body: data, headers: { 'Accept': 'application/json' }
             });
 
-            // Send auto-reply via EmailJS
-            var templateParams = {
+            // Send branded auto-reply via Google Apps Script
+            var autoReplyData = {
                 first_name: data.get('first_name'),
                 to_email: data.get('email'),
                 service: serviceLabels[data.get('service')] || data.get('service') || 'Not specified',
                 timeline: timelineLabels[data.get('timeline')] || data.get('timeline') || 'Not specified',
                 budget: budgetLabels[data.get('budget')] || data.get('budget') || 'Not specified'
             };
-            var emailjsOk = emailjs.send('service_nlxabjk', 'template_nw9vorp', templateParams);
+            var gasOk = fetch('https://script.google.com/macros/s/AKfycbwAOZUHx5oom139OzKjXzgLoztN6PTcomwv_s1-R7aXb9lXfexKHVWXg8useiEHxT5LCQ/exec', {
+                method: 'POST',
+                body: JSON.stringify(autoReplyData),
+                headers: { 'Content-Type': 'text/plain' }
+            });
 
-            Promise.all([formspreeOk, emailjsOk]).then(function(results) {
-                if (results[0].ok) {
+            // Show success as soon as Formspree confirms (don't wait for auto-reply)
+            formspreeOk.then(function(response) {
+                if (response.ok) {
                     form.style.display = 'none';
                     success.style.display = 'block';
-                } else { throw new Error('Formspree failed'); }
-            }).catch(function(err) {
-                // If Formspree worked but EmailJS failed, still show success
-                if (formspreeOk && typeof formspreeOk.then === 'function') {
-                    formspreeOk.then(function(r) {
-                        if (r.ok) { form.style.display = 'none'; success.style.display = 'block'; return; }
-                        btn.disabled = false;
-                        btn.textContent = 'Schedule a Discovery Call';
-                        alert('Something went wrong. Please try again or email us at info@inspiredcreativegroupinc.com');
-                    });
                 } else {
                     btn.disabled = false;
                     btn.textContent = 'Schedule a Discovery Call';
-                    alert('Connection error. Please try again or email us at info@inspiredcreativegroupinc.com');
+                    alert('Something went wrong. Please try again or email us at info@inspiredcreativegroupinc.com');
                 }
+            }).catch(function() {
+                btn.disabled = false;
+                btn.textContent = 'Schedule a Discovery Call';
+                alert('Connection error. Please try again or email us at info@inspiredcreativegroupinc.com');
             });
         });
     })();
