@@ -2549,6 +2549,18 @@ a.pillar-card-link {
     cursor: default;
 }
 
+.featured-badge--link {
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color 0.3s ease, transform 0.2s ease;
+}
+
+.featured-badge--link:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+    cursor: pointer;
+}
+
 .featured-badge-name {
     font-family: var(--font-heading);
     font-size: 1.6rem;
