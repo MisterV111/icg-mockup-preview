@@ -1141,10 +1141,8 @@
 
     <script src="https://player.vimeo.com/api/player.js"></script>
     <script src="script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
     (function() {
-        emailjs.init('A5NAOKGJSmiC6oDY5');
         var form = document.getElementById('contactForm');
         var btn = document.getElementById('submitBtn');
         var success = document.getElementById('formSuccess');
@@ -1173,15 +1171,15 @@
                 method: 'POST', body: data, headers: { 'Accept': 'application/json' }
             });
 
-            // Send branded auto-reply via EmailJS
-            var templateParams = {
+            // Send branded auto-reply via Google Apps Script (GET workaround)
+            var gasParams = new URLSearchParams({
                 first_name: data.get('first_name'),
                 to_email: data.get('email'),
                 service: serviceLabels[data.get('service')] || data.get('service') || 'Not specified',
                 timeline: timelineLabels[data.get('timeline')] || data.get('timeline') || 'Not specified',
                 budget: budgetLabels[data.get('budget')] || data.get('budget') || 'Not specified'
-            };
-            emailjs.send('service_nlxabjk', 'template_nw9vorp', templateParams);
+            });
+            fetch('https://script.google.com/macros/s/AKfycby4okL1pbZ-_9Lok58j89PCiav7r5f5AA3CQwo4t7cnrHefAt7RKJi30nXjOxY9Ucy0/exec?' + gasParams.toString(), {mode:'no-cors'});
 
             // Show success as soon as Formspree confirms
             formspreeOk.then(function(response) {
