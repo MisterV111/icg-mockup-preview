@@ -2545,7 +2545,8 @@ a.pillar-card-link {
 }
 
 .featured-badge:hover {
-    border-color: var(--color-red);
+    border-color: var(--color-border-light);
+    cursor: default;
 }
 
 .featured-badge-name {
