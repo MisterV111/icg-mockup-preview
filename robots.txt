@@ -1,0 +1,7 @@
+# Inspired Creative Group Inc.
+# https://inspiredcreativegroupinc.com
+
+User-agent: *
+Allow: /
+
+Sitemap: https://inspiredcreativegroupinc.com/sitemap.xml
