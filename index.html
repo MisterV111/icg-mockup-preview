@@ -57,6 +57,15 @@
             <p class="hero-subtitle animate-in">
                 We're not an AI company that learned production. We're <span class="text-accent">production professionals</span> who've built an AI system that amplifies two decades of expertise.
             </p>
+            <div class="hero-video animate-in">
+                <div class="hero-video-wrapper" id="heroVideo">
+                    <img src="assets/hero-video-thumb.jpg" alt="Watch: Get Inspired — Your Story, Amplified" class="hero-video-thumb" />
+                    <button class="hero-video-play" aria-label="Play showreel">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" fill="#fff"/></svg>
+                    </button>
+                    <span class="hero-video-label">Watch Our Showreel</span>
+                </div>
+            </div>
             <div class="hero-cta animate-in">
                 <a href="#contact" class="btn btn-primary">Schedule a Discovery Call</a>
                 <a href="#services" class="btn btn-ghost">Explore Services</a>
@@ -570,20 +579,6 @@
                 <button class="filter-pill" data-filter="video" role="tab" aria-selected="false">Video</button>
                 <button class="filter-pill" data-filter="audio" role="tab" aria-selected="false">Audio</button>
                 <button class="filter-pill" data-filter="branding" role="tab" aria-selected="false">Branding</button>
-            </div>
-
-            <!-- Vimeo Showreel -->
-            <div class="work-showreel animate-in">
-                <div class="showreel-label">Showreel</div>
-                <div class="video-responsive">
-                    <iframe 
-                        src="https://player.vimeo.com/video/1164419923?badge=0&autopause=0&player_id=0&app_id=58479"
-                        frameborder="0" 
-                        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-                        title="ICG Showreel"
-                        loading="lazy">
-                    </iframe>
-                </div>
             </div>
 
             <!-- Tier 1 — Featured Work (2-up grid) -->
@@ -1196,6 +1191,17 @@
                 btn.textContent = 'Schedule a Discovery Call';
                 alert('Connection error. Please try again or email us at info@inspiredcreativegroupinc.com');
             });
+        });
+    })();
+    </script>
+
+    <!-- Hero Video: Click-to-Play -->
+    <script>
+    (function() {
+        var wrapper = document.getElementById('heroVideo');
+        if (!wrapper) return;
+        wrapper.addEventListener('click', function() {
+            wrapper.innerHTML = '<iframe src="https://player.vimeo.com/video/1164419923?autoplay=1&badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" title="ICG Showreel" style="position:absolute;inset:0;width:100%;height:100%;border-radius:12px;"></iframe>';
         });
     })();
     </script>
