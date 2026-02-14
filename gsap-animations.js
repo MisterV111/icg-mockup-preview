@@ -400,13 +400,51 @@
     // ═══════════════════════════════════════════════════════════
     // TESTIMONIALS — stagger with tilt
     // ═══════════════════════════════════════════════════════════
-    gsap.utils.toArray('.testimonial-card.gsap-animate').forEach(function(card, i) {
-        gsap.from(card, {
-            scrollTrigger: { trigger: card, start: 'top 88%' },
-            autoAlpha: 0, y: 70, rotation: i % 2 === 0 ? -2 : 2,
-            duration: 0.9, delay: i * 0.2, ease: 'power4.out', immediateRender: IR
+    // Testimonials — batch cascade with layered internal reveal
+    var testimonialCards = gsap.utils.toArray('.testimonial-card.gsap-animate');
+    if (testimonialCards.length) {
+        // Pre-hide cards + internal elements
+        gsap.set(testimonialCards, { autoAlpha: 0, y: 60 });
+        testimonialCards.forEach(function(card) {
+            gsap.set(card.querySelector('.testimonial-quote'), { autoAlpha: 0, scale: 0.3 });
+            gsap.set(card.querySelector('.testimonial-text'), { autoAlpha: 0, y: 20 });
+            gsap.set(card.querySelector('.testimonial-author'), { autoAlpha: 0, x: -20 });
         });
-    });
+
+        ScrollTrigger.batch(testimonialCards, {
+            start: 'top 85%',
+            onEnter: function(batch) {
+                // Cards slide up with stagger
+                gsap.to(batch, {
+                    autoAlpha: 1, y: 0,
+                    duration: 0.8, ease: 'power3.out',
+                    stagger: 0.15
+                });
+                // Internal elements reveal per card
+                batch.forEach(function(card, i) {
+                    var delay = i * 0.15 + 0.3;
+                    // Quote mark scales in with bounce
+                    gsap.to(card.querySelector('.testimonial-quote'), {
+                        autoAlpha: 1, scale: 1,
+                        duration: 0.5, ease: 'back.out(2)',
+                        delay: delay
+                    });
+                    // Text fades up
+                    gsap.to(card.querySelector('.testimonial-text'), {
+                        autoAlpha: 1, y: 0,
+                        duration: 0.6, ease: 'power2.out',
+                        delay: delay + 0.15
+                    });
+                    // Author slides in from left
+                    gsap.to(card.querySelector('.testimonial-author'), {
+                        autoAlpha: 1, x: 0,
+                        duration: 0.5, ease: 'power2.out',
+                        delay: delay + 0.3
+                    });
+                });
+            }
+        });
+    }
 
 
     // ═══════════════════════════════════════════════════════════
