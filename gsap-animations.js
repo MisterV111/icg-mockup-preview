@@ -1,11 +1,12 @@
 /* ═══════════════════════════════════════════════════════════════
    ICG WEBSITE — GSAP Scroll Animations
    
-   How it works:
-   1. CSS sets .gsap-animate { visibility: hidden } to prevent FOUC
-   2. JS immediately overrides to visibility:visible (same frame)
-   3. gsap.from() then sets autoAlpha:0 and animates to 1
-   This ensures GSAP knows the END state is "visible".
+   Pattern:
+   1. CSS: .gsap-animate { visibility: hidden } prevents FOUC
+   2. JS: gsap.set() overrides to visibility:visible (same frame)
+   3. All scroll-triggered from() use immediateRender:true so
+      elements start hidden and reveal on scroll
+   4. Hero uses explicit set(autoAlpha:0) + fromTo() for sequence
    ═══════════════════════════════════════════════════════════════ */
 
 (function() {
@@ -27,17 +28,17 @@
         return;
     }
 
-    // ─── CRITICAL: Override CSS visibility so GSAP knows end state is "visible"
-    // This happens synchronously before any render, so no flash.
+    // ─── Override CSS visibility so GSAP end-state = visible ────
     gsap.set('.gsap-animate, .gsap-animate-cta', { visibility: 'visible', opacity: 1 });
 
-    // ─── Shared ─────────────────────────────────────────────────
     var EASE = 'power3.out';
+    // immediateRender:true is THE key for scroll-triggered from() —
+    // without it, elements stay visible until their trigger fires
+    var IR = true;
 
 
     // ═══════════════════════════════════════════════════════════
-    // HERO — Clear sequential reveal: each element waits its turn
-    // Hide ALL hero elements first, then reveal one by one
+    // HERO — Sequential reveal (badge → title → subtitle → video → CTA → stats)
     // ═══════════════════════════════════════════════════════════
     gsap.set([
         '.hero-badge.gsap-animate',
@@ -51,9 +52,9 @@
     var heroTl = gsap.timeline({ defaults: { ease: EASE } });
 
     heroTl
-        .to('.hero-badge.gsap-animate', {
-            autoAlpha: 1, y: 0, duration: 0.6
-        })
+        .fromTo('.hero-badge.gsap-animate',
+            { autoAlpha: 0, y: -30 },
+            { autoAlpha: 1, y: 0, duration: 0.6 })
         .fromTo('.hero-title.gsap-animate',
             { autoAlpha: 0, y: 60 },
             { autoAlpha: 1, y: 0, duration: 1 },
@@ -77,12 +78,12 @@
 
 
     // ═══════════════════════════════════════════════════════════
-    // SECTION HEADERS
+    // SECTION HEADERS — rise up
     // ═══════════════════════════════════════════════════════════
     gsap.utils.toArray('.section-header.gsap-animate').forEach(function(header) {
         gsap.from(header, {
             scrollTrigger: { trigger: header, start: 'top 85%' },
-            autoAlpha: 0, y: 60, duration: 1, ease: EASE
+            autoAlpha: 0, y: 60, duration: 1, ease: EASE, immediateRender: IR
         });
     });
 
@@ -94,7 +95,7 @@
     if (aiProblem) {
         gsap.from(aiProblem, {
             scrollTrigger: { trigger: aiProblem, start: 'top 82%' },
-            autoAlpha: 0, y: 80, scale: 0.92, duration: 1.1, ease: EASE
+            autoAlpha: 0, y: 80, scale: 0.92, duration: 1.1, ease: EASE, immediateRender: IR
         });
     }
 
@@ -102,15 +103,15 @@
     if (aiSystem) {
         gsap.from(aiSystem, {
             scrollTrigger: { trigger: aiSystem, start: 'top 85%' },
-            autoAlpha: 0, y: 50, duration: 1, ease: EASE
+            autoAlpha: 0, y: 50, duration: 1, ease: EASE, immediateRender: IR
         });
     }
 
-    // AI Layers — slide from left
     gsap.utils.toArray('.ai-layer.gsap-animate').forEach(function(layer, i) {
         gsap.from(layer, {
             scrollTrigger: { trigger: layer, start: 'top 88%' },
-            autoAlpha: 0, x: -100, duration: 0.9, delay: i * 0.15, ease: 'power4.out'
+            autoAlpha: 0, x: -100, duration: 0.9, delay: i * 0.15,
+            ease: 'power4.out', immediateRender: IR
         });
     });
 
@@ -118,19 +119,19 @@
     if (aiBottom) {
         gsap.from(aiBottom, {
             scrollTrigger: { trigger: aiBottom, start: 'top 85%' },
-            autoAlpha: 0, y: 60, duration: 1, ease: EASE
+            autoAlpha: 0, y: 60, duration: 1, ease: EASE, immediateRender: IR
         });
     }
 
 
     // ═══════════════════════════════════════════════════════════
-    // THREE PILLARS
+    // THREE PILLARS — scale + bounce in
     // ═══════════════════════════════════════════════════════════
     var pillarsIntro = document.querySelector('.pillars-intro.gsap-animate');
     if (pillarsIntro) {
         gsap.from(pillarsIntro, {
             scrollTrigger: { trigger: pillarsIntro, start: 'top 85%' },
-            autoAlpha: 0, y: 40, duration: 0.8, ease: EASE
+            autoAlpha: 0, y: 40, duration: 0.8, ease: EASE, immediateRender: IR
         });
     }
 
@@ -139,19 +140,19 @@
             scrollTrigger: { trigger: card, start: 'top 88%' },
             autoAlpha: 0, y: 80, scale: 0.85,
             rotation: i === 0 ? -3 : i === 2 ? 3 : 0,
-            duration: 1, delay: i * 0.25, ease: 'back.out(1.2)'
+            duration: 1, delay: i * 0.25, ease: 'back.out(1.2)', immediateRender: IR
         });
     });
 
 
     // ═══════════════════════════════════════════════════════════
-    // ABOUT
+    // ABOUT — story, team, logos, featured
     // ═══════════════════════════════════════════════════════════
     var aboutStory = document.querySelector('.about-story.gsap-animate');
     if (aboutStory) {
         gsap.from(aboutStory, {
             scrollTrigger: { trigger: aboutStory, start: 'top 85%' },
-            autoAlpha: 0, y: 60, duration: 1, ease: EASE
+            autoAlpha: 0, y: 60, duration: 1, ease: EASE, immediateRender: IR
         });
     }
 
@@ -159,7 +160,8 @@
         var isReverse = member.classList.contains('team-member--reverse');
         gsap.from(member, {
             scrollTrigger: { trigger: member, start: 'top 82%' },
-            autoAlpha: 0, x: isReverse ? 120 : -120, duration: 1.2, ease: 'power4.out'
+            autoAlpha: 0, x: isReverse ? 120 : -120,
+            duration: 1.2, ease: 'power4.out', immediateRender: IR
         });
     });
 
@@ -167,7 +169,7 @@
     if (clientLogos) {
         gsap.from(clientLogos, {
             scrollTrigger: { trigger: clientLogos, start: 'top 85%' },
-            autoAlpha: 0, y: 50, duration: 1, ease: EASE
+            autoAlpha: 0, y: 50, duration: 1, ease: EASE, immediateRender: IR
         });
     }
 
@@ -175,30 +177,31 @@
     if (featured) {
         gsap.from(featured, {
             scrollTrigger: { trigger: featured, start: 'top 85%' },
-            autoAlpha: 0, y: 50, duration: 1, ease: EASE
+            autoAlpha: 0, y: 50, duration: 1, ease: EASE, immediateRender: IR
         });
     }
 
 
     // ═══════════════════════════════════════════════════════════
-    // THE PLAN
+    // THE PLAN — cascade from left
     // ═══════════════════════════════════════════════════════════
     gsap.utils.toArray('.plan-step.gsap-animate').forEach(function(step, i) {
         gsap.from(step, {
             scrollTrigger: { trigger: step, start: 'top 88%' },
-            autoAlpha: 0, y: 60, x: -40, duration: 0.9, delay: i * 0.3, ease: 'power4.out'
+            autoAlpha: 0, y: 60, x: -40,
+            duration: 0.9, delay: i * 0.3, ease: 'power4.out', immediateRender: IR
         });
     });
 
 
     // ═══════════════════════════════════════════════════════════
-    // SERVICES
+    // SERVICES — alternate sides
     // ═══════════════════════════════════════════════════════════
     gsap.utils.toArray('.service-block.gsap-animate').forEach(function(block, i) {
         gsap.from(block, {
             scrollTrigger: { trigger: block, start: 'top 82%' },
             autoAlpha: 0, x: i % 2 === 0 ? -100 : 100, y: 40,
-            duration: 1.1, delay: i * 0.15, ease: 'power4.out'
+            duration: 1.1, delay: i * 0.15, ease: 'power4.out', immediateRender: IR
         });
     });
 
@@ -206,18 +209,22 @@
         gsap.from(cap, {
             scrollTrigger: { trigger: cap, start: 'top 88%' },
             autoAlpha: 0, y: 50, scale: 0.88,
-            duration: 0.8, delay: i * 0.15, ease: 'back.out(1.1)'
+            duration: 0.8, delay: i * 0.15, ease: 'back.out(1.1)', immediateRender: IR
         });
     });
 
 
     // ═══════════════════════════════════════════════════════════
-    // PORTFOLIO
+    // PORTFOLIO — batch stagger for card grid
     // ═══════════════════════════════════════════════════════════
+
+    // Pre-hide all work cards so they don't show before batch triggers
+    gsap.set('.work-card.gsap-animate', { autoAlpha: 0, y: 80, scale: 0.88 });
+
     ScrollTrigger.batch('.work-card.gsap-animate', {
         onEnter: function(elements) {
-            gsap.from(elements, {
-                autoAlpha: 0, y: 80, scale: 0.88,
+            gsap.to(elements, {
+                autoAlpha: 1, y: 0, scale: 1,
                 stagger: 0.15, duration: 0.9, ease: 'back.out(1.1)', overwrite: true
             });
         },
@@ -229,38 +236,38 @@
     if (workFilters) {
         gsap.from(workFilters, {
             scrollTrigger: { trigger: workFilters, start: 'top 85%' },
-            autoAlpha: 0, y: 40, duration: 0.8, ease: EASE
+            autoAlpha: 0, y: 40, duration: 0.8, ease: EASE, immediateRender: IR
         });
     }
 
     gsap.utils.toArray('.work-tier-label.gsap-animate, .work-show-all.gsap-animate, .work-tier.gsap-animate').forEach(function(el) {
         gsap.from(el, {
             scrollTrigger: { trigger: el, start: 'top 90%' },
-            autoAlpha: 0, y: 30, duration: 0.7, ease: EASE
+            autoAlpha: 0, y: 30, duration: 0.7, ease: EASE, immediateRender: IR
         });
     });
 
 
     // ═══════════════════════════════════════════════════════════
-    // TESTIMONIALS
+    // TESTIMONIALS — stagger with tilt
     // ═══════════════════════════════════════════════════════════
     gsap.utils.toArray('.testimonial-card.gsap-animate').forEach(function(card, i) {
         gsap.from(card, {
             scrollTrigger: { trigger: card, start: 'top 88%' },
             autoAlpha: 0, y: 70, rotation: i % 2 === 0 ? -2 : 2,
-            duration: 0.9, delay: i * 0.2, ease: 'power4.out'
+            duration: 0.9, delay: i * 0.2, ease: 'power4.out', immediateRender: IR
         });
     });
 
 
     // ═══════════════════════════════════════════════════════════
-    // CONTACT
+    // CONTACT — slide from sides
     // ═══════════════════════════════════════════════════════════
     var contactInfo = document.querySelector('.contact-info.gsap-animate');
     if (contactInfo) {
         gsap.from(contactInfo, {
             scrollTrigger: { trigger: contactInfo, start: 'top 82%' },
-            autoAlpha: 0, x: -100, duration: 1.1, ease: 'power4.out'
+            autoAlpha: 0, x: -100, duration: 1.1, ease: 'power4.out', immediateRender: IR
         });
     }
 
@@ -268,18 +275,19 @@
     if (contactForm) {
         gsap.from(contactForm, {
             scrollTrigger: { trigger: contactForm, start: 'top 82%' },
-            autoAlpha: 0, x: 100, duration: 1.1, delay: 0.2, ease: 'power4.out'
+            autoAlpha: 0, x: 100, duration: 1.1, delay: 0.2, ease: 'power4.out', immediateRender: IR
         });
     }
 
 
     // ═══════════════════════════════════════════════════════════
-    // CTA BUTTONS
+    // CTA BUTTONS — pop with bounce
     // ═══════════════════════════════════════════════════════════
     gsap.utils.toArray('.gsap-animate-cta').forEach(function(cta) {
         gsap.from(cta, {
             scrollTrigger: { trigger: cta, start: 'top 90%' },
-            autoAlpha: 0, y: 40, scale: 0.9, duration: 0.7, ease: 'back.out(1.3)'
+            autoAlpha: 0, y: 40, scale: 0.9,
+            duration: 0.7, ease: 'back.out(1.3)', immediateRender: IR
         });
     });
 
