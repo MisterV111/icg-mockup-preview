@@ -299,9 +299,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ─── AI Layer Accordion (accessible) ────────────────────────
-    document.querySelectorAll('.ai-layer-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const layer = btn.closest('.ai-layer--expandable');
+    document.querySelectorAll('.ai-layer--expandable').forEach(layer => {
+        layer.style.cursor = 'pointer';
+        layer.addEventListener('click', () => {
+            const btn = layer.querySelector('.ai-layer-btn');
             const isExpanded = btn.getAttribute('aria-expanded') === 'true';
             
             btn.setAttribute('aria-expanded', !isExpanded);
