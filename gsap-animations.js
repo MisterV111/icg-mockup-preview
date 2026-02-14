@@ -1,5 +1,11 @@
 /* ═══════════════════════════════════════════════════════════════
    ICG WEBSITE — GSAP Scroll Animations
+   
+   How it works:
+   1. CSS sets .gsap-animate { visibility: hidden } to prevent FOUC
+   2. JS immediately overrides to visibility:visible (same frame)
+   3. gsap.from() then sets autoAlpha:0 and animates to 1
+   This ensures GSAP knows the END state is "visible".
    ═══════════════════════════════════════════════════════════════ */
 
 (function() {
@@ -17,42 +23,46 @@
 
     // ─── Respect prefers-reduced-motion ──────────────────────────
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        gsap.set('.gsap-animate, .gsap-animate-cta', { autoAlpha: 1, y: 0, x: 0, scale: 1 });
+        gsap.set('.gsap-animate, .gsap-animate-cta', { autoAlpha: 1, y: 0, x: 0, scale: 1, rotation: 0 });
         return;
     }
+
+    // ─── CRITICAL: Override CSS visibility so GSAP knows end state is "visible"
+    // This happens synchronously before any render, so no flash.
+    gsap.set('.gsap-animate, .gsap-animate-cta', { visibility: 'visible', opacity: 1 });
 
     // ─── Shared ─────────────────────────────────────────────────
     var EASE = 'power3.out';
 
 
     // ═══════════════════════════════════════════════════════════
-    // HERO — Dramatic staggered sequence on page load
+    // HERO — Clear sequential reveal: each element waits its turn
     // ═══════════════════════════════════════════════════════════
     var heroTl = gsap.timeline({ defaults: { ease: EASE } });
 
     heroTl
         .from('.hero-badge.gsap-animate', {
-            autoAlpha: 0, y: -30, duration: 0.7
+            autoAlpha: 0, y: -30, duration: 0.6
         })
         .from('.hero-title.gsap-animate', {
-            autoAlpha: 0, y: 60, duration: 1.2
-        }, '+=0.1')
+            autoAlpha: 0, y: 60, duration: 1
+        }, '+=0.1')                                    // wait for badge
         .from('.hero-subtitle.gsap-animate', {
-            autoAlpha: 0, y: 50, duration: 1
-        }, '-=0.3')
+            autoAlpha: 0, y: 50, duration: 0.9
+        }, '+=0.1')                                    // wait for title
         .from('.hero-video.gsap-animate', {
             autoAlpha: 0, y: 60, scale: 0.9, duration: 1
-        }, '-=0.2')
+        }, '+=0.05')                                   // then video
         .from('.hero-cta.gsap-animate', {
-            autoAlpha: 0, y: 40, duration: 0.8
-        }, '-=0.2')
+            autoAlpha: 0, y: 40, duration: 0.7
+        }, '-=0.3')                                    // slight overlap with video
         .from('.hero-stats.gsap-animate', {
-            autoAlpha: 0, y: 40, duration: 0.8
-        }, '-=0.1');
+            autoAlpha: 0, y: 40, duration: 0.7
+        }, '-=0.2');                                   // slight overlap with CTA
 
 
     // ═══════════════════════════════════════════════════════════
-    // SECTION HEADERS — rise up with fade
+    // SECTION HEADERS
     // ═══════════════════════════════════════════════════════════
     gsap.utils.toArray('.section-header.gsap-animate').forEach(function(header) {
         gsap.from(header, {
@@ -63,7 +73,7 @@
 
 
     // ═══════════════════════════════════════════════════════════
-    // STAKES — AI Problem Card (scale up from smaller)
+    // STAKES — AI Innovation
     // ═══════════════════════════════════════════════════════════
     var aiProblem = document.querySelector('.ai-problem.gsap-animate');
     if (aiProblem) {
@@ -73,7 +83,6 @@
         });
     }
 
-    // ─── AI System intro text ───────────────────────────────────
     var aiSystem = document.querySelector('.ai-system.gsap-animate');
     if (aiSystem) {
         gsap.from(aiSystem, {
@@ -82,19 +91,14 @@
         });
     }
 
-    // ─── AI Layers — slide from left, dramatic cascade ──────────
+    // AI Layers — slide from left
     gsap.utils.toArray('.ai-layer.gsap-animate').forEach(function(layer, i) {
         gsap.from(layer, {
             scrollTrigger: { trigger: layer, start: 'top 88%' },
-            autoAlpha: 0,
-            x: -100,
-            duration: 0.9,
-            delay: i * 0.15,
-            ease: 'power4.out'
+            autoAlpha: 0, x: -100, duration: 0.9, delay: i * 0.15, ease: 'power4.out'
         });
     });
 
-    // ─── AI Bottom Line ─────────────────────────────────────────
     var aiBottom = document.querySelector('.ai-bottom-line.gsap-animate');
     if (aiBottom) {
         gsap.from(aiBottom, {
@@ -105,7 +109,7 @@
 
 
     // ═══════════════════════════════════════════════════════════
-    // THREE PILLARS — Cards grow in with clear stagger
+    // THREE PILLARS
     // ═══════════════════════════════════════════════════════════
     var pillarsIntro = document.querySelector('.pillars-intro.gsap-animate');
     if (pillarsIntro) {
@@ -118,19 +122,15 @@
     gsap.utils.toArray('.pillar-card.gsap-animate').forEach(function(card, i) {
         gsap.from(card, {
             scrollTrigger: { trigger: card, start: 'top 88%' },
-            autoAlpha: 0,
-            y: 80,
-            scale: 0.85,
+            autoAlpha: 0, y: 80, scale: 0.85,
             rotation: i === 0 ? -3 : i === 2 ? 3 : 0,
-            duration: 1,
-            delay: i * 0.25,
-            ease: 'back.out(1.2)'
+            duration: 1, delay: i * 0.25, ease: 'back.out(1.2)'
         });
     });
 
 
     // ═══════════════════════════════════════════════════════════
-    // ABOUT — Story rises, team slides from sides
+    // ABOUT
     // ═══════════════════════════════════════════════════════════
     var aboutStory = document.querySelector('.about-story.gsap-animate');
     if (aboutStory) {
@@ -144,10 +144,7 @@
         var isReverse = member.classList.contains('team-member--reverse');
         gsap.from(member, {
             scrollTrigger: { trigger: member, start: 'top 82%' },
-            autoAlpha: 0,
-            x: isReverse ? 120 : -120,
-            duration: 1.2,
-            ease: 'power4.out'
+            autoAlpha: 0, x: isReverse ? 120 : -120, duration: 1.2, ease: 'power4.out'
         });
     });
 
@@ -169,70 +166,50 @@
 
 
     // ═══════════════════════════════════════════════════════════
-    // THE PLAN — Steps cascade with clear delay
+    // THE PLAN
     // ═══════════════════════════════════════════════════════════
     gsap.utils.toArray('.plan-step.gsap-animate').forEach(function(step, i) {
         gsap.from(step, {
             scrollTrigger: { trigger: step, start: 'top 88%' },
-            autoAlpha: 0,
-            y: 60,
-            x: -40,
-            duration: 0.9,
-            delay: i * 0.3,
-            ease: 'power4.out'
+            autoAlpha: 0, y: 60, x: -40, duration: 0.9, delay: i * 0.3, ease: 'power4.out'
         });
     });
 
 
     // ═══════════════════════════════════════════════════════════
-    // SERVICES — Each block slides from alternating sides
+    // SERVICES
     // ═══════════════════════════════════════════════════════════
     gsap.utils.toArray('.service-block.gsap-animate').forEach(function(block, i) {
         gsap.from(block, {
             scrollTrigger: { trigger: block, start: 'top 82%' },
-            autoAlpha: 0,
-            x: i % 2 === 0 ? -100 : 100,
-            y: 40,
-            duration: 1.1,
-            delay: i * 0.15,
-            ease: 'power4.out'
+            autoAlpha: 0, x: i % 2 === 0 ? -100 : 100, y: 40,
+            duration: 1.1, delay: i * 0.15, ease: 'power4.out'
         });
     });
 
-    // ─── AI Capabilities grid (inside AI service block) ─────────
     gsap.utils.toArray('.ai-cap.gsap-animate').forEach(function(cap, i) {
         gsap.from(cap, {
             scrollTrigger: { trigger: cap, start: 'top 88%' },
-            autoAlpha: 0,
-            y: 50,
-            scale: 0.88,
-            duration: 0.8,
-            delay: i * 0.15,
-            ease: 'back.out(1.1)'
+            autoAlpha: 0, y: 50, scale: 0.88,
+            duration: 0.8, delay: i * 0.15, ease: 'back.out(1.1)'
         });
     });
 
 
     // ═══════════════════════════════════════════════════════════
-    // PORTFOLIO — Cards batch-stagger with scale
+    // PORTFOLIO
     // ═══════════════════════════════════════════════════════════
     ScrollTrigger.batch('.work-card.gsap-animate', {
         onEnter: function(elements) {
             gsap.from(elements, {
-                autoAlpha: 0,
-                y: 80,
-                scale: 0.88,
-                stagger: 0.15,
-                duration: 0.9,
-                ease: 'back.out(1.1)',
-                overwrite: true
+                autoAlpha: 0, y: 80, scale: 0.88,
+                stagger: 0.15, duration: 0.9, ease: 'back.out(1.1)', overwrite: true
             });
         },
         start: 'top 92%',
         once: true
     });
 
-    // ─── Work filter pills ──────────────────────────────────────
     var workFilters = document.querySelector('.work-filters.gsap-animate');
     if (workFilters) {
         gsap.from(workFilters, {
@@ -241,7 +218,6 @@
         });
     }
 
-    // ─── Work tier labels + misc ────────────────────────────────
     gsap.utils.toArray('.work-tier-label.gsap-animate, .work-show-all.gsap-animate, .work-tier.gsap-animate').forEach(function(el) {
         gsap.from(el, {
             scrollTrigger: { trigger: el, start: 'top 90%' },
@@ -251,23 +227,19 @@
 
 
     // ═══════════════════════════════════════════════════════════
-    // TESTIMONIALS — Stagger with slight rotation
+    // TESTIMONIALS
     // ═══════════════════════════════════════════════════════════
     gsap.utils.toArray('.testimonial-card.gsap-animate').forEach(function(card, i) {
         gsap.from(card, {
             scrollTrigger: { trigger: card, start: 'top 88%' },
-            autoAlpha: 0,
-            y: 70,
-            rotation: i % 2 === 0 ? -2 : 2,
-            duration: 0.9,
-            delay: i * 0.2,
-            ease: 'power4.out'
+            autoAlpha: 0, y: 70, rotation: i % 2 === 0 ? -2 : 2,
+            duration: 0.9, delay: i * 0.2, ease: 'power4.out'
         });
     });
 
 
     // ═══════════════════════════════════════════════════════════
-    // CONTACT — Slide in from opposite sides
+    // CONTACT
     // ═══════════════════════════════════════════════════════════
     var contactInfo = document.querySelector('.contact-info.gsap-animate');
     if (contactInfo) {
@@ -276,6 +248,7 @@
             autoAlpha: 0, x: -100, duration: 1.1, ease: 'power4.out'
         });
     }
+
     var contactForm = document.querySelector('.contact-form-wrap.gsap-animate');
     if (contactForm) {
         gsap.from(contactForm, {
@@ -286,7 +259,7 @@
 
 
     // ═══════════════════════════════════════════════════════════
-    // CTA BUTTONS — Pop up
+    // CTA BUTTONS
     // ═══════════════════════════════════════════════════════════
     gsap.utils.toArray('.gsap-animate-cta').forEach(function(cta) {
         gsap.from(cta, {
