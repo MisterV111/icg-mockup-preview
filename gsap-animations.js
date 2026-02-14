@@ -168,8 +168,8 @@
     var clientLogos = document.querySelector('.about-clients.gsap-animate');
     if (clientLogos) {
         gsap.from(clientLogos, {
-            scrollTrigger: { trigger: clientLogos, start: 'top 85%' },
-            autoAlpha: 0, y: 50, duration: 1, ease: EASE, immediateRender: IR
+            scrollTrigger: { trigger: clientLogos, start: 'top 88%' },
+            autoAlpha: 0, y: 60, scale: 0.95, duration: 1.2, ease: 'power4.out', immediateRender: IR
         });
     }
 
