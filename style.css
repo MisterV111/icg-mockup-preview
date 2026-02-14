@@ -375,6 +375,7 @@ ul {
     color: var(--color-white);
     margin-bottom: var(--space-lg);
     letter-spacing: -0.02em;
+    perspective: 600px;
 }
 
 .hero-subtitle {

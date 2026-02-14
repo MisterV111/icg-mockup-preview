@@ -21,6 +21,7 @@
     }
 
     gsap.registerPlugin(ScrollTrigger);
+    if (typeof SplitText !== 'undefined') gsap.registerPlugin(SplitText);
 
     // ─── Respect prefers-reduced-motion ──────────────────────────
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -51,14 +52,36 @@
 
     var heroTl = gsap.timeline({ defaults: { ease: EASE } });
 
+    // ─── SplitText for hero title ──────────────────────────────
+    var heroTitle = document.querySelector('.hero-title.gsap-animate');
+    var heroTitleSplit = null;
+    if (heroTitle && typeof SplitText !== 'undefined') {
+        // Make title visible so SplitText can measure it, but keep content hidden
+        gsap.set(heroTitle, { visibility: 'visible' });
+        heroTitleSplit = SplitText.create(heroTitle, { type: 'words, chars' });
+        gsap.set(heroTitleSplit.chars, { autoAlpha: 0, y: 80, rotateX: -40 });
+        gsap.set(heroTitle, { autoAlpha: 1 }); // container visible, chars hidden
+    }
+
     heroTl
         .fromTo('.hero-badge.gsap-animate',
             { autoAlpha: 0, y: -30 },
-            { autoAlpha: 1, y: 0, duration: 0.6 })
-        .fromTo('.hero-title.gsap-animate',
+            { autoAlpha: 1, y: 0, duration: 0.6 });
+
+    // SplitText character reveal OR simple fade for fallback
+    if (heroTitleSplit) {
+        heroTl.to(heroTitleSplit.chars, {
+            autoAlpha: 1, y: 0, rotateX: 0,
+            stagger: 0.03, duration: 0.8, ease: 'back.out(1.7)'
+        }, '+=0.1');
+    } else {
+        heroTl.fromTo('.hero-title.gsap-animate',
             { autoAlpha: 0, y: 60 },
             { autoAlpha: 1, y: 0, duration: 1 },
-        '+=0.1')
+        '+=0.1');
+    }
+
+    heroTl
         .fromTo('.hero-subtitle.gsap-animate',
             { autoAlpha: 0, y: 50 },
             { autoAlpha: 1, y: 0, duration: 0.9 },
