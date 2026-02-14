@@ -2638,7 +2638,6 @@ a.pillar-card-link {
    ═══════════════════════════════════════════════════════════════ */
 .ai-layer--expandable {
     cursor: pointer;
-    flex-wrap: wrap;
 }
 
 /* Button reset for accordion triggers */
@@ -2667,26 +2666,13 @@ a.pillar-card-link {
 }
 
 .ai-layer-detail {
+    max-height: 0;
     overflow: hidden;
-    width: 0;
     opacity: 0;
-    flex-shrink: 0;
-}
-
-/* Expanded: side-by-side layout */
-.ai-layer--expandable.expanded {
-    flex-wrap: nowrap;
-    align-items: flex-start;
-}
-
-.ai-layer--expandable.expanded .ai-layer-btn {
-    justify-content: flex-start;
-    flex-shrink: 0;
 }
 
 .ai-layer--expandable.expanded .ai-layer-detail {
-    border-left: 1px solid var(--color-border);
-    padding-left: var(--space-lg);
+    padding-top: var(--space-sm);
 }
 
 .ai-layer-detail ul {
@@ -2739,24 +2725,6 @@ a.pillar-card-link {
     border: 0;
 }
 
-
-/* Mobile: layers stack vertically when expanded */
-@media (max-width: 768px) {
-    .ai-layer--expandable.expanded {
-        flex-wrap: wrap;
-    }
-    .ai-layer--expandable.expanded .ai-layer-btn {
-        width: 100%;
-    }
-    .ai-layer--expandable.expanded .ai-layer-detail {
-        width: 100% !important;
-        border-left: none;
-        padding-left: 0;
-        padding-top: var(--space-sm);
-        border-top: 1px solid var(--color-border);
-        margin-top: var(--space-sm);
-    }
-}
 
 /* Small mobile */
 @media (max-width: 480px) {

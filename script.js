@@ -301,35 +301,46 @@ document.addEventListener('DOMContentLoaded', () => {
     // ─── AI Layer Accordion (accessible) ────────────────────────
     document.querySelectorAll('.ai-layer--expandable').forEach(layer => {
         layer.style.cursor = 'pointer';
+        
+        // Measure offset for centering animation
+        var btn = layer.querySelector('.ai-layer-btn');
+        var btnContent = btn.querySelector('.ai-layer-num');
+        
         layer.addEventListener('click', () => {
-            const btn = layer.querySelector('.ai-layer-btn');
-            const detail = layer.querySelector('.ai-layer-detail');
-            const toggle = layer.querySelector('.ai-layer-toggle');
-            const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+            var btn = layer.querySelector('.ai-layer-btn');
+            var detail = layer.querySelector('.ai-layer-detail');
+            var toggle = layer.querySelector('.ai-layer-toggle');
+            var isExpanded = btn.getAttribute('aria-expanded') === 'true';
 
             if (typeof gsap !== 'undefined') {
                 if (!isExpanded) {
-                    // OPEN: class first, then animate
-                    layer.classList.add('expanded');
+                    // OPEN — switch to left-aligned, reveal detail
                     btn.setAttribute('aria-expanded', 'true');
-                    gsap.fromTo(detail, 
-                        { width: 0, opacity: 0 },
-                        { width: '60%', opacity: 1, duration: 0.5, ease: 'power3.out' }
+                    layer.classList.add('expanded');
+                    btn.style.justifyContent = 'flex-start';
+                    
+                    // Measure natural height then animate
+                    gsap.set(detail, { maxHeight: 'none', opacity: 1 });
+                    var h = detail.scrollHeight;
+                    gsap.fromTo(detail,
+                        { maxHeight: 0, opacity: 0 },
+                        { maxHeight: h, opacity: 1, duration: 0.5, ease: 'power3.out',
+                          clearProps: 'maxHeight' }
                     );
                     gsap.to(toggle, { rotation: 45, duration: 0.3, ease: 'power2.out' });
                 } else {
-                    // CLOSE: animate first, then remove class
-                    gsap.to(detail, { 
-                        width: 0, opacity: 0, duration: 0.4, ease: 'power3.in',
-                        onComplete: () => {
+                    // CLOSE — collapse detail, re-center
+                    gsap.to(detail, {
+                        maxHeight: 0, opacity: 0, duration: 0.35, ease: 'power3.in',
+                        onComplete: function() {
                             layer.classList.remove('expanded');
                             btn.setAttribute('aria-expanded', 'false');
+                            btn.style.justifyContent = 'center';
                         }
                     });
                     gsap.to(toggle, { rotation: 0, duration: 0.3, ease: 'power2.in' });
                 }
             } else {
-                // Fallback without GSAP
                 btn.setAttribute('aria-expanded', !isExpanded);
                 layer.classList.toggle('expanded');
             }
