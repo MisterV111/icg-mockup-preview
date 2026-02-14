@@ -306,7 +306,10 @@ document.addEventListener('DOMContentLoaded', () => {
         var btn = layer.querySelector('.ai-layer-btn');
         var btnContent = btn.querySelector('.ai-layer-num');
         
-        layer.addEventListener('click', () => {
+        layer.addEventListener('click', (e) => {
+            // Don't close when clicking inside the detail content
+            if (e.target.closest('.ai-layer-detail')) return;
+            
             var btn = layer.querySelector('.ai-layer-btn');
             var detail = layer.querySelector('.ai-layer-detail');
             var toggle = layer.querySelector('.ai-layer-toggle');
@@ -324,8 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     var h = detail.scrollHeight;
                     gsap.fromTo(detail,
                         { maxHeight: 0, opacity: 0 },
-                        { maxHeight: h, opacity: 1, duration: 0.5, ease: 'power3.out',
-                          clearProps: 'maxHeight' }
+                        { maxHeight: h, opacity: 1, duration: 0.5, ease: 'power3.out' }
                     );
                     gsap.to(toggle, { rotation: 45, duration: 0.3, ease: 'power2.out' });
                 } else {
