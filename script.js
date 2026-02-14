@@ -303,10 +303,36 @@ document.addEventListener('DOMContentLoaded', () => {
         layer.style.cursor = 'pointer';
         layer.addEventListener('click', () => {
             const btn = layer.querySelector('.ai-layer-btn');
+            const detail = layer.querySelector('.ai-layer-detail');
+            const toggle = layer.querySelector('.ai-layer-toggle');
             const isExpanded = btn.getAttribute('aria-expanded') === 'true';
-            
-            btn.setAttribute('aria-expanded', !isExpanded);
-            layer.classList.toggle('expanded');
+
+            if (typeof gsap !== 'undefined') {
+                if (!isExpanded) {
+                    // OPEN: class first, then animate
+                    layer.classList.add('expanded');
+                    btn.setAttribute('aria-expanded', 'true');
+                    gsap.fromTo(detail, 
+                        { width: 0, opacity: 0 },
+                        { width: '60%', opacity: 1, duration: 0.5, ease: 'power3.out' }
+                    );
+                    gsap.to(toggle, { rotation: 45, duration: 0.3, ease: 'power2.out' });
+                } else {
+                    // CLOSE: animate first, then remove class
+                    gsap.to(detail, { 
+                        width: 0, opacity: 0, duration: 0.4, ease: 'power3.in',
+                        onComplete: () => {
+                            layer.classList.remove('expanded');
+                            btn.setAttribute('aria-expanded', 'false');
+                        }
+                    });
+                    gsap.to(toggle, { rotation: 0, duration: 0.3, ease: 'power2.in' });
+                }
+            } else {
+                // Fallback without GSAP
+                btn.setAttribute('aria-expanded', !isExpanded);
+                layer.classList.toggle('expanded');
+            }
         });
     });
 
