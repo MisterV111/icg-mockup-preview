@@ -213,13 +213,33 @@
         });
     }
 
-    gsap.utils.toArray('.ai-layer.gsap-animate').forEach(function(layer, i) {
-        gsap.from(layer, {
-            scrollTrigger: { trigger: layer, start: 'top 88%' },
-            autoAlpha: 0, x: -100, duration: 0.9, delay: i * 0.15,
-            ease: 'power4.out', immediateRender: IR
+    // AI Layers — scrub-linked to scrollbar (interactive reveal)
+    // As user scrolls through the section, layers progressively slide in
+    var aiLayers = document.querySelector('.ai-layers');
+    var aiLayerEls = gsap.utils.toArray('.ai-layer.gsap-animate');
+    if (aiLayers && aiLayerEls.length) {
+        // Set initial state
+        gsap.set(aiLayerEls, { autoAlpha: 0, x: -100 });
+
+        // Build a timeline with all 5 layers staggered
+        var layersTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: aiLayers,
+                start: 'top 80%',
+                end: 'bottom 60%',
+                scrub: 1,            // smooth 1s catch-up
+                // markers: true,    // uncomment for debugging
+            }
         });
-    });
+
+        aiLayerEls.forEach(function(layer, i) {
+            layersTl.to(layer, {
+                autoAlpha: 1, x: 0,
+                duration: 1,
+                ease: 'power4.out'
+            }, i * 0.3);  // stagger start within timeline
+        });
+    }
 
     var aiBottom = document.querySelector('.ai-bottom-line.gsap-animate');
     if (aiBottom) {
@@ -345,8 +365,22 @@
 
 
     // ═══════════════════════════════════════════════════════════
-    // PORTFOLIO — batch stagger for card grid
+    // PORTFOLIO — pinned header + batch stagger cards
     // ═══════════════════════════════════════════════════════════
+
+    // Pin the work section header while cards scroll beneath
+    var workSection = document.querySelector('.section.work');
+    var workHeader = workSection ? workSection.querySelector('.section-header') : null;
+    if (workHeader && workSection) {
+        ScrollTrigger.create({
+            trigger: workSection,
+            start: 'top top+=72',     // account for nav height
+            end: 'bottom bottom',
+            pin: workHeader,
+            pinSpacing: false          // don't add extra space — cards flow naturally
+        });
+    }
+
     gsap.set('.work-card.gsap-animate', { autoAlpha: 0, y: 80, scale: 0.88 });
 
     ScrollTrigger.batch('.work-card.gsap-animate', {

@@ -1349,6 +1349,14 @@ ul {
     background: var(--color-dark);
 }
 
+/* Pinned portfolio header: solid bg so cards don't show through */
+.work .section-header {
+    background: var(--color-dark);
+    padding-bottom: var(--space-lg);
+    z-index: 2;
+    position: relative;
+}
+
 /* ── Filter Pills ──────────────────────────────────────────── */
 .work-filters {
     display: flex;
