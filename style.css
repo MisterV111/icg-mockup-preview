@@ -146,17 +146,17 @@ ul {
 
 
 /* ─── ANIMATION BASE ─────────────────────────────────────────── */
-/* GSAP handles animation transforms/opacity via JS.
-   This ensures elements are hidden before GSAP initializes. */
+/* GSAP's gsap.from() handles initial invisible state via JS.
+   No CSS opacity:0 needed — avoids flash-of-invisible if GSAP loads late.
+   The .animate-in class is used purely as a selector for GSAP. */
 .animate-in {
-    opacity: 0;
+    /* GSAP controls opacity/transforms via JS */
 }
 
-/* Legacy fallback: if GSAP fails to load, CSS transition kicks in */
+/* Legacy fallback: if GSAP fails to load, IntersectionObserver adds .visible */
 .animate-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+    opacity: 1 !important;
+    transform: translateY(0) !important;
 }
 
 

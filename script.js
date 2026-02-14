@@ -7,229 +7,138 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ─── GSAP Scroll Animations ──────────────────────────────────
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-        gsap.registerPlugin(ScrollTrigger, SplitText);
+        gsap.registerPlugin(ScrollTrigger);
+        if (typeof SplitText !== 'undefined') gsap.registerPlugin(SplitText);
 
         let mm = gsap.matchMedia();
 
         // ── Reduced motion: show everything immediately ──
         mm.add("(prefers-reduced-motion: reduce)", () => {
-            gsap.set(".animate-in", { opacity: 1, y: 0, x: 0, scale: 1, rotation: 0 });
+            gsap.set(".animate-in", { opacity: 1, y: 0, x: 0, scale: 1 });
         });
 
         // ── Full animations (no motion preference) ──
         mm.add("(prefers-reduced-motion: no-preference)", () => {
 
-            // Default: all animate-in elements start invisible
-            gsap.set(".animate-in", { opacity: 0, y: 30 });
+            // ── HERO (plays on load, sequenced timeline) ──
+            let heroTl = gsap.timeline({ delay: 0.2 });
 
-            // ── HERO (plays on load, no ScrollTrigger) ──
-            let heroTl = gsap.timeline({ delay: 0.3 });
-
-            heroTl
-                .to(".hero-badge", { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" })
-                .to(".hero-title", { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, "-=0.3");
-
-            // SplitText on hero title
-            let heroTitle = document.querySelector(".hero-title");
+            // SplitText on hero title (if available)
+            let heroTitle = document.querySelector(".hero-title.animate-in");
             if (heroTitle && typeof SplitText !== 'undefined') {
                 let split = SplitText.create(heroTitle, { type: "words" });
-                gsap.set(heroTitle, { opacity: 1, y: 0 });
-                heroTl.from(split.words, {
-                    opacity: 0,
-                    y: 20,
-                    duration: 0.5,
-                    stagger: 0.06,
-                    ease: "power2.out"
-                }, 0.4);
+                heroTl
+                    .from(".hero-badge.animate-in", { opacity: 0, y: 20, duration: 0.5, ease: "power2.out" })
+                    .from(split.words, { opacity: 0, y: 20, duration: 0.4, stagger: 0.05, ease: "power2.out" }, "-=0.2")
+                    .from(".hero-subtitle.animate-in", { opacity: 0, y: 20, duration: 0.5, ease: "power2.out" }, "-=0.1")
+                    .from(".hero-video.animate-in", { opacity: 0, y: 20, duration: 0.6, ease: "power2.out" }, "-=0.2")
+                    .from(".hero-cta.animate-in", { opacity: 0, y: 15, duration: 0.4, ease: "power2.out" }, "-=0.3")
+                    .from(".hero-stats.animate-in", { opacity: 0, y: 15, duration: 0.4, ease: "power2.out" }, "-=0.2");
+            } else {
+                // No SplitText — simpler hero sequence
+                heroTl
+                    .from(".hero-badge.animate-in", { opacity: 0, y: 20, duration: 0.5, ease: "power2.out" })
+                    .from(".hero-title.animate-in", { opacity: 0, y: 20, duration: 0.6, ease: "power2.out" }, "-=0.2")
+                    .from(".hero-subtitle.animate-in", { opacity: 0, y: 20, duration: 0.5, ease: "power2.out" }, "-=0.1")
+                    .from(".hero-video.animate-in", { opacity: 0, y: 20, duration: 0.6, ease: "power2.out" }, "-=0.2")
+                    .from(".hero-cta.animate-in", { opacity: 0, y: 15, duration: 0.4, ease: "power2.out" }, "-=0.3")
+                    .from(".hero-stats.animate-in", { opacity: 0, y: 15, duration: 0.4, ease: "power2.out" }, "-=0.2");
             }
 
-            heroTl
-                .to(".hero-subtitle", { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.2")
-                .to(".hero-video", { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, "-=0.3")
-                .to(".hero-cta", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, "-=0.4")
-                .to(".hero-stats", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, "-=0.3");
+            // ── SCROLL-TRIGGERED: Batch all .animate-in elements below the hero ──
+            // This is the safety net — every animate-in element gets an animation.
+            // Then we layer on special effects for specific sections.
 
-            // ── STAKES / WHY ICG ──
-            gsap.to(".ai-innovation .section-header", {
-                scrollTrigger: { trigger: ".ai-innovation .section-header", start: "top 85%" },
-                opacity: 1, y: 0, duration: 0.7, ease: "power2.out"
+            ScrollTrigger.batch(".animate-in:not([class*='hero-'])", {
+                start: "top 88%",
+                onEnter: (batch) => {
+                    gsap.from(batch, {
+                        opacity: 0, y: 30,
+                        duration: 0.6, stagger: 0.1, ease: "power2.out",
+                        overwrite: true
+                    });
+                }
             });
 
-            gsap.to(".ai-problem", {
-                scrollTrigger: { trigger: ".ai-problem", start: "top 85%" },
-                opacity: 1, y: 0, x: 0, duration: 0.7, ease: "power2.out"
-            });
+            // ── ENHANCED EFFECTS (layered on top of batch) ──
 
-            // AI system layers — staggered
+            // AI system layers — staggered cascade
             let aiLayers = gsap.utils.toArray(".ai-system .ai-layer");
             if (aiLayers.length) {
-                gsap.set(".ai-system", { opacity: 1, y: 0 });
                 gsap.from(aiLayers, {
                     scrollTrigger: { trigger: ".ai-system", start: "top 80%" },
-                    opacity: 0, y: 25, duration: 0.5, stagger: 0.12, ease: "power2.out"
+                    opacity: 0, y: 25, duration: 0.5, stagger: 0.12, ease: "power2.out",
+                    overwrite: true
                 });
             }
 
-            gsap.to(".ai-bottom-line", {
-                scrollTrigger: { trigger: ".ai-bottom-line", start: "top 85%" },
-                opacity: 1, y: 0, duration: 0.7, ease: "power2.out"
-            });
-
-            // ── PILLARS ──
-            gsap.to(".pillars-intro", {
-                scrollTrigger: { trigger: ".pillars-intro", start: "top 85%" },
-                opacity: 1, y: 0, duration: 0.6, ease: "power2.out"
-            });
-
+            // Pillar cards — bounce scale
             let pillarCards = gsap.utils.toArray(".pillar-card");
             if (pillarCards.length) {
                 gsap.from(pillarCards, {
                     scrollTrigger: { trigger: pillarCards[0], start: "top 85%" },
-                    opacity: 0, y: 40, scale: 0.95, duration: 0.6, stagger: 0.15, ease: "back.out(1.4)"
+                    opacity: 0, y: 40, scale: 0.95, duration: 0.6, stagger: 0.15, ease: "back.out(1.4)",
+                    overwrite: true
                 });
             }
-
-            gsap.to(".pillars-cta", {
-                scrollTrigger: { trigger: ".pillars-cta", start: "top 90%" },
-                opacity: 1, y: 0, duration: 0.5, ease: "power2.out"
-            });
-
-            // ── ABOUT ──
-            gsap.to(".about .section-header", {
-                scrollTrigger: { trigger: ".about .section-header", start: "top 85%" },
-                opacity: 1, y: 0, duration: 0.7, ease: "power2.out"
-            });
-
-            gsap.to(".about-story", {
-                scrollTrigger: { trigger: ".about-story", start: "top 85%" },
-                opacity: 1, y: 0, duration: 0.7, ease: "power2.out"
-            });
 
             // Team members — slide from alternating sides
             gsap.utils.toArray(".team-member").forEach((member, i) => {
                 gsap.from(member, {
                     scrollTrigger: { trigger: member, start: "top 85%" },
-                    opacity: 0, x: i % 2 === 0 ? -40 : 40, duration: 0.7, ease: "power2.out"
+                    opacity: 0, x: i % 2 === 0 ? -40 : 40, duration: 0.7, ease: "power2.out",
+                    overwrite: true
                 });
             });
 
-            gsap.to(".about-clients", {
-                scrollTrigger: { trigger: ".about-clients", start: "top 85%" },
-                opacity: 1, y: 0, duration: 0.6, ease: "power2.out"
-            });
-
-            // Featured In badges — scale with subtle bounce
+            // Featured In badges — scale with bounce
             let featuredBadges = gsap.utils.toArray(".featured-badge");
             if (featuredBadges.length) {
-                gsap.set(".about-featured", { opacity: 1, y: 0 });
                 gsap.from(featuredBadges, {
                     scrollTrigger: { trigger: ".about-featured", start: "top 85%" },
-                    opacity: 0, scale: 0.8, duration: 0.6, stagger: 0.15, ease: "back.out(1.7)"
+                    opacity: 0, scale: 0.8, duration: 0.6, stagger: 0.15, ease: "back.out(1.7)",
+                    overwrite: true
                 });
             }
 
-            gsap.to(".about-cta", {
-                scrollTrigger: { trigger: ".about-cta", start: "top 90%" },
-                opacity: 1, y: 0, duration: 0.5, ease: "power2.out"
-            });
-
-            // ── PLAN (3 steps) ──
-            gsap.to(".plan .section-header", {
-                scrollTrigger: { trigger: ".plan .section-header", start: "top 85%" },
-                opacity: 1, y: 0, duration: 0.7, ease: "power2.out"
-            });
-
+            // Plan steps — stagger
             let planSteps = gsap.utils.toArray(".plan-step");
             if (planSteps.length) {
-                gsap.set(".plan-steps", { opacity: 1, y: 0 });
                 gsap.from(planSteps, {
                     scrollTrigger: { trigger: ".plan-steps", start: "top 80%" },
-                    opacity: 0, y: 30, duration: 0.5, stagger: 0.2, ease: "power2.out"
+                    opacity: 0, y: 30, duration: 0.5, stagger: 0.2, ease: "power2.out",
+                    overwrite: true
                 });
             }
 
-            gsap.to(".plan-cta", {
-                scrollTrigger: { trigger: ".plan-cta", start: "top 90%" },
-                opacity: 1, y: 0, duration: 0.5, ease: "power2.out"
-            });
-
-            // ── SERVICES ──
-            gsap.to(".services .section-header", {
-                scrollTrigger: { trigger: ".services .section-header", start: "top 85%" },
-                opacity: 1, y: 0, duration: 0.7, ease: "power2.out"
-            });
-
+            // Service blocks — alternate slide direction
             gsap.utils.toArray(".service-block").forEach((block, i) => {
                 gsap.from(block, {
                     scrollTrigger: { trigger: block, start: "top 85%" },
-                    opacity: 0, x: i % 2 === 0 ? -30 : 30, duration: 0.7, ease: "power2.out"
+                    opacity: 0, x: i % 2 === 0 ? -30 : 30, duration: 0.7, ease: "power2.out",
+                    overwrite: true
                 });
             });
 
-            gsap.to(".services-cta", {
-                scrollTrigger: { trigger: ".services-cta", start: "top 90%" },
-                opacity: 1, y: 0, duration: 0.5, ease: "power2.out"
-            });
-
-            // ── PORTFOLIO ──
-            gsap.to(".work .section-header", {
-                scrollTrigger: { trigger: ".work .section-header", start: "top 85%" },
-                opacity: 1, y: 0, duration: 0.7, ease: "power2.out"
-            });
-
-            gsap.to(".work-filters", {
-                scrollTrigger: { trigger: ".work-filters", start: "top 90%" },
-                opacity: 1, y: 0, duration: 0.5, ease: "power2.out"
-            });
-
-            // Work cards — batch stagger for performance
+            // Portfolio cards — batch with scale
             ScrollTrigger.batch(".work-card", {
                 start: "top 90%",
                 onEnter: (batch) => gsap.from(batch, {
-                    opacity: 0, y: 30, scale: 0.97,
+                    opacity: 0, y: 25, scale: 0.97,
                     duration: 0.5, stagger: 0.08, ease: "power2.out",
                     overwrite: true
                 })
             });
 
-            // Work tier labels + show all + CTA
-            gsap.utils.toArray(".work-tier-label, .work-show-all, .work-cta").forEach(el => {
-                gsap.to(el, {
-                    scrollTrigger: { trigger: el, start: "top 90%" },
-                    opacity: 1, y: 0, duration: 0.5, ease: "power2.out"
-                });
-            });
-
-            // ── TESTIMONIALS ──
-            gsap.to(".testimonials .section-header, [class*='testimonials'] .section-header", {
-                scrollTrigger: { trigger: "#testimonials, .testimonials", start: "top 85%" },
-                opacity: 1, y: 0, duration: 0.7, ease: "power2.out"
-            });
-
+            // Testimonial cards — stagger
             let testimonialCards = gsap.utils.toArray(".testimonial-card");
             if (testimonialCards.length) {
-                gsap.set(".testimonials-grid", { opacity: 1, y: 0 });
                 gsap.from(testimonialCards, {
                     scrollTrigger: { trigger: ".testimonials-grid", start: "top 80%" },
-                    opacity: 0, y: 25, duration: 0.5, stagger: 0.12, ease: "power2.out"
+                    opacity: 0, y: 25, duration: 0.5, stagger: 0.12, ease: "power2.out",
+                    overwrite: true
                 });
             }
-
-            gsap.to(".testimonials-cta", {
-                scrollTrigger: { trigger: ".testimonials-cta", start: "top 90%" },
-                opacity: 1, y: 0, duration: 0.5, ease: "power2.out"
-            });
-
-            // ── CONTACT ──
-            gsap.to(".contact-info", {
-                scrollTrigger: { trigger: ".contact-info", start: "top 85%" },
-                opacity: 1, y: 0, x: 0, duration: 0.7, ease: "power2.out"
-            });
-
-            gsap.to(".contact-form-wrap", {
-                scrollTrigger: { trigger: ".contact-form-wrap", start: "top 85%" },
-                opacity: 1, y: 0, x: 0, duration: 0.7, ease: "power2.out"
-            });
 
         }); // end matchMedia no-preference
 
