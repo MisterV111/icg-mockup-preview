@@ -66,37 +66,37 @@
     heroTl
         .fromTo('.hero-badge.gsap-animate',
             { autoAlpha: 0, y: -30 },
-            { autoAlpha: 1, y: 0, duration: 0.6 });
+            { autoAlpha: 1, y: 0, duration: 0.4 });
 
     // SplitText character reveal OR simple fade for fallback
     if (heroTitleSplit) {
         heroTl.to(heroTitleSplit.chars, {
             autoAlpha: 1, y: 0, rotateX: 0,
-            stagger: 0.03, duration: 0.8, ease: 'back.out(1.7)'
-        }, '+=0.1');
+            stagger: 0.02, duration: 0.5, ease: 'back.out(1.7)'
+        }, '+=0.05');
     } else {
         heroTl.fromTo('.hero-title.gsap-animate',
             { autoAlpha: 0, y: 60 },
-            { autoAlpha: 1, y: 0, duration: 1 },
-        '+=0.1');
+            { autoAlpha: 1, y: 0, duration: 0.7 },
+        '+=0.05');
     }
 
     heroTl
         .fromTo('.hero-subtitle.gsap-animate',
             { autoAlpha: 0, y: 50 },
-            { autoAlpha: 1, y: 0, duration: 0.9 },
-        '+=0.1')
+            { autoAlpha: 1, y: 0, duration: 0.6 },
+        '+=0.05')
         .fromTo('.hero-video.gsap-animate',
             { autoAlpha: 0, y: 60, scale: 0.9 },
-            { autoAlpha: 1, y: 0, scale: 1, duration: 1 },
-        '+=0.05')
+            { autoAlpha: 1, y: 0, scale: 1, duration: 0.7 },
+        '-=0.1')
         .fromTo('.hero-cta.gsap-animate',
             { autoAlpha: 0, y: 40 },
-            { autoAlpha: 1, y: 0, duration: 0.7 },
+            { autoAlpha: 1, y: 0, duration: 0.5 },
         '-=0.3')
         .fromTo('.hero-stats.gsap-animate',
             { autoAlpha: 0, y: 40 },
-            { autoAlpha: 1, y: 0, duration: 0.7 },
+            { autoAlpha: 1, y: 0, duration: 0.5 },
         '-=0.2');
 
 
