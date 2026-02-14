@@ -23,6 +23,7 @@
 
     gsap.registerPlugin(ScrollTrigger);
     if (typeof SplitText !== 'undefined') gsap.registerPlugin(SplitText);
+    if (typeof Flip !== 'undefined') gsap.registerPlugin(Flip);
 
     // ─── Respect prefers-reduced-motion ──────────────────────────
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

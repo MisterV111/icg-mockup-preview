@@ -301,43 +301,59 @@ document.addEventListener('DOMContentLoaded', () => {
     // ─── AI Layer Accordion (accessible) ────────────────────────
     document.querySelectorAll('.ai-layer--expandable').forEach(layer => {
         layer.style.cursor = 'pointer';
-        
-        // Measure offset for centering animation
-        var btn = layer.querySelector('.ai-layer-btn');
-        var btnContent = btn.querySelector('.ai-layer-num');
-        
+
         layer.addEventListener('click', (e) => {
             // Don't close when clicking inside the detail content
             if (e.target.closest('.ai-layer-detail')) return;
-            
+
             var btn = layer.querySelector('.ai-layer-btn');
             var detail = layer.querySelector('.ai-layer-detail');
             var toggle = layer.querySelector('.ai-layer-toggle');
+            var num = layer.querySelector('.ai-layer-num');
+            var content = layer.querySelector('.ai-layer-content');
             var isExpanded = btn.getAttribute('aria-expanded') === 'true';
+            var hasFlip = (typeof gsap !== 'undefined' && typeof Flip !== 'undefined');
 
-            if (typeof gsap !== 'undefined') {
+            if (hasFlip) {
+                // Capture current positions of num + content
+                var flipTargets = [num, content];
+                var state = Flip.getState(flipTargets);
+
                 if (!isExpanded) {
-                    // OPEN — switch to left-aligned, reveal detail
+                    // OPEN
                     btn.setAttribute('aria-expanded', 'true');
-                    layer.classList.add('expanded');
                     btn.style.justifyContent = 'flex-start';
-                    
-                    // Measure natural height then animate
+                    layer.classList.add('expanded');
+
+                    // Animate num + content from centered to left
+                    Flip.from(state, {
+                        duration: 0.5,
+                        ease: 'power3.out',
+                        targets: flipTargets
+                    });
+
+                    // Reveal detail
                     gsap.set(detail, { maxHeight: 'none', opacity: 1 });
                     var h = detail.scrollHeight;
                     gsap.fromTo(detail,
                         { maxHeight: 0, opacity: 0 },
-                        { maxHeight: h, opacity: 1, duration: 0.5, ease: 'power3.out' }
+                        { maxHeight: h, opacity: 1, duration: 0.5, ease: 'power3.out', delay: 0.15 }
                     );
                     gsap.to(toggle, { rotation: 45, duration: 0.3, ease: 'power2.out' });
                 } else {
-                    // CLOSE — collapse detail, re-center
+                    // CLOSE — collapse detail first, then re-center
                     gsap.to(detail, {
                         maxHeight: 0, opacity: 0, duration: 0.35, ease: 'power3.in',
                         onComplete: function() {
+                            var closeState = Flip.getState(flipTargets);
                             layer.classList.remove('expanded');
                             btn.setAttribute('aria-expanded', 'false');
                             btn.style.justifyContent = 'center';
+                            Flip.from(closeState, {
+                                duration: 0.4,
+                                ease: 'power2.out',
+                                targets: flipTargets
+                            });
                         }
                     });
                     gsap.to(toggle, { rotation: 0, duration: 0.3, ease: 'power2.in' });
