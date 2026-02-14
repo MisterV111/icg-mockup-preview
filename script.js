@@ -234,39 +234,61 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    // ─── Counter Animation for Stats ─────────────────────────────
+    // ─── Counter Animation for Stats (looping) ────────────────────
     const stats = document.querySelectorAll('.hero-stat-number');
-    let statsCounted = false;
+    let counterStarted = false;
+
+    // Parse targets once on load
+    const statTargets = [];
+    stats.forEach(stat => {
+        const text = stat.textContent;
+        statTargets.push({
+            el: stat,
+            target: parseInt(text),
+            hasPlus: text.includes('+')
+        });
+    });
 
     function animateCounters() {
-        if (statsCounted) return;
-        statsCounted = true;
-        
-        stats.forEach(stat => {
-            const text = stat.textContent;
-            const hasPlus = text.includes('+');
-            const target = parseInt(text);
+        const countUpDuration = 1500;
+        const steps = 40;
+        const stepTime = countUpDuration / steps;
+
+        statTargets.forEach(s => {
             let current = 0;
-            const increment = target / 40;
-            const duration = 1500;
-            const stepTime = duration / 40;
-            
+            const increment = s.target / steps;
+
+            s.el.textContent = '0' + (s.hasPlus ? '+' : '');
+
             const timer = setInterval(() => {
                 current += increment;
-                if (current >= target) {
-                    current = target;
+                if (current >= s.target) {
+                    current = s.target;
                     clearInterval(timer);
                 }
-                stat.textContent = Math.round(current) + (hasPlus ? '+' : '');
+                s.el.textContent = Math.round(current) + (s.hasPlus ? '+' : '');
             }, stepTime);
         });
     }
 
-    // Trigger counter when hero is visible
+    function startCounterLoop() {
+        if (counterStarted) return;
+        counterStarted = true;
+
+        // First count-up
+        animateCounters();
+
+        // Loop: hold 4s → reset to 0 → count up again
+        setInterval(() => {
+            animateCounters();
+        }, 6000); // 1.5s count-up + 4.5s hold
+    }
+
+    // Trigger counter when hero stats become visible
     const heroObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                setTimeout(animateCounters, 800);
+                setTimeout(startCounterLoop, 800);
                 heroObserver.unobserve(entry.target);
             }
         });
