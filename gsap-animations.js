@@ -368,19 +368,6 @@
     // PORTFOLIO — pinned header + batch stagger cards
     // ═══════════════════════════════════════════════════════════
 
-    // Pin the work section header while cards scroll beneath
-    var workSection = document.querySelector('.section.work');
-    var workHeader = workSection ? workSection.querySelector('.section-header') : null;
-    if (workHeader && workSection) {
-        ScrollTrigger.create({
-            trigger: workSection,
-            start: 'top top+=72',     // account for nav height
-            end: 'bottom bottom',
-            pin: workHeader,
-            pinSpacing: false          // don't add extra space — cards flow naturally
-        });
-    }
-
     gsap.set('.work-card.gsap-animate', { autoAlpha: 0, y: 80, scale: 0.88 });
 
     ScrollTrigger.batch('.work-card.gsap-animate', {
