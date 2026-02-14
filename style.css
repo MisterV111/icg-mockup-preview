@@ -146,15 +146,17 @@ ul {
 
 
 /* ─── ANIMATION BASE ─────────────────────────────────────────── */
+/* GSAP handles animation transforms/opacity via JS.
+   This ensures elements are hidden before GSAP initializes. */
 .animate-in {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
 }
 
+/* Legacy fallback: if GSAP fails to load, CSS transition kicks in */
 .animate-in.visible {
     opacity: 1;
     transform: translateY(0);
+    transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
 }
 
 
