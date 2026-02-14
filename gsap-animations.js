@@ -1,12 +1,13 @@
 /* ═══════════════════════════════════════════════════════════════
    ICG WEBSITE — GSAP Scroll Animations
    
-   Pattern:
-   1. CSS: .gsap-animate { visibility: hidden } prevents FOUC
-   2. JS: gsap.set() overrides to visibility:visible (same frame)
-   3. All scroll-triggered from() use immediateRender:true so
-      elements start hidden and reveal on scroll
-   4. Hero uses explicit set(autoAlpha:0) + fromTo() for sequence
+   DESIGN_TRUTH aligned:
+   - Ease-out for entrances, never linear (§4.4)
+   - Stagger 2-4 frames = 0.033-0.066s at 60fps (§4.4)
+   - Max 2 text elements moving at once (§4.4)
+   - Mask line reveal = editorial (§4.4)
+   - Parallax 3-5 layers at decreasing speeds (§5.1)
+   - Every animation serves narrative purpose (§Pro vs Amateur)
    ═══════════════════════════════════════════════════════════════ */
 
 (function() {
@@ -33,13 +34,61 @@
     gsap.set('.gsap-animate, .gsap-animate-cta', { visibility: 'visible', opacity: 1 });
 
     var EASE = 'power3.out';
-    // immediateRender:true is THE key for scroll-triggered from() —
-    // without it, elements stay visible until their trigger fires
-    var IR = true;
+    var IR = true;  // immediateRender for scroll-triggered from()
+    var hasSplitText = typeof SplitText !== 'undefined';
+
+
+    // ─── Helper: SplitText mask line reveal on section titles ────
+    // DESIGN_TRUTH §4.4: "Line reveal from below mask" = editorial
+    function splitTitleReveal(selector, triggerEl, startPos) {
+        var el = typeof selector === 'string' ? document.querySelector(selector) : selector;
+        if (!el || !hasSplitText) {
+            // Fallback: simple fade up
+            if (el) {
+                gsap.from(el, {
+                    scrollTrigger: { trigger: triggerEl || el, start: startPos || 'top 85%' },
+                    autoAlpha: 0, y: 60, duration: 1, ease: EASE, immediateRender: IR
+                });
+            }
+            return;
+        }
+
+        // Wait for fonts before splitting
+        var doSplit = function() {
+            var split = SplitText.create(el, {
+                type: 'lines',
+                mask: 'lines',       // built-in overflow mask for reveal effect
+                linesClass: 'split-line'
+            });
+
+            gsap.from(split.lines, {
+                scrollTrigger: { trigger: triggerEl || el, start: startPos || 'top 85%' },
+                y: '100%',           // slide up from fully below the mask
+                autoAlpha: 0,
+                stagger: 0.05,       // DESIGN_TRUTH: 2-4 frames = ~0.05s
+                duration: 0.8,
+                ease: 'power4.out',
+                immediateRender: IR,
+                onComplete: function() {
+                    // DESIGN_TRUTH: revert split after animation for clean DOM
+                    // Delay slightly so the final frame renders
+                    setTimeout(function() { split.revert(); }, 100);
+                }
+            });
+        };
+
+        // Ensure fonts are loaded before measuring lines
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(doSplit);
+        } else {
+            doSplit();
+        }
+    }
 
 
     // ═══════════════════════════════════════════════════════════
-    // HERO — Sequential reveal (badge → title → subtitle → video → CTA → stats)
+    // HERO — Sequential reveal
+    // DESIGN_TRUTH §4.4: max 2 text elements moving at once
     // ═══════════════════════════════════════════════════════════
     gsap.set([
         '.hero-badge.gsap-animate',
@@ -50,64 +99,98 @@
         '.hero-stats.gsap-animate'
     ], { autoAlpha: 0 });
 
-    var heroTl = gsap.timeline({ defaults: { ease: EASE } });
-
-    // ─── SplitText for hero title ──────────────────────────────
+    // SplitText character reveal on hero title
     var heroTitle = document.querySelector('.hero-title.gsap-animate');
     var heroTitleSplit = null;
-    if (heroTitle && typeof SplitText !== 'undefined') {
-        // Make title visible so SplitText can measure it, but keep content hidden
-        gsap.set(heroTitle, { visibility: 'visible' });
-        heroTitleSplit = SplitText.create(heroTitle, { type: 'words, chars' });
-        gsap.set(heroTitleSplit.chars, { autoAlpha: 0, y: 80, rotateX: -40 });
-        gsap.set(heroTitle, { autoAlpha: 1 }); // container visible, chars hidden
-    }
 
-    heroTl
-        .fromTo('.hero-badge.gsap-animate',
-            { autoAlpha: 0, y: -30 },
-            { autoAlpha: 1, y: 0, duration: 0.4 });
+    var buildHeroTimeline = function() {
+        if (heroTitle && hasSplitText) {
+            gsap.set(heroTitle, { visibility: 'visible' });
+            heroTitleSplit = SplitText.create(heroTitle, { type: 'words, chars' });
+            gsap.set(heroTitleSplit.chars, { autoAlpha: 0, y: 80, rotateX: -40 });
+            gsap.set(heroTitle, { autoAlpha: 1 });
+        }
 
-    // SplitText character reveal OR simple fade for fallback
-    if (heroTitleSplit) {
-        heroTl.to(heroTitleSplit.chars, {
-            autoAlpha: 1, y: 0, rotateX: 0,
-            stagger: 0.02, duration: 0.5, ease: 'back.out(1.7)'
-        }, '+=0.05');
+        var heroTl = gsap.timeline({ defaults: { ease: EASE } });
+
+        heroTl
+            .fromTo('.hero-badge.gsap-animate',
+                { autoAlpha: 0, y: -30 },
+                { autoAlpha: 1, y: 0, duration: 0.4 });
+
+        // DESIGN_TRUTH §4.4: stagger 2-4 frames = 0.033s at 60fps
+        if (heroTitleSplit) {
+            heroTl.to(heroTitleSplit.chars, {
+                autoAlpha: 1, y: 0, rotateX: 0,
+                stagger: 0.035, duration: 0.5, ease: 'back.out(1.7)'
+            }, '+=0.05');
+        } else {
+            heroTl.fromTo('.hero-title.gsap-animate',
+                { autoAlpha: 0, y: 60 },
+                { autoAlpha: 1, y: 0, duration: 0.7 },
+            '+=0.05');
+        }
+
+        heroTl
+            .fromTo('.hero-subtitle.gsap-animate',
+                { autoAlpha: 0, y: 50 },
+                { autoAlpha: 1, y: 0, duration: 0.6 },
+            '+=0.05')
+            .fromTo('.hero-video.gsap-animate',
+                { autoAlpha: 0, y: 60, scale: 0.9 },
+                { autoAlpha: 1, y: 0, scale: 1, duration: 0.7 },
+            '+=0.05')                              // wait for subtitle to finish
+            .fromTo('.hero-cta.gsap-animate',
+                { autoAlpha: 0, y: 40 },
+                { autoAlpha: 1, y: 0, duration: 0.5 },
+            '-=0.2')
+            .fromTo('.hero-stats.gsap-animate',
+                { autoAlpha: 0, y: 40 },
+                { autoAlpha: 1, y: 0, duration: 0.5 },
+            '-=0.2');
+    };
+
+    // Wait for fonts before building hero (SplitText needs correct measurements)
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(buildHeroTimeline);
     } else {
-        heroTl.fromTo('.hero-title.gsap-animate',
-            { autoAlpha: 0, y: 60 },
-            { autoAlpha: 1, y: 0, duration: 0.7 },
-        '+=0.05');
+        buildHeroTimeline();
     }
-
-    heroTl
-        .fromTo('.hero-subtitle.gsap-animate',
-            { autoAlpha: 0, y: 50 },
-            { autoAlpha: 1, y: 0, duration: 0.6 },
-        '+=0.05')
-        .fromTo('.hero-video.gsap-animate',
-            { autoAlpha: 0, y: 60, scale: 0.9 },
-            { autoAlpha: 1, y: 0, scale: 1, duration: 0.7 },
-        '-=0.1')
-        .fromTo('.hero-cta.gsap-animate',
-            { autoAlpha: 0, y: 40 },
-            { autoAlpha: 1, y: 0, duration: 0.5 },
-        '-=0.3')
-        .fromTo('.hero-stats.gsap-animate',
-            { autoAlpha: 0, y: 40 },
-            { autoAlpha: 1, y: 0, duration: 0.5 },
-        '-=0.2');
 
 
     // ═══════════════════════════════════════════════════════════
-    // SECTION HEADERS — rise up
+    // SECTION HEADERS — SplitText mask line reveal (editorial)
+    // DESIGN_TRUTH §4.4: "Line reveal from below mask"
     // ═══════════════════════════════════════════════════════════
     gsap.utils.toArray('.section-header.gsap-animate').forEach(function(header) {
-        gsap.from(header, {
-            scrollTrigger: { trigger: header, start: 'top 85%' },
-            autoAlpha: 0, y: 60, duration: 1, ease: EASE, immediateRender: IR
-        });
+        var title = header.querySelector('.section-title');
+        if (title && hasSplitText) {
+            // Mask reveal on the title text
+            splitTitleReveal(title, header, 'top 85%');
+            // Fade up the label and subtitle normally
+            var label = header.querySelector('.section-label');
+            var subtitle = header.querySelector('.section-subtitle');
+            if (label) {
+                gsap.from(label, {
+                    scrollTrigger: { trigger: header, start: 'top 85%' },
+                    autoAlpha: 0, y: 20, duration: 0.6, ease: EASE, immediateRender: IR
+                });
+            }
+            if (subtitle) {
+                gsap.from(subtitle, {
+                    scrollTrigger: { trigger: header, start: 'top 82%' },
+                    autoAlpha: 0, y: 30, duration: 0.8, delay: 0.3, ease: EASE, immediateRender: IR
+                });
+            }
+            // Make the header container visible (SplitText handles title visibility)
+            gsap.set(header, { autoAlpha: 1 });
+        } else {
+            // Fallback: simple fade up
+            gsap.from(header, {
+                scrollTrigger: { trigger: header, start: 'top 85%' },
+                autoAlpha: 0, y: 60, duration: 1, ease: EASE, immediateRender: IR
+            });
+        }
     });
 
 
@@ -140,6 +223,11 @@
 
     var aiBottom = document.querySelector('.ai-bottom-line.gsap-animate');
     if (aiBottom) {
+        // Mask reveal on the quote text
+        var quoteP = aiBottom.querySelector('.ai-quote p');
+        if (quoteP && hasSplitText) {
+            splitTitleReveal(quoteP, aiBottom, 'top 85%');
+        }
         gsap.from(aiBottom, {
             scrollTrigger: { trigger: aiBottom, start: 'top 85%' },
             autoAlpha: 0, y: 60, duration: 1, ease: EASE, immediateRender: IR
@@ -169,7 +257,7 @@
 
 
     // ═══════════════════════════════════════════════════════════
-    // ABOUT — story, team, logos, featured
+    // ABOUT — story, team (with parallax), logos, featured
     // ═══════════════════════════════════════════════════════════
     var aboutStory = document.querySelector('.about-story.gsap-animate');
     if (aboutStory) {
@@ -179,13 +267,32 @@
         });
     }
 
+    // Team members: slide from sides + parallax on images
+    // DESIGN_TRUTH §5.1: parallax at decreasing speeds
     gsap.utils.toArray('.team-member.gsap-animate').forEach(function(member) {
         var isReverse = member.classList.contains('team-member--reverse');
+
+        // Entrance animation
         gsap.from(member, {
             scrollTrigger: { trigger: member, start: 'top 82%' },
             autoAlpha: 0, x: isReverse ? 120 : -120,
             duration: 1.2, ease: 'power4.out', immediateRender: IR
         });
+
+        // Subtle parallax on team photos (30% speed = background layer)
+        var img = member.querySelector('.team-member-image');
+        if (img) {
+            gsap.to(img, {
+                yPercent: -15,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: member,
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 1
+                }
+            });
+        }
     });
 
     var clientLogos = document.querySelector('.about-clients.gsap-animate');
@@ -240,8 +347,6 @@
     // ═══════════════════════════════════════════════════════════
     // PORTFOLIO — batch stagger for card grid
     // ═══════════════════════════════════════════════════════════
-
-    // Pre-hide all work cards so they don't show before batch triggers
     gsap.set('.work-card.gsap-animate', { autoAlpha: 0, y: 80, scale: 0.88 });
 
     ScrollTrigger.batch('.work-card.gsap-animate', {
@@ -312,6 +417,46 @@
             autoAlpha: 0, y: 40, scale: 0.9,
             duration: 0.7, ease: 'back.out(1.3)', immediateRender: IR
         });
+    });
+
+
+    // ═══════════════════════════════════════════════════════════
+    // HERO PARALLAX — subtle depth on background grid
+    // DESIGN_TRUTH §5.1: parallax at decreasing speeds
+    // ═══════════════════════════════════════════════════════════
+    var heroBgGrid = document.querySelector('.hero-bg-grid');
+    if (heroBgGrid) {
+        gsap.to(heroBgGrid, {
+            yPercent: -30,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1
+            }
+        });
+    }
+
+    // Hero video thumbnail — subtle parallax (60% speed = mid layer)
+    var heroVideoEl = document.querySelector('.hero-video .hero-video-thumb');
+    if (heroVideoEl) {
+        gsap.to(heroVideoEl, {
+            yPercent: -10,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1
+            }
+        });
+    }
+
+
+    // ─── Refresh ScrollTrigger after all images load ────────────
+    window.addEventListener('load', function() {
+        ScrollTrigger.refresh();
     });
 
 })();

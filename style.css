@@ -166,6 +166,16 @@ ul {
     visibility: hidden;
 }
 
+/* SplitText mask line reveal: overflow hidden on mask containers */
+.split-line-mask {
+    overflow: hidden;
+}
+
+/* Team member images: overflow hidden for parallax containment */
+.team-member-image {
+    overflow: hidden;
+}
+
 
 /* ═══════════════════════════════════════════════════════════════
    NAVIGATION
