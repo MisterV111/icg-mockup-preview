@@ -37,28 +37,43 @@
 
     // ═══════════════════════════════════════════════════════════
     // HERO — Clear sequential reveal: each element waits its turn
+    // Hide ALL hero elements first, then reveal one by one
     // ═══════════════════════════════════════════════════════════
+    gsap.set([
+        '.hero-badge.gsap-animate',
+        '.hero-title.gsap-animate',
+        '.hero-subtitle.gsap-animate',
+        '.hero-video.gsap-animate',
+        '.hero-cta.gsap-animate',
+        '.hero-stats.gsap-animate'
+    ], { autoAlpha: 0 });
+
     var heroTl = gsap.timeline({ defaults: { ease: EASE } });
 
     heroTl
-        .from('.hero-badge.gsap-animate', {
-            autoAlpha: 0, y: -30, duration: 0.6
+        .to('.hero-badge.gsap-animate', {
+            autoAlpha: 1, y: 0, duration: 0.6
         })
-        .from('.hero-title.gsap-animate', {
-            autoAlpha: 0, y: 60, duration: 1
-        }, '+=0.1')                                    // wait for badge
-        .from('.hero-subtitle.gsap-animate', {
-            autoAlpha: 0, y: 50, duration: 0.9
-        }, '+=0.1')                                    // wait for title
-        .from('.hero-video.gsap-animate', {
-            autoAlpha: 0, y: 60, scale: 0.9, duration: 1
-        }, '+=0.05')                                   // then video
-        .from('.hero-cta.gsap-animate', {
-            autoAlpha: 0, y: 40, duration: 0.7
-        }, '-=0.3')                                    // slight overlap with video
-        .from('.hero-stats.gsap-animate', {
-            autoAlpha: 0, y: 40, duration: 0.7
-        }, '-=0.2');                                   // slight overlap with CTA
+        .fromTo('.hero-title.gsap-animate',
+            { autoAlpha: 0, y: 60 },
+            { autoAlpha: 1, y: 0, duration: 1 },
+        '+=0.1')
+        .fromTo('.hero-subtitle.gsap-animate',
+            { autoAlpha: 0, y: 50 },
+            { autoAlpha: 1, y: 0, duration: 0.9 },
+        '+=0.1')
+        .fromTo('.hero-video.gsap-animate',
+            { autoAlpha: 0, y: 60, scale: 0.9 },
+            { autoAlpha: 1, y: 0, scale: 1, duration: 1 },
+        '+=0.05')
+        .fromTo('.hero-cta.gsap-animate',
+            { autoAlpha: 0, y: 40 },
+            { autoAlpha: 1, y: 0, duration: 0.7 },
+        '-=0.3')
+        .fromTo('.hero-stats.gsap-animate',
+            { autoAlpha: 0, y: 40 },
+            { autoAlpha: 1, y: 0, duration: 0.7 },
+        '-=0.2');
 
 
     // ═══════════════════════════════════════════════════════════
