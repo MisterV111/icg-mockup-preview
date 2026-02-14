@@ -157,6 +157,15 @@ ul {
     transform: translateY(0);
 }
 
+/* GSAP-animated elements: hidden via visibility to prevent FOUC.
+   GSAP's autoAlpha (in gsap.from) animates visibility+opacity together.
+   If GSAP fails to load, the fallback at bottom of gsap-animations.js
+   makes them visible. */
+.gsap-animate,
+.gsap-animate-cta {
+    visibility: hidden;
+}
+
 
 /* ═══════════════════════════════════════════════════════════════
    NAVIGATION
@@ -2803,6 +2812,14 @@ a.pillar-card-link {
 
     /* Show all animate-in elements immediately */
     .animate-in {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    /* Show all GSAP-animated elements immediately */
+    .gsap-animate,
+    .gsap-animate-cta {
+        visibility: visible !important;
         opacity: 1 !important;
         transform: none !important;
     }

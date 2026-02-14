@@ -287,10 +287,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Stagger entrance delay for layers
-    document.querySelectorAll('.ai-layer').forEach((layer, i) => {
-        layer.style.transitionDelay = `${i * 50}ms`;
-    });
+    // Stagger entrance delay for layers — now handled by GSAP (gsap-animations.js)
+    // Kept as fallback if GSAP doesn't load (no-op since layers use .gsap-animate not .animate-in)
 
 
     // ─── Portfolio Progressive Disclosure ──────────────────────
