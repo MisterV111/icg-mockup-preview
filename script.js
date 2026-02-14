@@ -278,10 +278,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // First count-up
         animateCounters();
 
-        // Loop: hold 4s → reset to 0 → count up again
+        // Loop: hold 2.5s → reset to 0 → count up again
         setInterval(() => {
             animateCounters();
-        }, 6000); // 1.5s count-up + 4.5s hold
+        }, 4000); // 1.5s count-up + 2.5s hold
     }
 
     // Trigger counter when hero stats become visible
