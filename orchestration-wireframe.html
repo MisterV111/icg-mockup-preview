@@ -3,62 +3,78 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Orchestration Wireframe — ICG Video Production Flow</title>
+<title>Orchestration Wireframe v2 — ICG AI Production Flow</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #0A0A0A; color: #fff; font-family: 'Inter', -apple-system, sans-serif; }
+  body { 
+    background: #0A0A0A; 
+    color: #E0E0E0; 
+    font-family: 'Inter', -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
   
   .wireframe {
-    max-width: 1000px;
-    margin: 40px auto;
-    padding: 40px;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 80px 40px;
   }
   
+  /* ─── Header ─── */
   .wf-header {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 80px;
   }
   .wf-header__label {
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
     color: #E8000D;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
+    font-weight: 500;
   }
   .wf-header__title {
-    font-size: 2.2rem;
+    font-size: 2.4rem;
     font-weight: 300;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
     color: #fff;
+    line-height: 1.2;
   }
   .wf-header__title strong { font-weight: 600; }
+  .wf-header__subtitle {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 12px;
+    font-weight: 400;
+  }
 
-  /* ─── Flow Container ─── */
+  /* ─── Flow Container with central spine ─── */
   .wf-flow {
     position: relative;
-    padding-left: 50%;
   }
-  
-  /* Central spine */
   .wf-flow::before {
     content: '';
     position: absolute;
     left: 50%;
     top: 0;
     bottom: 0;
-    width: 2px;
-    background: linear-gradient(to bottom, #E8000D 0%, #333 20%, #333 80%, #E8000D 100%);
+    width: 1px;
+    background: linear-gradient(to bottom, 
+      transparent 0%, 
+      #333 3%, 
+      #333 97%, 
+      transparent 100%
+    );
     transform: translateX(-50%);
   }
 
   /* ─── Step ─── */
   .wf-step {
     position: relative;
-    margin-bottom: 60px;
-    padding-left: 40px;
-    width: 100%;
-    margin-left: -50%;
-    padding-right: 40px;
+    margin-bottom: 48px;
+    display: flex;
+    align-items: flex-start;
   }
   
   /* Dot on spine */
@@ -66,63 +82,72 @@
     content: '';
     position: absolute;
     left: 50%;
-    top: 20px;
-    width: 12px;
-    height: 12px;
+    top: 24px;
+    width: 10px;
+    height: 10px;
     background: #E8000D;
-    border: 2px solid #E8000D;
     border-radius: 50%;
     transform: translateX(-50%);
     z-index: 2;
+    box-shadow: 0 0 12px rgba(232, 0, 13, 0.3);
   }
   .wf-step--human::before {
     background: #22C55E;
-    border-color: #22C55E;
-    width: 16px;
-    height: 16px;
-    top: 18px;
+    box-shadow: 0 0 12px rgba(34, 197, 94, 0.3);
   }
 
-  /* ─── Step Content — alternating sides ─── */
-  .wf-step__content {
-    width: 45%;
+  /* ─── Alternating sides ─── */
+  .wf-step--left .wf-step__content {
+    width: 44%;
+    margin-right: auto;
+    padding-right: 48px;
   }
-  .wf-step:nth-child(odd) .wf-step__content {
-    margin-left: 55%;
+  .wf-step--right .wf-step__content {
+    width: 44%;
+    margin-left: auto;
+    padding-left: 48px;
   }
-  .wf-step:nth-child(even) .wf-step__content {
-    margin-left: 0;
-    text-align: right;
+  
+  /* ─── Wide step (parallel section) ─── */
+  .wf-step--wide .wf-step__content {
+    width: 100%;
+    padding: 0 48px;
   }
 
   /* ─── Cards ─── */
   .wf-card {
     background: #111;
-    border: 1px solid #222;
+    border: 1px solid #1a1a1a;
     border-radius: 12px;
-    padding: 20px 24px;
-    position: relative;
+    padding: 24px;
+    transition: border-color 0.3s;
+  }
+  .wf-card:hover {
+    border-color: #2a2a2a;
   }
   .wf-card--brief {
-    border-color: #E8000D;
-    background: linear-gradient(135deg, #111 0%, #1a0a0a 100%);
+    border-color: rgba(232, 0, 13, 0.3);
+    background: linear-gradient(135deg, #111 0%, #150808 100%);
   }
   .wf-card--human {
-    border-color: #22C55E;
-    background: linear-gradient(135deg, #111 0%, #0a1a0a 100%);
+    border-color: rgba(34, 197, 94, 0.15);
+    background: linear-gradient(135deg, #111 0%, #081508 100%);
   }
   .wf-card--final {
-    border-color: #E8000D;
-    background: linear-gradient(135deg, #1a0a0a 0%, #111 100%);
+    border-color: rgba(232, 0, 13, 0.3);
+    background: linear-gradient(135deg, #150808 0%, #111 100%);
     text-align: center;
+    padding: 32px;
   }
 
+  /* ─── Card Content ─── */
   .wf-card__phase {
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: #E8000D;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    font-weight: 600;
   }
   .wf-card--human .wf-card__phase {
     color: #22C55E;
@@ -130,12 +155,15 @@
   .wf-card__title {
     font-size: 1.1rem;
     font-weight: 600;
-    margin-bottom: 4px;
+    color: #fff;
+    margin-bottom: 6px;
+    line-height: 1.3;
   }
   .wf-card__subtitle {
-    font-size: 0.8rem;
-    color: #888;
-    margin-bottom: 12px;
+    font-size: 0.78rem;
+    color: #777;
+    line-height: 1.5;
+    margin-bottom: 14px;
   }
 
   /* ─── Agent pills ─── */
@@ -143,30 +171,32 @@
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
-    margin-top: 10px;
-  }
-  .wf-step:nth-child(even) .wf-agents {
-    justify-content: flex-end;
+    margin-top: 12px;
   }
   .wf-agent {
     display: inline-flex;
     align-items: center;
     gap: 5px;
     padding: 4px 10px;
-    background: #1a1a1a;
-    border: 1px solid #2a2a2a;
+    background: rgba(232, 0, 13, 0.05);
+    border: 1px solid rgba(232, 0, 13, 0.12);
     border-radius: 6px;
-    font-size: 0.7rem;
-    color: #ccc;
+    font-size: 0.65rem;
+    color: #bbb;
+    font-weight: 500;
   }
   .wf-agent svg {
-    width: 14px;
-    height: 14px;
+    width: 13px;
+    height: 13px;
     stroke: #E8000D;
     fill: none;
     stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
+  }
+  .wf-agent--human {
+    background: rgba(34, 197, 94, 0.05);
+    border-color: rgba(34, 197, 94, 0.12);
   }
   .wf-agent--human svg {
     stroke: #22C55E;
@@ -176,105 +206,153 @@
   .wf-outputs {
     display: flex;
     flex-wrap: wrap;
-    gap: 4px;
-    margin-top: 8px;
-  }
-  .wf-step:nth-child(even) .wf-outputs {
-    justify-content: flex-end;
+    gap: 5px;
+    margin-top: 10px;
   }
   .wf-output {
-    padding: 2px 8px;
-    background: rgba(232, 0, 13, 0.08);
-    border: 1px solid rgba(232, 0, 13, 0.2);
+    padding: 3px 9px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 4px;
-    font-size: 0.65rem;
-    color: #E8000D;
+    font-size: 0.62rem;
+    color: #888;
+    font-weight: 500;
+    letter-spacing: 0.02em;
   }
   .wf-output--done {
-    background: rgba(34, 197, 94, 0.08);
-    border-color: rgba(34, 197, 94, 0.2);
+    background: rgba(34, 197, 94, 0.06);
+    border-color: rgba(34, 197, 94, 0.15);
     color: #22C55E;
   }
 
-  /* ─── Parallel branches ─── */
-  .wf-parallel {
+  /* ─── Parallel tracks (split into individual cards) ─── */
+  .wf-tracks {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
-    margin-top: 12px;
+    margin-top: 24px;
   }
-  .wf-parallel__branch {
-    background: #151515;
-    border: 1px solid #222;
-    border-radius: 8px;
-    padding: 12px 14px;
-  }
-  .wf-parallel__label {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #666;
-    margin-bottom: 4px;
-  }
-  .wf-parallel__value {
-    font-size: 0.85rem;
-    font-weight: 500;
-  }
-
-  /* ─── Progress indicator ─── */
-  .wf-progress {
-    margin-top: 10px;
-    height: 3px;
-    background: #222;
-    border-radius: 2px;
+  .wf-track {
+    background: #0e0e0e;
+    border: 1px solid #1a1a1a;
+    border-radius: 10px;
+    padding: 16px 18px;
+    position: relative;
     overflow: hidden;
   }
-  .wf-progress__fill {
-    height: 100%;
+  .wf-track::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
     background: #E8000D;
-    border-radius: 2px;
+    border-radius: 0 0 10px 10px;
+  }
+  .wf-track--images::after { width: 100%; }
+  .wf-track--music::after { width: 85%; }
+  .wf-track--video::after { width: 70%; }
+  .wf-track--voice::after { width: 55%; }
+
+  .wf-track__icon {
+    width: 28px;
+    height: 28px;
+    background: rgba(232, 0, 13, 0.08);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .wf-track__icon svg {
+    width: 16px;
+    height: 16px;
+    stroke: #E8000D;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .wf-track__label {
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #555;
+    margin-bottom: 3px;
+    font-weight: 600;
+  }
+  .wf-track__value {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: #ccc;
+    line-height: 1.4;
+  }
+  .wf-track__detail {
+    font-size: 0.65rem;
+    color: #555;
+    margin-top: 4px;
+  }
+
+  /* ─── Connector labels ─── */
+  .wf-connector {
+    text-align: center;
+    margin: -16px 0 32px;
+    position: relative;
+    z-index: 1;
+  }
+  .wf-connector__label {
+    display: inline-block;
+    padding: 4px 14px;
+    background: #0A0A0A;
+    border: 1px solid #1a1a1a;
+    border-radius: 20px;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #444;
+    font-weight: 500;
   }
 
   /* ─── Stats bar ─── */
   .wf-stats {
     display: flex;
     justify-content: center;
-    gap: 40px;
-    margin-top: 40px;
-    padding: 20px;
-    border-top: 1px solid #222;
+    gap: 60px;
+    margin-top: 60px;
+    padding: 28px 0;
+    border-top: 1px solid #1a1a1a;
   }
-  .wf-stat {
-    text-align: center;
-  }
+  .wf-stat { text-align: center; }
   .wf-stat__number {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 700;
     color: #E8000D;
+    line-height: 1;
   }
   .wf-stat__label {
-    font-size: 0.7rem;
-    color: #666;
-    margin-top: 2px;
+    font-size: 0.65rem;
+    color: #555;
+    margin-top: 6px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
   }
 
-  /* ─── Connector labels ─── */
-  .wf-connector {
+  /* ─── Phase divider ─── */
+  .wf-phase-label {
     text-align: center;
-    margin: -30px 0 30px;
+    margin: 8px 0 40px;
     position: relative;
     z-index: 1;
   }
-  .wf-connector__label {
+  .wf-phase-label span {
     display: inline-block;
-    padding: 3px 12px;
+    padding: 6px 18px;
     background: #0A0A0A;
-    border: 1px solid #222;
-    border-radius: 12px;
     font-size: 0.6rem;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: #555;
+    color: #E8000D;
+    font-weight: 600;
   }
 </style>
 </head>
@@ -283,18 +361,19 @@
 <div class="wireframe">
   <div class="wf-header">
     <div class="wf-header__label">See It In Action</div>
-    <div class="wf-header__title">From <strong>Brief</strong> to <strong>Delivery</strong></div>
+    <div class="wf-header__title">How a <strong>60-Second Video</strong> Gets Made</div>
+    <div class="wf-header__subtitle">An example of our AI-powered production workflow</div>
   </div>
 
   <div class="wf-flow">
 
-    <!-- STEP 1: Creative Brief (Input) -->
-    <div class="wf-step">
+    <!-- STEP 1: Creative Brief -->
+    <div class="wf-step wf-step--right">
       <div class="wf-step__content">
         <div class="wf-card wf-card--brief">
-          <div class="wf-card__phase">Input</div>
+          <div class="wf-card__phase">The Ask</div>
           <div class="wf-card__title">Creative Brief</div>
-          <div class="wf-card__subtitle">Brand campaign — 60s video with music, images & social assets</div>
+          <div class="wf-card__subtitle">A brand needs a 60-second video with original music, AI-generated visuals, and a social media package.</div>
           <div class="wf-outputs">
             <span class="wf-output">Script</span>
             <span class="wf-output">Brand Guidelines</span>
@@ -304,13 +383,13 @@
       </div>
     </div>
 
-    <!-- STEP 2: Human Review — Discovery Call -->
-    <div class="wf-step wf-step--human">
+    <!-- STEP 2: Creative Direction -->
+    <div class="wf-step wf-step--left wf-step--human">
       <div class="wf-step__content">
         <div class="wf-card wf-card--human">
           <div class="wf-card__phase">Human in the Loop</div>
-          <div class="wf-card__title">Discovery Call</div>
-          <div class="wf-card__subtitle">Director reviews brief, sets creative direction, approves concept</div>
+          <div class="wf-card__title">Creative Direction</div>
+          <div class="wf-card__subtitle">Our director sets the vision — tone, style, narrative structure, and brand voice.</div>
           <div class="wf-agents">
             <span class="wf-agent wf-agent--human">
               <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -321,26 +400,26 @@
       </div>
     </div>
 
-    <div class="wf-connector"><span class="wf-connector__label">Direction locked</span></div>
+    <div class="wf-connector"><span class="wf-connector__label">Direction approved</span></div>
 
     <!-- STEP 3: Strategic Planning -->
-    <div class="wf-step">
+    <div class="wf-step wf-step--right">
       <div class="wf-step__content">
         <div class="wf-card">
           <div class="wf-card__phase">Phase 01 · Strategy</div>
           <div class="wf-card__title">Strategic Planning</div>
-          <div class="wf-card__subtitle">Research, style analysis, narrative structure</div>
+          <div class="wf-card__subtitle">AI agents research, write, and plan — building the production blueprint.</div>
           <div class="wf-agents">
             <span class="wf-agent">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="12" x2="16" y2="12"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
               Video Director
             </span>
             <span class="wf-agent">
-              <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
               Research
             </span>
             <span class="wf-agent">
-              <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
               Lyricist
             </span>
           </div>
@@ -354,66 +433,60 @@
       </div>
     </div>
 
-    <!-- STEP 4: Parallel Asset Generation -->
-    <div class="wf-step">
+    <div class="wf-phase-label"><span>Phase 02 · Parallel Generation</span></div>
+
+    <!-- STEP 4: Parallel Asset Generation — split into individual track cards -->
+    <div class="wf-step wf-step--wide">
       <div class="wf-step__content">
-        <div class="wf-card">
-          <div class="wf-card__phase">Phase 02 · Generation</div>
-          <div class="wf-card__title">Parallel Asset Creation</div>
-          <div class="wf-card__subtitle">AI agents generate all assets simultaneously</div>
+        <div class="wf-tracks">
           
-          <div class="wf-parallel">
-            <div class="wf-parallel__branch">
-              <div class="wf-parallel__label">Images</div>
-              <div class="wf-parallel__value">First & Last Frames</div>
-              <div class="wf-progress"><div class="wf-progress__fill" style="width:100%"></div></div>
+          <div class="wf-track wf-track--images">
+            <div class="wf-track__icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
             </div>
-            <div class="wf-parallel__branch">
-              <div class="wf-parallel__label">Music</div>
-              <div class="wf-parallel__value">Original Track</div>
-              <div class="wf-progress"><div class="wf-progress__fill" style="width:85%"></div></div>
-            </div>
-            <div class="wf-parallel__branch">
-              <div class="wf-parallel__label">Video Clips</div>
-              <div class="wf-parallel__value">Frame-to-Frame Morphs</div>
-              <div class="wf-progress"><div class="wf-progress__fill" style="width:70%"></div></div>
-            </div>
-            <div class="wf-parallel__branch">
-              <div class="wf-parallel__label">Voiceover</div>
-              <div class="wf-parallel__value">AI Voice + Timing</div>
-              <div class="wf-progress"><div class="wf-progress__fill" style="width:60%"></div></div>
-            </div>
+            <div class="wf-track__label">Images</div>
+            <div class="wf-track__value">First & Last Frames</div>
+            <div class="wf-track__detail">26 keyframe images · Nano Banana Pro</div>
           </div>
 
-          <div class="wf-agents" style="margin-top:14px">
-            <span class="wf-agent">
-              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-              Image Gen
-            </span>
-            <span class="wf-agent">
-              <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-              Video Gen
-            </span>
-            <span class="wf-agent">
+          <div class="wf-track wf-track--music">
+            <div class="wf-track__icon">
               <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-              Music Gen
-            </span>
-            <span class="wf-agent">
-              <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
-              Voice Gen
-            </span>
+            </div>
+            <div class="wf-track__label">Music</div>
+            <div class="wf-track__value">Original Soundtrack</div>
+            <div class="wf-track__detail">Custom composition · Suno V5</div>
           </div>
+
+          <div class="wf-track wf-track--video">
+            <div class="wf-track__icon">
+              <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+            </div>
+            <div class="wf-track__label">Video Clips</div>
+            <div class="wf-track__value">Frame-to-Frame Morphs</div>
+            <div class="wf-track__detail">26 AI clips · Kling v3 / Veo 3.1</div>
+          </div>
+
+          <div class="wf-track wf-track--voice">
+            <div class="wf-track__icon">
+              <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+            </div>
+            <div class="wf-track__label">Voice & SFX</div>
+            <div class="wf-track__value">AI Voice + Sound Design</div>
+            <div class="wf-track__detail">Word-level timing · ElevenLabs</div>
+          </div>
+
         </div>
       </div>
     </div>
 
-    <!-- STEP 5: Human Review — Approval Gate -->
-    <div class="wf-step wf-step--human">
+    <!-- STEP 5: Human Review -->
+    <div class="wf-step wf-step--left wf-step--human">
       <div class="wf-step__content">
         <div class="wf-card wf-card--human">
           <div class="wf-card__phase">Human in the Loop</div>
           <div class="wf-card__title">Asset Review</div>
-          <div class="wf-card__subtitle">Director reviews generated assets, requests revisions, approves for assembly</div>
+          <div class="wf-card__subtitle">Director reviews every generated asset. Revisions loop back until each piece meets the standard.</div>
           <div class="wf-agents">
             <span class="wf-agent wf-agent--human">
               <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -423,7 +496,6 @@
           <div class="wf-outputs">
             <span class="wf-output wf-output--done">✓ 26 clips approved</span>
             <span class="wf-output wf-output--done">✓ Music locked</span>
-            <span class="wf-output wf-output--done">✓ VO approved</span>
           </div>
         </div>
       </div>
@@ -432,25 +504,25 @@
     <div class="wf-connector"><span class="wf-connector__label">Assets locked</span></div>
 
     <!-- STEP 6: Assembly -->
-    <div class="wf-step">
+    <div class="wf-step wf-step--right">
       <div class="wf-step__content">
         <div class="wf-card">
           <div class="wf-card__phase">Phase 03 · Assembly</div>
           <div class="wf-card__title">Final Assembly</div>
-          <div class="wf-card__subtitle">Composition, motion graphics, color grading, audio mix</div>
+          <div class="wf-card__subtitle">Motion graphics, kinetic typography, color grading, and audio mix — all assembled programmatically.</div>
           <div class="wf-agents">
             <span class="wf-agent">
-              <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+              <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
               Assembly Director
             </span>
             <span class="wf-agent">
               <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-              Remotion Engineer
+              Remotion
             </span>
           </div>
           <div class="wf-outputs">
             <span class="wf-output">Timeline</span>
-            <span class="wf-output">Motion Graphics</span>
+            <span class="wf-output">VFX</span>
             <span class="wf-output">Audio Mix</span>
           </div>
         </div>
@@ -458,12 +530,12 @@
     </div>
 
     <!-- STEP 7: Brand QA -->
-    <div class="wf-step">
+    <div class="wf-step wf-step--left">
       <div class="wf-step__content">
         <div class="wf-card">
           <div class="wf-card__phase">Phase 04 · Verification</div>
-          <div class="wf-card__title">Brand Consistency Check</div>
-          <div class="wf-card__subtitle">Automated QA against brand guidelines + design standards</div>
+          <div class="wf-card__title">Brand Consistency</div>
+          <div class="wf-card__subtitle">Automated check against brand guidelines, design standards, and quality benchmarks.</div>
           <div class="wf-agents">
             <span class="wf-agent">
               <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
@@ -477,17 +549,17 @@
       </div>
     </div>
 
-    <!-- STEP 8: Human Final Approval -->
-    <div class="wf-step wf-step--human">
+    <!-- STEP 8: Final Approval -->
+    <div class="wf-step wf-step--right wf-step--human">
       <div class="wf-step__content">
         <div class="wf-card wf-card--human">
           <div class="wf-card__phase">Human in the Loop</div>
-          <div class="wf-card__title">Final Approval</div>
-          <div class="wf-card__subtitle">Director signs off on the finished video</div>
+          <div class="wf-card__title">Final Sign-Off</div>
+          <div class="wf-card__subtitle">Director watches the final render, approves for delivery.</div>
           <div class="wf-agents">
             <span class="wf-agent wf-agent--human">
               <svg viewBox="0 0 24 24"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
-              Director Approval
+              Director
             </span>
           </div>
         </div>
@@ -497,12 +569,12 @@
     <div class="wf-connector"><span class="wf-connector__label">Approved for delivery</span></div>
 
     <!-- STEP 9: Delivery -->
-    <div class="wf-step">
+    <div class="wf-step wf-step--right">
       <div class="wf-step__content">
         <div class="wf-card wf-card--final">
           <div class="wf-card__phase">Delivery</div>
           <div class="wf-card__title" style="font-size:1.3rem;">Campaign Complete</div>
-          <div class="wf-card__subtitle">60s video · Original music · 26 AI clips · Social package</div>
+          <div class="wf-card__subtitle" style="margin-bottom:0;">60-second video · Original music · 26 AI-generated clips · Social package</div>
         </div>
       </div>
     </div>
@@ -522,10 +594,6 @@
     <div class="wf-stat">
       <div class="wf-stat__number">3×</div>
       <div class="wf-stat__label">Faster than traditional</div>
-    </div>
-    <div class="wf-stat">
-      <div class="wf-stat__number">$46</div>
-      <div class="wf-stat__label">AI generation cost</div>
     </div>
   </div>
 
