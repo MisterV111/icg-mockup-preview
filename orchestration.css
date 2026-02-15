@@ -1,0 +1,328 @@
+/* ═══════════════════════════════════════════════════════════════
+   ORCHESTRATION ANIMATION — Scroll-driven agent flow visualization
+   Self-contained: no impact on existing styles
+   ═══════════════════════════════════════════════════════════════ */
+
+.orchestration {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin-top: var(--space-xl);
+}
+
+.orchestration-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.orchestration-scroll-spacer {
+    height: 500vh; /* 5 viewport heights of scroll distance */
+}
+
+/* ─── Parallax Background Layers ─── */
+.orch-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.orch-bg-layer {
+    position: absolute;
+    inset: 0;
+    opacity: 0.06;
+}
+
+.orch-bg-layer svg {
+    width: 100%;
+    height: 100%;
+}
+
+.orch-bg-layer--1 { opacity: 0.04; }
+.orch-bg-layer--2 { opacity: 0.06; }
+.orch-bg-layer--3 { opacity: 0.03; }
+
+/* ─── Main Canvas ─── */
+.orch-canvas {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 900px;
+    height: 80vh;
+    padding: var(--space-md);
+}
+
+/* ─── SVG Connection Lines ─── */
+.orch-lines {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.orch-lines svg {
+    width: 100%;
+    height: 100%;
+}
+
+.orch-line {
+    fill: none;
+    stroke: var(--color-border-light);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+}
+
+.orch-line--active {
+    stroke: var(--color-red);
+}
+
+/* ─── Node Cards ─── */
+.orch-nodes {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+}
+
+.orch-node {
+    position: absolute;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    opacity: 0;
+    visibility: hidden;
+    transition: border-color 0.3s ease;
+}
+
+.orch-node--active {
+    border-color: var(--color-red);
+    box-shadow: 0 0 20px var(--color-red-glow), 0 0 40px var(--color-red-glow-2);
+}
+
+.orch-node--brief {
+    background: var(--color-surface-2);
+    border-color: var(--color-border-light);
+    max-width: 320px;
+}
+
+.orch-node--layer {
+    min-width: 180px;
+}
+
+.orch-node--agent {
+    padding: 8px 14px;
+    font-size: 0.8rem;
+    border-radius: 20px;
+}
+
+.orch-node--output {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    border-radius: 6px;
+    background: var(--color-dark);
+    border-color: var(--color-border);
+}
+
+.orch-node--final {
+    max-width: 400px;
+    text-align: center;
+    background: var(--color-surface-2);
+}
+
+/* ─── Node Labels ─── */
+.orch-node__num {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--color-red);
+    margin-bottom: 2px;
+}
+
+.orch-node__title {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-white);
+    line-height: 1.3;
+}
+
+.orch-node__subtitle {
+    font-size: 0.75rem;
+    color: var(--color-gray-500);
+    margin-top: 2px;
+}
+
+.orch-node__icon {
+    display: inline-block;
+    margin-right: 6px;
+    font-size: 0.85rem;
+}
+
+/* ─── Progress Tracks ─── */
+.orch-track {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.orch-track__bar {
+    width: 80px;
+    height: 4px;
+    background: var(--color-border);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.orch-track__fill {
+    height: 100%;
+    width: 0%;
+    background: var(--color-red);
+    border-radius: 2px;
+}
+
+.orch-track__label {
+    font-size: 0.75rem;
+    color: var(--color-gray-300);
+    font-family: var(--font-body);
+    white-space: nowrap;
+}
+
+/* ─── Section Header ─── */
+.orch-header {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+}
+
+.orch-header__label {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-red);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-xs);
+}
+
+.orch-header__title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-white);
+}
+
+/* ─── Completion Stat ─── */
+.orch-stat {
+    position: absolute;
+    bottom: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.orch-stat__number {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-red);
+}
+
+.orch-stat__label {
+    font-size: 0.85rem;
+    color: var(--color-gray-400);
+    margin-top: 4px;
+}
+
+/* ─── Check mark ─── */
+.orch-check {
+    color: #22C55E;
+    font-weight: 700;
+    margin-left: 4px;
+}
+
+/* ─── Pulse animation for active agents ─── */
+@keyframes orchPulse {
+    0%, 100% { box-shadow: 0 0 0 0 var(--color-red-glow); }
+    50% { box-shadow: 0 0 16px 4px var(--color-red-glow); }
+}
+
+.orch-node--pulse {
+    animation: orchPulse 1.5s ease-in-out infinite;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+    .orchestration-scroll-spacer {
+        height: 400vh;
+    }
+
+    .orch-canvas {
+        max-width: 100%;
+        padding: var(--space-sm);
+    }
+
+    .orch-node__title {
+        font-size: 0.8rem;
+    }
+
+    .orch-node--agent {
+        font-size: 0.7rem;
+        padding: 6px 10px;
+    }
+
+    .orch-header__title {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .orchestration-scroll-spacer {
+        height: 350vh;
+    }
+
+    .orch-node {
+        padding: 10px 12px;
+    }
+
+    .orch-track__bar {
+        width: 50px;
+    }
+}
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+    .orch-node,
+    .orch-track {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+    }
+
+    .orch-node--pulse {
+        animation: none;
+    }
+
+    .orch-line {
+        stroke-dasharray: none !important;
+        stroke-dashoffset: 0 !important;
+    }
+
+    .orch-track__fill {
+        width: 100% !important;
+    }
+
+    .orch-stat {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+}

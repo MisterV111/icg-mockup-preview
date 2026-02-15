@@ -45,6 +45,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="orchestration.css">
 
     <!-- Structured Data: Organization -->
     <script type="application/ld+json">
@@ -366,6 +367,183 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- ═══ Orchestration Animation ═══ -->
+            <div class="orchestration" id="orchestration">
+                <div class="orchestration-sticky">
+                    <!-- Parallax Background -->
+                    <div class="orch-bg">
+                        <div class="orch-bg-layer orch-bg-layer--1" id="orch-bg-1">
+                            <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+                                <circle cx="150" cy="200" r="120" fill="none" stroke="#222" stroke-width="0.5"/>
+                                <circle cx="1050" cy="600" r="80" fill="none" stroke="#222" stroke-width="0.5"/>
+                                <line x1="0" y1="400" x2="1200" y2="400" stroke="#1a1a1a" stroke-width="0.5" stroke-dasharray="4 8"/>
+                                <circle cx="600" cy="400" r="200" fill="none" stroke="#1a1a1a" stroke-width="0.5"/>
+                            </svg>
+                        </div>
+                        <div class="orch-bg-layer orch-bg-layer--2" id="orch-bg-2">
+                            <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+                                <circle cx="400" cy="100" r="3" fill="#E8000D" opacity="0.3"/>
+                                <circle cx="800" cy="300" r="2" fill="#E8000D" opacity="0.2"/>
+                                <circle cx="200" cy="600" r="2.5" fill="#E8000D" opacity="0.25"/>
+                                <circle cx="1000" cy="150" r="2" fill="#E8000D" opacity="0.15"/>
+                                <circle cx="600" cy="700" r="3" fill="#E8000D" opacity="0.2"/>
+                                <path d="M100,200 Q400,100 700,300 T1100,250" fill="none" stroke="#1a1a1a" stroke-width="0.5"/>
+                                <path d="M100,500 Q500,400 900,600" fill="none" stroke="#1a1a1a" stroke-width="0.5"/>
+                            </svg>
+                        </div>
+                        <div class="orch-bg-layer orch-bg-layer--3" id="orch-bg-3">
+                            <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+                                <polygon points="600,50 650,150 550,150" fill="none" stroke="#1a1a1a" stroke-width="0.5"/>
+                                <rect x="900" y="500" width="60" height="60" rx="8" fill="none" stroke="#1a1a1a" stroke-width="0.5" transform="rotate(15, 930, 530)"/>
+                                <line x1="300" y1="0" x2="300" y2="800" stroke="#111" stroke-width="0.3"/>
+                                <line x1="900" y1="0" x2="900" y2="800" stroke="#111" stroke-width="0.3"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Main Canvas -->
+                    <div class="orch-canvas">
+                        <!-- Header -->
+                        <div class="orch-header" id="orch-header">
+                            <div class="orch-header__label">See It In Action</div>
+                            <h3 class="orch-header__title">From Brief to Delivery</h3>
+                        </div>
+
+                        <!-- SVG Connection Lines -->
+                        <svg class="orch-lines" id="orch-lines" viewBox="0 0 900 600" preserveAspectRatio="xMidYMid meet">
+                            <!-- Brief → Strategic -->
+                            <path id="line-brief-strategic" class="orch-line" d="M450,80 L450,135"/>
+                            <!-- Strategic → Coordination -->
+                            <path id="line-strategic-coord" class="orch-line" d="M450,185 L450,235"/>
+                            <!-- Coordination → 4 Specialist tracks -->
+                            <path id="line-coord-spec1" class="orch-line" d="M450,285 Q450,310 180,330"/>
+                            <path id="line-coord-spec2" class="orch-line" d="M450,285 Q450,310 340,330"/>
+                            <path id="line-coord-spec3" class="orch-line" d="M450,285 Q450,310 560,330"/>
+                            <path id="line-coord-spec4" class="orch-line" d="M450,285 Q450,310 720,330"/>
+                            <!-- 4 Specialists → Verification -->
+                            <path id="line-spec-verify1" class="orch-line" d="M180,390 Q180,420 450,435"/>
+                            <path id="line-spec-verify2" class="orch-line" d="M340,390 Q340,420 450,435"/>
+                            <path id="line-spec-verify3" class="orch-line" d="M560,390 Q560,420 450,435"/>
+                            <path id="line-spec-verify4" class="orch-line" d="M720,390 Q720,420 450,435"/>
+                            <!-- Verification → Assembly -->
+                            <path id="line-verify-assembly" class="orch-line" d="M450,485 L450,530"/>
+                        </svg>
+
+                        <!-- Node Cards -->
+                        <div class="orch-nodes" id="orch-nodes">
+                            <!-- Brief Card -->
+                            <div class="orch-node orch-node--brief" id="node-brief" style="top:3%;left:50%;transform:translateX(-50%)">
+                                <div class="orch-node__title">📄 Creative Brief</div>
+                                <div class="orch-node__subtitle">Brand campaign — Video + Social + Brand Refresh</div>
+                            </div>
+
+                            <!-- Layer 01: Strategic -->
+                            <div class="orch-node orch-node--layer" id="node-strategic" style="top:17%;left:50%;transform:translateX(-50%)">
+                                <div class="orch-node__num">01</div>
+                                <div class="orch-node__title">Strategic Layer</div>
+                                <div class="orch-node__subtitle">Research · Ideation · Planning</div>
+                            </div>
+                            <!-- Strategic Agents -->
+                            <div class="orch-node orch-node--agent" id="agent-research" style="top:16%;left:15%">
+                                <span class="orch-node__icon">🔍</span> Research Agent
+                            </div>
+                            <div class="orch-node orch-node--agent" id="agent-script" style="top:22%;left:10%">
+                                <span class="orch-node__icon">✍️</span> Script Agent
+                            </div>
+                            <div class="orch-node orch-node--agent" id="agent-mood" style="top:22%;right:10%">
+                                <span class="orch-node__icon">🎨</span> Mood Board Agent
+                            </div>
+                            <!-- Strategic Outputs -->
+                            <div class="orch-node orch-node--output" id="output-research" style="top:28%;left:8%">
+                                Market Analysis <span class="orch-check">✓</span>
+                            </div>
+                            <div class="orch-node orch-node--output" id="output-brief" style="top:28%;left:35%">
+                                Creative Brief <span class="orch-check">✓</span>
+                            </div>
+                            <div class="orch-node orch-node--output" id="output-shots" style="top:28%;right:8%">
+                                Shot List <span class="orch-check">✓</span>
+                            </div>
+
+                            <!-- Layer 02: Coordination -->
+                            <div class="orch-node orch-node--layer" id="node-coordination" style="top:35%;left:50%;transform:translateX(-50%)">
+                                <div class="orch-node__num">02</div>
+                                <div class="orch-node__title">Coordination Layer</div>
+                                <div class="orch-node__subtitle">Routing · Scheduling · Orchestration</div>
+                            </div>
+
+                            <!-- Layer 03: Specialist Tracks -->
+                            <div class="orch-node orch-node--agent" id="spec-video" style="top:50%;left:5%">
+                                <span class="orch-node__icon">🎬</span> Video Agent
+                            </div>
+                            <div class="orch-node orch-node--agent" id="spec-image" style="top:50%;left:28%">
+                                <span class="orch-node__icon">🖼️</span> Image Agent
+                            </div>
+                            <div class="orch-node orch-node--agent" id="spec-music" style="top:50%;right:28%">
+                                <span class="orch-node__icon">🎵</span> Music Agent
+                            </div>
+                            <div class="orch-node orch-node--agent" id="spec-copy" style="top:50%;right:5%">
+                                <span class="orch-node__icon">✏️</span> Copy Agent
+                            </div>
+                        </div>
+
+                        <!-- Progress Tracks -->
+                        <div id="orch-tracks">
+                            <div class="orch-track" id="track-video" style="position:absolute;top:56%;left:3%">
+                                <div class="orch-track__bar"><div class="orch-track__fill" id="fill-video"></div></div>
+                                <span class="orch-track__label">4 Videos</span>
+                            </div>
+                            <div class="orch-track" id="track-image" style="position:absolute;top:56%;left:26%">
+                                <div class="orch-track__bar"><div class="orch-track__fill" id="fill-image"></div></div>
+                                <span class="orch-track__label">12 Assets</span>
+                            </div>
+                            <div class="orch-track" id="track-music" style="position:absolute;top:56%;right:26%">
+                                <div class="orch-track__bar"><div class="orch-track__fill" id="fill-music"></div></div>
+                                <span class="orch-track__label">2 Tracks</span>
+                            </div>
+                            <div class="orch-track" id="track-copy" style="position:absolute;top:56%;right:3%">
+                                <div class="orch-track__bar"><div class="orch-track__fill" id="fill-copy"></div></div>
+                                <span class="orch-track__label">Social Set</span>
+                            </div>
+                        </div>
+
+                        <!-- Layer 04: Verification -->
+                        <div class="orch-nodes">
+                            <div class="orch-node orch-node--layer" id="node-verification" style="top:65%;left:50%;transform:translateX(-50%)">
+                                <div class="orch-node__num">04</div>
+                                <div class="orch-node__title">Verification Layer</div>
+                                <div class="orch-node__subtitle">QA · Brand Consistency · Compliance</div>
+                            </div>
+                            <div class="orch-node orch-node--agent" id="agent-qa" style="top:65%;left:8%">
+                                <span class="orch-node__icon">🔎</span> QA Agent
+                            </div>
+                            <div class="orch-node orch-node--output" id="output-score" style="top:65%;right:8%">
+                                Brand Score: <span id="brand-score">0</span>%
+                            </div>
+
+                            <!-- Layer 05: Assembly -->
+                            <div class="orch-node orch-node--layer" id="node-assembly" style="top:80%;left:50%;transform:translateX(-50%)">
+                                <div class="orch-node__num">05</div>
+                                <div class="orch-node__title">Assembly Layer</div>
+                                <div class="orch-node__subtitle">Composition · Formatting · Delivery</div>
+                            </div>
+
+                            <!-- Final Deliverable -->
+                            <div class="orch-node orch-node--final" id="node-final" style="top:89%;left:50%;transform:translateX(-50%)">
+                                <div class="orch-node__title">✅ Campaign Complete</div>
+                                <div class="orch-node__subtitle">4 Videos · 12 Images · 2 Music Tracks · Social Package</div>
+                            </div>
+                        </div>
+
+                        <!-- Completion Stat -->
+                        <div class="orch-stat" id="orch-stat">
+                            <div class="orch-stat__number">3 days</div>
+                            <div class="orch-stat__label">Traditional timeline: 3 weeks</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="orchestration-scroll-spacer"></div>
             </div>
 
             <!-- Bottom Line -->
@@ -1362,6 +1540,8 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/SplitText.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/Flip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/DrawSVGPlugin.min.js"></script>
     <script src="gsap-animations.js"></script>
+    <script src="orchestration.js"></script>
 </body>
 </html>
