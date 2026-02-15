@@ -207,7 +207,7 @@
         gsap.fromTo(bgEl,
             { background: 'radial-gradient(ellipse at center, rgba(232,0,13,0) 0%, transparent 70%)' },
             {
-                background: 'radial-gradient(ellipse at center, rgba(232,0,13,0.04) 0%, transparent 70%)',
+                background: 'radial-gradient(ellipse at center, rgba(232,0,13,0.08) 0%, transparent 70%)',
                 scrollTrigger: { trigger: container, start: '50% top', end: 'bottom bottom', scrub: 2 }
             }
         );

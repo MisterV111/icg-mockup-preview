@@ -44,9 +44,9 @@
     height: 100%;
 }
 
-.orch-bg-layer--1 { opacity: 0.04; }
-.orch-bg-layer--2 { opacity: 0.06; }
-.orch-bg-layer--3 { opacity: 0.03; }
+.orch-bg-layer--1 { opacity: 0.1; }
+.orch-bg-layer--2 { opacity: 0.12; }
+.orch-bg-layer--3 { opacity: 0.07; }
 
 /* ─── Main Canvas ─── */
 .orch-canvas {
@@ -158,10 +158,45 @@
     margin-top: 2px;
 }
 
+/* ─── SVG Icons ─── */
 .orch-node__icon {
-    display: inline-block;
-    margin-right: 6px;
-    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--color-gray-300);
+}
+
+.orch-node--brief {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.orch-node--brief .orch-node__icon {
+    margin-top: 2px;
+    color: var(--color-gray-400);
+}
+
+.orch-node--agent {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.orch-node--agent svg {
+    color: var(--color-red);
+    flex-shrink: 0;
+}
+
+.orch-node--output {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.orch-node--output svg {
+    flex-shrink: 0;
 }
 
 /* ─── Progress Tracks ─── */
@@ -243,12 +278,7 @@
     margin-top: 4px;
 }
 
-/* ─── Check mark ─── */
-.orch-check {
-    color: #22C55E;
-    font-weight: 700;
-    margin-left: 4px;
-}
+/* (checkmarks now handled by inline SVGs) */
 
 /* ─── Pulse animation for active agents ─── */
 @keyframes orchPulse {
