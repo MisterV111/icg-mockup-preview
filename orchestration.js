@@ -21,7 +21,7 @@
     gsap.set('.orch-node, .orch-track, .orch-stat', { autoAlpha: 0 });
     gsap.set('#node-brief', { autoAlpha: 0, scale: 0.9 });
     gsap.set('#node-final', { autoAlpha: 0, scale: 0.85 });
-    gsap.set('#orch-stat', { autoAlpha: 0, y: 20 });
+    // orch-stat is now inside node-final, no separate animation needed
     gsap.set('#agent-research', { autoAlpha: 0, x: -20 });
     gsap.set('#agent-script', { autoAlpha: 0, x: -20 });
     gsap.set('#agent-mood', { autoAlpha: 0, x: 20 });
@@ -161,8 +161,6 @@
     glow('node-assembly', tl, 4.95);
 
     tl.to('#node-final', { autoAlpha: 1, scale: 1, duration: 0.4, ease: 'back.out(1.7)' }, 5.2);
-
-    tl.to('#orch-stat', { autoAlpha: 1, y: 0, duration: 0.3 }, 5.5);
 
     unglow('node-assembly', tl, 5.6);
 
