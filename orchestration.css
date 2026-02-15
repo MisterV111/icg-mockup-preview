@@ -54,7 +54,7 @@
     z-index: 1;
     width: 100%;
     max-width: 900px;
-    height: 90vh;
+    height: 100vh;
     padding: var(--space-md);
 }
 
