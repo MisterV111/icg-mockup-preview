@@ -2,7 +2,6 @@
    ORCHESTRATION ANIMATION — Scroll-driven agent flow
    Self-contained: no impact on existing scripts
    Dependencies: GSAP 3.12+, ScrollTrigger
-   Optional: DrawSVGPlugin (falls back to strokeDashoffset)
    ═══════════════════════════════════════════════════════════════ */
 
 (function() {
@@ -16,57 +15,48 @@
     var container = document.querySelector('.orchestration');
     if (!container) return;
 
-    // ─── Utility: get element by ID safely ───
     function $(id) { return document.getElementById(id); }
 
     // ─── Pre-hide everything ───
     gsap.set('.orch-node, .orch-track, .orch-stat', { autoAlpha: 0 });
     gsap.set('#orch-header', { autoAlpha: 0, y: 20 });
-    gsap.set('#node-brief', { autoAlpha: 0, y: -20 });
-    gsap.set('#node-final', { autoAlpha: 0, scale: 0.8 });
+    gsap.set('#node-brief', { autoAlpha: 0, scale: 0.9 });
+    gsap.set('#node-final', { autoAlpha: 0, scale: 0.85 });
     gsap.set('#orch-stat', { autoAlpha: 0, y: 20 });
+    gsap.set('#agent-research', { autoAlpha: 0, x: -20 });
+    gsap.set('#agent-script', { autoAlpha: 0, x: -20 });
+    gsap.set('#agent-mood', { autoAlpha: 0, x: 20 });
 
-    // Pre-set agent nodes with offset for entrance
-    gsap.set('#agent-research', { autoAlpha: 0, x: -30 });
-    gsap.set('#agent-script', { autoAlpha: 0, x: -30 });
-    gsap.set('#agent-mood', { autoAlpha: 0, x: 30 });
-
-    // ─── SVG Line Setup ───
-    var lines = document.querySelectorAll('.orch-line');
-    lines.forEach(function(line) {
+    // ─── SVG Line Setup — hide all ───
+    document.querySelectorAll('.orch-line').forEach(function(line) {
         if (line.getTotalLength) {
             var len = line.getTotalLength();
             gsap.set(line, { strokeDasharray: len, strokeDashoffset: len });
         }
     });
 
-    function drawLine(id, tl, position, dur) {
-        var el = $(id);
-        if (!el) return;
-        tl.to(el, { strokeDashoffset: 0, duration: dur || 0.4, ease: 'none' }, position);
+    // Helper: draw line in timeline
+    function draw(id, tl, pos, dur) {
+        tl.to(id, { strokeDashoffset: 0, duration: dur || 0.3, ease: 'none' }, pos);
     }
 
-    function activateNode(id, tl, position) {
-        var el = $(id);
-        if (!el) return;
-        tl.to(el, {
+    // Helper: activate/deactivate node glow
+    function glow(id, tl, pos) {
+        tl.to(id, {
             borderColor: '#E8000D',
-            boxShadow: '0 0 20px rgba(232,0,13,0.15), 0 0 40px rgba(232,0,13,0.08)',
-            duration: 0.3
-        }, position);
+            boxShadow: '0 0 20px rgba(232,0,13,0.2), 0 0 40px rgba(232,0,13,0.1)',
+            duration: 0.2
+        }, pos);
     }
-
-    function deactivateNode(id, tl, position) {
-        var el = $(id);
-        if (!el) return;
-        tl.to(el, {
+    function unglow(id, tl, pos) {
+        tl.to(id, {
             borderColor: '#222222',
-            boxShadow: '0 0 0 rgba(232,0,13,0)',
+            boxShadow: '0 0 0px rgba(232,0,13,0)',
             duration: 0.3
-        }, position);
+        }, pos);
     }
 
-    // ─── Master Timeline (scrub-linked to scroll) ───
+    // ─── Master Timeline ───
     var tl = gsap.timeline({
         scrollTrigger: {
             trigger: container,
@@ -76,87 +66,93 @@
         }
     });
 
-    // === PHASE 0: Header (0→0.3) ===
-    tl.to('#orch-header', { autoAlpha: 1, y: 0, duration: 0.3 }, 0);
+    // ═══ PHASE 0: Header appears ═══
+    tl.to('#orch-header', { autoAlpha: 1, y: 0, duration: 0.4 }, 0);
 
-    // === PHASE 1: Brief Enters (0.3→0.8) ===
-    tl.to('#node-brief', { autoAlpha: 1, y: 0, duration: 0.4, ease: 'back.out(1.4)' }, 0.3);
-    drawLine('line-brief-strategic', tl, 0.6, 0.3);
+    // ═══ PHASE 1: Brief Card drops in (after header is visible) ═══
+    tl.to('#node-brief', { autoAlpha: 1, scale: 1, duration: 0.4, ease: 'back.out(1.4)' }, 0.5);
 
-    // === PHASE 2: Strategic Layer (0.8→1.8) ===
-    tl.to('#node-strategic', { autoAlpha: 1, duration: 0.3 }, 0.8);
-    activateNode('node-strategic', tl, 0.85);
+    // Line draws FROM brief DOWN to strategic
+    draw('#line-brief-strategic', tl, 0.9, 0.4);
 
-    // Agents fan out
-    tl.to('#agent-research', { autoAlpha: 1, x: 0, duration: 0.25 }, 1.0);
-    tl.to('#agent-script', { autoAlpha: 1, x: 0, duration: 0.25 }, 1.1);
-    tl.to('#agent-mood', { autoAlpha: 1, x: 0, duration: 0.25 }, 1.2);
+    // ═══ PHASE 2: Strategic Layer — line arrives, THEN node appears ═══
+    tl.to('#node-strategic', { autoAlpha: 1, duration: 0.3 }, 1.3);
+    glow('node-strategic', tl, 1.35);
 
-    // Outputs
-    tl.to('#output-research', { autoAlpha: 1, duration: 0.2 }, 1.35);
-    tl.to('#output-brief', { autoAlpha: 1, duration: 0.2 }, 1.45);
-    tl.to('#output-shots', { autoAlpha: 1, duration: 0.2 }, 1.55);
+    // Lines draw FROM strategic TO each agent → agent appears at end of line
+    // Research (left)
+    tl.to('#agent-research', { autoAlpha: 1, x: 0, duration: 0.25 }, 1.5);
+    // Script (left below)
+    tl.to('#agent-script', { autoAlpha: 1, x: 0, duration: 0.25 }, 1.65);
+    // Mood Board (right)
+    tl.to('#agent-mood', { autoAlpha: 1, x: 0, duration: 0.25 }, 1.8);
 
-    deactivateNode('node-strategic', tl, 1.7);
-    drawLine('line-strategic-coord', tl, 1.7, 0.3);
+    // Agents produce outputs — appear sequentially
+    tl.to('#output-research', { autoAlpha: 1, duration: 0.2 }, 2.0);
+    tl.to('#output-brief', { autoAlpha: 1, duration: 0.2 }, 2.1);
+    tl.to('#output-shots', { autoAlpha: 1, duration: 0.2 }, 2.2);
 
-    // === PHASE 3: Coordination Layer (2.0→2.8) ===
-    tl.to('#node-coordination', { autoAlpha: 1, duration: 0.3 }, 2.0);
-    activateNode('node-coordination', tl, 2.05);
+    unglow('node-strategic', tl, 2.3);
 
-    // Lines fan out to specialists
-    drawLine('line-coord-spec1', tl, 2.3, 0.3);
-    drawLine('line-coord-spec2', tl, 2.35, 0.3);
-    drawLine('line-coord-spec3', tl, 2.4, 0.3);
-    drawLine('line-coord-spec4', tl, 2.45, 0.3);
+    // Line draws FROM strategic DOWN to coordination
+    draw('#line-strategic-coord', tl, 2.3, 0.4);
 
-    deactivateNode('node-coordination', tl, 2.7);
+    // ═══ PHASE 3: Coordination — line arrives, node appears ═══
+    tl.to('#node-coordination', { autoAlpha: 1, duration: 0.3 }, 2.7);
+    glow('node-coordination', tl, 2.75);
 
-    // === PHASE 4: Specialist Layer (2.8→4.3) ===
-    // Agents appear
-    tl.to('#spec-video', { autoAlpha: 1, duration: 0.2 }, 2.8);
-    tl.to('#spec-image', { autoAlpha: 1, duration: 0.2 }, 2.9);
-    tl.to('#spec-music', { autoAlpha: 1, duration: 0.2 }, 3.0);
-    tl.to('#spec-copy', { autoAlpha: 1, duration: 0.2 }, 3.1);
+    // Lines fan out FROM coordination TO each specialist — draw simultaneously
+    draw('#line-coord-spec1', tl, 2.9, 0.4);
+    draw('#line-coord-spec2', tl, 2.95, 0.4);
+    draw('#line-coord-spec3', tl, 3.0, 0.4);
+    draw('#line-coord-spec4', tl, 3.05, 0.4);
 
-    // Activate specialists
-    ['spec-video','spec-image','spec-music','spec-copy'].forEach(function(id, i) {
-        activateNode(id, tl, 3.15 + i * 0.05);
-    });
+    unglow('node-coordination', tl, 3.3);
 
-    // Progress tracks appear
-    tl.to('#track-video', { autoAlpha: 1, duration: 0.15 }, 3.3);
-    tl.to('#track-image', { autoAlpha: 1, duration: 0.15 }, 3.35);
-    tl.to('#track-music', { autoAlpha: 1, duration: 0.15 }, 3.4);
-    tl.to('#track-copy', { autoAlpha: 1, duration: 0.15 }, 3.45);
+    // ═══ PHASE 4: Specialists — lines arrive, agents appear at endpoints ═══
+    tl.to('#spec-video', { autoAlpha: 1, duration: 0.2 }, 3.3);
+    glow('spec-video', tl, 3.35);
+    tl.to('#spec-image', { autoAlpha: 1, duration: 0.2 }, 3.4);
+    glow('spec-image', tl, 3.45);
+    tl.to('#spec-music', { autoAlpha: 1, duration: 0.2 }, 3.5);
+    glow('spec-music', tl, 3.55);
+    tl.to('#spec-copy', { autoAlpha: 1, duration: 0.2 }, 3.6);
+    glow('spec-copy', tl, 3.65);
 
-    // Bars fill (the visual centerpiece)
-    tl.to('#fill-video', { width: '100%', duration: 0.7, ease: 'power1.inOut' }, 3.5);
-    tl.to('#fill-image', { width: '100%', duration: 0.8, ease: 'power1.inOut' }, 3.5);
-    tl.to('#fill-music', { width: '100%', duration: 0.6, ease: 'power1.inOut' }, 3.55);
-    tl.to('#fill-copy', { width: '100%', duration: 0.75, ease: 'power1.inOut' }, 3.55);
+    // Progress tracks appear right with their agent
+    tl.to('#track-video', { autoAlpha: 1, duration: 0.15 }, 3.4);
+    tl.to('#track-image', { autoAlpha: 1, duration: 0.15 }, 3.5);
+    tl.to('#track-music', { autoAlpha: 1, duration: 0.15 }, 3.6);
+    tl.to('#track-copy', { autoAlpha: 1, duration: 0.15 }, 3.7);
 
-    // Deactivate specialists
-    ['spec-video','spec-image','spec-music','spec-copy'].forEach(function(id) {
-        deactivateNode(id, tl, 4.2);
-    });
+    // Bars fill up — the visual centerpiece
+    tl.to('#fill-video', { width: '100%', duration: 0.6, ease: 'power1.inOut' }, 3.7);
+    tl.to('#fill-image', { width: '100%', duration: 0.7, ease: 'power1.inOut' }, 3.75);
+    tl.to('#fill-music', { width: '100%', duration: 0.5, ease: 'power1.inOut' }, 3.8);
+    tl.to('#fill-copy', { width: '100%', duration: 0.65, ease: 'power1.inOut' }, 3.85);
 
-    // Lines converge to verification
-    drawLine('line-spec-verify1', tl, 4.2, 0.25);
-    drawLine('line-spec-verify2', tl, 4.25, 0.25);
-    drawLine('line-spec-verify3', tl, 4.3, 0.25);
-    drawLine('line-spec-verify4', tl, 4.35, 0.25);
+    // Specialists unglow after work complete
+    unglow('spec-video', tl, 4.3);
+    unglow('spec-image', tl, 4.3);
+    unglow('spec-music', tl, 4.3);
+    unglow('spec-copy', tl, 4.3);
 
-    // === PHASE 5: Verification (4.5→5.3) ===
-    tl.to('#node-verification', { autoAlpha: 1, duration: 0.3 }, 4.5);
-    activateNode('node-verification', tl, 4.55);
+    // Lines converge FROM specialists TO verification — draw simultaneously
+    draw('#line-spec-verify1', tl, 4.3, 0.3);
+    draw('#line-spec-verify2', tl, 4.35, 0.3);
+    draw('#line-spec-verify3', tl, 4.4, 0.3);
+    draw('#line-spec-verify4', tl, 4.45, 0.3);
 
-    tl.to('#agent-qa', { autoAlpha: 1, duration: 0.2 }, 4.6);
-    activateNode('agent-qa', tl, 4.65);
+    // ═══ PHASE 5: Verification — lines arrive, node appears ═══
+    tl.to('#node-verification', { autoAlpha: 1, duration: 0.3 }, 4.6);
+    glow('node-verification', tl, 4.65);
+
+    // QA agent appears connected
+    tl.to('#agent-qa', { autoAlpha: 1, duration: 0.2 }, 4.7);
+    glow('agent-qa', tl, 4.75);
 
     // Brand score counter
-    tl.to('#output-score', { autoAlpha: 1, duration: 0.2 }, 4.7);
-
+    tl.to('#output-score', { autoAlpha: 1, duration: 0.2 }, 4.8);
     var scoreObj = { val: 0 };
     tl.to(scoreObj, {
         val: 97,
@@ -166,24 +162,25 @@
             var el = $('brand-score');
             if (el) el.textContent = Math.round(scoreObj.val);
         }
-    }, 4.8);
+    }, 4.9);
 
-    deactivateNode('agent-qa', tl, 5.1);
-    deactivateNode('node-verification', tl, 5.15);
+    unglow('agent-qa', tl, 5.1);
+    unglow('node-verification', tl, 5.15);
 
-    drawLine('line-verify-assembly', tl, 5.1, 0.3);
+    // Line draws TO assembly
+    draw('#line-verify-assembly', tl, 5.1, 0.3);
 
-    // === PHASE 6: Assembly & Delivery (5.3→6.2) ===
-    tl.to('#node-assembly', { autoAlpha: 1, duration: 0.3 }, 5.3);
-    activateNode('node-assembly', tl, 5.35);
+    // ═══ PHASE 6: Assembly — line arrives, node appears ═══
+    tl.to('#node-assembly', { autoAlpha: 1, duration: 0.3 }, 5.4);
+    glow('node-assembly', tl, 5.45);
 
-    // Final deliverable card
-    tl.to('#node-final', { autoAlpha: 1, scale: 1, duration: 0.4, ease: 'back.out(1.7)' }, 5.5);
+    // Final deliverable
+    tl.to('#node-final', { autoAlpha: 1, scale: 1, duration: 0.4, ease: 'back.out(1.7)' }, 5.6);
 
     // Completion stat
-    tl.to('#orch-stat', { autoAlpha: 1, y: 0, duration: 0.3 }, 5.8);
+    tl.to('#orch-stat', { autoAlpha: 1, y: 0, duration: 0.3 }, 5.9);
 
-    deactivateNode('node-assembly', tl, 6.0);
+    unglow('node-assembly', tl, 6.0);
 
     // ─── Parallax Background ───
     gsap.to('#orch-bg-1', {
@@ -201,7 +198,7 @@
         scrollTrigger: { trigger: container, start: 'top top', end: 'bottom bottom', scrub: 3 }
     });
 
-    // Subtle red glow builds as orchestration progresses
+    // Red glow intensifies
     var bgEl = document.querySelector('.orch-bg');
     if (bgEl) {
         gsap.fromTo(bgEl,

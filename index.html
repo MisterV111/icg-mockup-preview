@@ -413,28 +413,28 @@
 
                         <!-- SVG Connection Lines -->
                         <svg class="orch-lines" id="orch-lines" viewBox="0 0 900 600" preserveAspectRatio="xMidYMid meet">
-                            <!-- Brief → Strategic -->
-                            <path id="line-brief-strategic" class="orch-line" d="M450,55 L450,115"/>
-                            <!-- Strategic → Coordination -->
-                            <path id="line-strategic-coord" class="orch-line" d="M450,170 L450,220"/>
-                            <!-- Coordination → 4 Specialist tracks -->
-                            <path id="line-coord-spec1" class="orch-line" d="M400,235 Q350,270 90,295"/>
-                            <path id="line-coord-spec2" class="orch-line" d="M430,235 Q400,270 280,295"/>
-                            <path id="line-coord-spec3" class="orch-line" d="M470,235 Q500,270 600,295"/>
-                            <path id="line-coord-spec4" class="orch-line" d="M500,235 Q550,270 810,295"/>
-                            <!-- 4 Specialists → Verification -->
-                            <path id="line-spec-verify1" class="orch-line" d="M90,340 Q90,370 400,385"/>
-                            <path id="line-spec-verify2" class="orch-line" d="M280,340 Q280,370 420,385"/>
-                            <path id="line-spec-verify3" class="orch-line" d="M600,340 Q600,370 480,385"/>
-                            <path id="line-spec-verify4" class="orch-line" d="M810,340 Q810,370 500,385"/>
-                            <!-- Verification → Assembly -->
-                            <path id="line-verify-assembly" class="orch-line" d="M450,420 L450,475"/>
+                            <!-- Brief (12%) → Strategic (20%) -->
+                            <path id="line-brief-strategic" class="orch-line" d="M450,95 L450,118"/>
+                            <!-- Strategic (20%) → Coordination (38%) -->
+                            <path id="line-strategic-coord" class="orch-line" d="M450,160 L450,225"/>
+                            <!-- Coordination (38%) → 4 Specialist tracks (50%) -->
+                            <path id="line-coord-spec1" class="orch-line" d="M380,250 C350,275 120,280 80,298"/>
+                            <path id="line-coord-spec2" class="orch-line" d="M420,250 C390,275 290,280 270,298"/>
+                            <path id="line-coord-spec3" class="orch-line" d="M480,250 C510,275 600,280 620,298"/>
+                            <path id="line-coord-spec4" class="orch-line" d="M520,250 C550,275 780,280 820,298"/>
+                            <!-- 4 Specialists (56%) → Verification (65%) -->
+                            <path id="line-spec-verify1" class="orch-line" d="M80,345 C80,370 380,380 420,388"/>
+                            <path id="line-spec-verify2" class="orch-line" d="M270,345 C270,370 400,380 430,388"/>
+                            <path id="line-spec-verify3" class="orch-line" d="M620,345 C620,370 500,380 470,388"/>
+                            <path id="line-spec-verify4" class="orch-line" d="M820,345 C820,370 520,380 480,388"/>
+                            <!-- Verification (65%) → Assembly (80%) -->
+                            <path id="line-verify-assembly" class="orch-line" d="M450,415 L450,478"/>
                         </svg>
 
                         <!-- Node Cards -->
                         <div class="orch-nodes" id="orch-nodes">
                             <!-- Brief Card -->
-                            <div class="orch-node orch-node--brief" id="node-brief" style="top:6%;left:50%;transform:translateX(-50%)">
+                            <div class="orch-node orch-node--brief" id="node-brief" style="top:12%;left:50%;transform:translateX(-50%)">
                                 <span class="orch-node__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
                                 <div>
                                     <div class="orch-node__title">Creative Brief</div>

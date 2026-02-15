@@ -73,8 +73,8 @@
 
 .orch-line {
     fill: none;
-    stroke: var(--color-border-light);
-    stroke-width: 1.5;
+    stroke: var(--color-gray-500);
+    stroke-width: 2;
     stroke-linecap: round;
 }
 
@@ -234,7 +234,14 @@
 /* ─── Section Header ─── */
 .orch-header {
     text-align: center;
-    margin-bottom: var(--space-lg);
+    padding-top: var(--space-lg);
+    margin-bottom: 0;
+    position: absolute;
+    top: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    z-index: 3;
 }
 
 .orch-header__label {
