@@ -6,8 +6,8 @@
 .orchestration {
     position: relative;
     width: 100%;
-    overflow: hidden;
     margin-top: var(--space-xl);
+    /* NO overflow:hidden — breaks position:sticky */
 }
 
 .orchestration-sticky {
