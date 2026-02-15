@@ -54,7 +54,7 @@
     z-index: 1;
     width: 100%;
     max-width: 900px;
-    height: 80vh;
+    height: 90vh;
     padding: var(--space-md);
 }
 
@@ -264,7 +264,7 @@
 /* ─── Completion Stat ─── */
 .orch-stat {
     position: absolute;
-    bottom: 8%;
+    bottom: 2%;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
