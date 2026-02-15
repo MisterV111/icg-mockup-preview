@@ -264,7 +264,7 @@
 /* ─── Completion Stat ─── */
 .orch-stat {
     position: absolute;
-    bottom: 2%;
+    bottom: 4%;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
