@@ -3,6 +3,12 @@
    Inherits design system from style.css
    ═══════════════════════════════════════════════════════════════ */
 
+/* ─── GSAP FOUC Prevention ───────────────────────────────────── */
+.gsap-animate,
+.gsap-animate-cta {
+    visibility: hidden;
+}
+
 
 /* ─── HERO ───────────────────────────────────────────────────── */
 .partners-hero {
@@ -87,10 +93,19 @@
     border-color: var(--color-border-light);
 }
 
+.partners-problem-card:hover .partners-problem-icon {
+    color: var(--color-white);
+}
+
 .partners-problem-icon {
-    font-size: 2.5rem;
     margin-bottom: var(--space-md);
-    line-height: 1;
+    color: var(--color-red);
+    transition: color 0.3s ease;
+}
+
+.partners-problem-icon svg {
+    width: 40px;
+    height: 40px;
 }
 
 .partners-problem-card h3 {
@@ -137,6 +152,11 @@
 .partners-pillar-card:hover {
     border-color: rgba(232, 0, 13, 0.3);
     transform: translateY(-4px);
+}
+
+.partners-pillar-icon {
+    color: var(--color-red);
+    margin-bottom: var(--space-md);
 }
 
 .partners-pillar-number {
@@ -265,9 +285,18 @@
 }
 
 .partners-deliverable-icon {
-    font-size: 2.2rem;
     margin-bottom: var(--space-sm);
-    line-height: 1;
+    color: var(--color-red);
+    transition: color 0.3s ease;
+}
+
+.partners-deliverable:hover .partners-deliverable-icon {
+    color: var(--color-white);
+}
+
+.partners-deliverable-icon svg {
+    width: 36px;
+    height: 36px;
 }
 
 .partners-deliverable h3 {
