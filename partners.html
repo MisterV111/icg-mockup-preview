@@ -333,7 +333,7 @@
                     <!-- Column 2: The Skill (center) -->
                     <div class="flow-col flow-col-center">
                         <div class="flow-arrow-down">→</div>
-                        <div class="flow-card flow-skill">
+                        <div class="flow-card flow-skill flow-skill-hover">
                             <span class="flow-card-label">The skill adds</span>
                             <ul class="flow-skill-list">
                                 <li>Dramatic side-lighting</li>
@@ -1002,6 +1002,61 @@
         color: var(--color-red);
         font-weight: 700;
     }
+    .flow-skill-hover {
+        cursor: pointer;
+        transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+    }
+    .flow-skill-hover:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+        z-index: 10;
+        position: relative;
+    }
+
+    /* Lightbox for skill card */
+    .flow-lightbox-skill {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0,0,0,0);
+        backdrop-filter: blur(0px);
+        cursor: zoom-out;
+        transition: background 0.35s ease, backdrop-filter 0.35s ease;
+        pointer-events: none;
+        opacity: 0;
+    }
+    .flow-lightbox-skill.active {
+        background: rgba(0,0,0,0.85);
+        backdrop-filter: blur(12px);
+        pointer-events: all;
+        opacity: 1;
+    }
+    .flow-lightbox-skill .lightbox-skill-card {
+        background: var(--color-surface);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-left: 4px solid var(--color-red);
+        border-radius: 16px;
+        padding: 2.5rem 3rem;
+        max-width: 520px;
+        width: 90vw;
+        transform: scale(0.85);
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .flow-lightbox-skill.active .lightbox-skill-card {
+        transform: scale(1);
+    }
+    .flow-lightbox-skill .lightbox-skill-card .flow-card-label {
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+    }
+    .flow-lightbox-skill .lightbox-skill-card .flow-skill-list li {
+        font-size: 1.1rem;
+        line-height: 2;
+    }
+
     .flow-result {
         padding: 0;
         overflow: hidden;
@@ -1181,6 +1236,36 @@
     </style>
 
     <script>
+    // Lightbox for skill card
+    (function() {
+        var skillCard = document.querySelector('.flow-skill-hover');
+        if (!skillCard) return;
+
+        var overlay = document.createElement('div');
+        overlay.className = 'flow-lightbox-skill';
+        var inner = document.createElement('div');
+        inner.className = 'lightbox-skill-card';
+        inner.innerHTML = skillCard.innerHTML;
+        overlay.appendChild(inner);
+        document.body.appendChild(overlay);
+
+        skillCard.addEventListener('click', function(e) {
+            e.stopPropagation();
+            overlay.style.display = 'flex';
+            requestAnimationFrame(function() { overlay.classList.add('active'); });
+        });
+
+        function closeSkill() {
+            overlay.classList.remove('active');
+            setTimeout(function() { overlay.style.display = 'none'; }, 350);
+        }
+        overlay.addEventListener('click', closeSkill);
+        inner.addEventListener('click', function(e) { e.stopPropagation(); });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && overlay.classList.contains('active')) closeSkill();
+        });
+    })();
+
     // Lightbox for before/after images
     (function() {
         const overlay = document.createElement('div');
