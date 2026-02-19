@@ -780,7 +780,7 @@ platforms = [
     (
         "Google Gemini",
         "Upload SKILL.md as a context document in any Gemini conversation, or create a Gem (Gemini\u2019s custom instructions): go to Gem Manager \u2192 New Gem \u2192 paste SKILL.md contents into the instructions field.",
-        "support.google.com/gemini/answer/15585481",
+        "support.google.com/gemini/answer/15235603",
     ),
     (
         "Any Other LLM",
