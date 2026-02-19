@@ -751,20 +751,53 @@ story.append(accent_bar())
 story.append(spacer(0.15))
 
 story.append(Paragraph(
-    "The Image Prompt Engineer skill works in any Claude environment. "
-    "Drop it in and start describing images.", s_body
+    "This skill is a plain markdown file. It works with any AI assistant that can read uploaded "
+    "documents\u200a\u2014\u200anot just Claude. Here\u2019s how to set it up in each environment:", s_body
 ))
 story.append(spacer(0.1))
 
 platforms = [
-    ("Claude Code (Terminal)", "Add the skill folder to your workspace\u2019s skills directory. Claude picks it up automatically."),
-    ("Claude Desktop", "Add the skill folder as a project in settings. Include SKILL.md and the references/ folder."),
-    ("Claude Web (claude.ai)", "Upload SKILL.md as an attachment. For deeper model knowledge, also upload files from references/."),
+    (
+        "Claude Code (Terminal)",
+        "Place the skill folder in your workspace\u2019s skills/ directory. Claude discovers it automatically and uses it whenever you describe an image.",
+        "code.claude.com/docs/en/skills",
+    ),
+    (
+        "Claude Desktop (App)",
+        "Open Settings \u2192 Skills \u2192 Upload skill folder. Select the image-prompt-engineer-skill folder from the ZIP. The skill appears in your Skills list and stays available across conversations.",
+        "support.claude.com/en/articles/12512180-using-skills-in-claude",
+    ),
+    (
+        "OpenClaw",
+        "Copy the skill folder to your OpenClaw skills directory (e.g. ~/.agents/skills/). Add an entry in your openclaw.json config under skills.entries with enabled: true. Restart the gateway.",
+        "docs.openclaw.ai/tools/skills",
+    ),
+    (
+        "ChatGPT",
+        "Two options: (1) Upload SKILL.md as an attachment in any conversation\u200a\u2014\u200atell ChatGPT \u2018Use the attached skill to optimize my image prompts.\u2019 (2) For persistent use, create a Custom GPT: go to Explore GPTs \u2192 Create \u2192 paste the contents of SKILL.md into Instructions. This gives you a reusable, shareable prompt engineer.",
+        "help.openai.com/en/articles/8554397-creating-a-gpt",
+    ),
+    (
+        "Google Gemini",
+        "Upload SKILL.md as a context document in any Gemini conversation, or create a Gem (Gemini\u2019s custom instructions): go to Gem Manager \u2192 New Gem \u2192 paste SKILL.md contents into the instructions field.",
+        "support.google.com/gemini/answer/15585481",
+    ),
+    (
+        "Any Other LLM",
+        "The skill is plain markdown\u200a\u2014\u200ait works with any LLM that accepts file uploads or system instructions. Upload SKILL.md and the references/ folder, or paste the contents as context. Works with Copilot, Perplexity, local models, and more.",
+        None,
+    ),
 ]
-for title, desc in platforms:
+for title, desc, link in platforms:
     story.append(Paragraph(f"<b>{title}</b>", s_body_bold))
     story.append(Paragraph(desc, s_body))
-    story.append(spacer(0.06))
+    if link:
+        story.append(Paragraph(
+            f'<font color="{RED.hexval()}">\u2192</font>  '
+            f'<font color="{TEXT_SECONDARY.hexval()}" size="9">Setup guide: {link}</font>',
+            ParagraphStyle("LinkLine", parent=s_body, fontSize=9, spaceAfter=4, leftIndent=4)
+        ))
+    story.append(spacer(0.08))
 
 story.append(spacer(0.1))
 story.append(Paragraph("<b>What you get for every image description:</b>", s_body_bold))
