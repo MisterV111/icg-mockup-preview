@@ -489,11 +489,103 @@
 }
 
 
+/* ─── TWO TRACKS ─────────────────────────────────────────────── */
+.partners-tracks-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+}
+
+.partners-track-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: var(--space-2xl) var(--space-lg);
+    transition: border-color 0.4s ease;
+}
+
+.partners-track-card:hover {
+    border-color: var(--color-border-light);
+}
+
+.partners-track-card--consulting {
+    border-left: 4px solid var(--color-red);
+}
+
+.partners-track-label {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-red);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: var(--space-sm);
+}
+
+.partners-track-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: var(--space-md);
+}
+
+.partners-track-desc {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--color-gray-400);
+    margin-bottom: var(--space-lg);
+}
+
+.partners-track-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-lg) 0;
+}
+
+.partners-track-list li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--color-gray-300);
+}
+
+.partners-track-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-red);
+}
+
+.partners-track-fit {
+    font-size: 0.9rem;
+    color: var(--color-gray-500);
+    line-height: 1.6;
+}
+
+.partners-track-fit strong {
+    color: var(--color-gray-300);
+}
+
+.partners-track-proof {
+    font-size: 0.9rem;
+    color: var(--color-gray-500);
+    line-height: 1.6;
+    margin-top: var(--space-sm);
+}
+
 /* ═══════════════════════════════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════════════════════════════ */
 
 @media (max-width: 1024px) {
+    .partners-tracks-grid {
+        grid-template-columns: 1fr;
+    }
+
     .partners-pillars-grid {
         grid-template-columns: 1fr;
         gap: var(--space-md);

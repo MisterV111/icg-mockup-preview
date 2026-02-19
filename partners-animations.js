@@ -196,6 +196,18 @@
 
 
     // ═══════════════════════════════════════════════════════════
+    // TWO TRACKS — slide in from opposite sides
+    // ═══════════════════════════════════════════════════════════
+    gsap.utils.toArray('.partners-track-card.gsap-animate').forEach(function(card, i) {
+        gsap.from(card, {
+            scrollTrigger: { trigger: card, start: 'top 88%' },
+            autoAlpha: 0, x: i === 0 ? -60 : 60, y: 30,
+            duration: 1, delay: i * 0.15, ease: EASE, immediateRender: IR
+        });
+    });
+
+
+    // ═══════════════════════════════════════════════════════════
     // PILLAR CARDS — scale + bounce (matches main page pillars)
     // ═══════════════════════════════════════════════════════════
     gsap.utils.toArray('.partners-pillar-card.gsap-animate').forEach(function(card, i) {
