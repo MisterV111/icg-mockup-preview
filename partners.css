@@ -587,7 +587,8 @@
 /* ─── WHY US ─────────────────────────────────────────────────── */
 .partners-why-content {
     max-width: 800px;
-    margin-bottom: var(--space-2xl);
+    margin: 0 auto var(--space-2xl);
+    text-align: center;
 }
 
 .partners-why-text {
@@ -636,6 +637,8 @@
 
 .partners-why-empathy {
     max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
     font-size: 1.05rem;
     line-height: 1.8;
     color: var(--color-gray-400);
