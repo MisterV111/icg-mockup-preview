@@ -375,7 +375,12 @@
                         <p class="lead-gen-privacy">No spam. Unsubscribe anytime.</p>
                     </form>
                     <div id="lead-gen-success" class="lead-gen-success" style="display: none;">
-                        <div class="lead-gen-success-icon">🎉</div>
+                        <div class="lead-gen-success-icon">
+                            <svg class="success-checkmark" viewBox="0 0 52 52" width="56" height="56">
+                                <circle class="success-circle" cx="26" cy="26" r="24" fill="none" stroke="#E8000D" stroke-width="2.5"/>
+                                <path class="success-check" fill="none" stroke="#E8000D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M15 27l7 7 15-15"/>
+                            </svg>
+                        </div>
                         <p class="lead-gen-success-title">Your toolkit is downloading.</p>
                         <p class="lead-gen-success-desc">The ZIP includes the PDF guide and the full Image Prompt Engineer skill — ready to use.</p>
                         <p class="lead-gen-success-fallback">Download didn't start? <a href="assets/downloads/ai-image-toolkit-2026.zip" download class="lead-gen-fallback-link">Click here.</a></p>
@@ -1180,8 +1185,25 @@
         padding: 1.5rem 0;
     }
     .lead-gen-success-icon {
-        font-size: 2.5rem;
-        margin-bottom: 0.75rem;
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: center;
+    }
+    .success-circle {
+        stroke-dasharray: 151;
+        stroke-dashoffset: 151;
+        animation: circle-draw 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    }
+    .success-check {
+        stroke-dasharray: 36;
+        stroke-dashoffset: 36;
+        animation: check-draw 0.35s cubic-bezier(0.65, 0, 0.45, 1) 0.4s forwards;
+    }
+    @keyframes circle-draw {
+        to { stroke-dashoffset: 0; }
+    }
+    @keyframes check-draw {
+        to { stroke-dashoffset: 0; }
     }
     .lead-gen-success-title {
         font-size: 1.2rem;
