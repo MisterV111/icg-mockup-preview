@@ -256,6 +256,15 @@
     }
 
 
+    // AI Consulting Bridge
+    var aiBridge = document.querySelector('.ai-consulting-bridge.gsap-animate');
+    if (aiBridge) {
+        gsap.from(aiBridge, {
+            scrollTrigger: { trigger: aiBridge, start: 'top 85%' },
+            autoAlpha: 0, x: -40, duration: 1, ease: EASE, immediateRender: IR
+        });
+    }
+
     // ═══════════════════════════════════════════════════════════
     // THREE PILLARS — scale + bounce in
     // ═══════════════════════════════════════════════════════════
