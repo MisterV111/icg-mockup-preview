@@ -315,7 +315,8 @@ def model_section(num, name, maker, best_for, strengths, copy_paste, api_provide
     elems.append(Paragraph(f"\u2728  {pro_tip}", s_tip))
     elems.append(divider())
     elems.append(spacer(0.1))
-    return elems
+    # Wrap entire model section in KeepTogether so it never splits across pages
+    return [KeepTogether(elems)]
 
 
 # ══════════════════════════════════════════════
