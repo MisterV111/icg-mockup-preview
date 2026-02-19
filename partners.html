@@ -326,11 +326,10 @@
                         <p class="lead-gen-privacy">No spam. Unsubscribe anytime.</p>
                     </form>
                     <div id="lead-gen-success" class="lead-gen-success" style="display: none;">
-                        <p class="lead-gen-success-title">✅ Check your downloads!</p>
-                        <p class="lead-gen-success-links">
-                            <a href="assets/downloads/prompt-engineering-toolkit-2026.pdf" download class="lead-gen-download">📖 Download Guide (PDF)</a>
-                            <a href="assets/downloads/image-prompt-engineer-skill.zip" download class="lead-gen-download">🔧 Download Skill (.zip)</a>
-                        </p>
+                        <div class="lead-gen-success-icon">🎉</div>
+                        <p class="lead-gen-success-title">Your toolkit is downloading.</p>
+                        <p class="lead-gen-success-desc">The ZIP includes the PDF guide and the full Image Prompt Engineer skill — ready to use.</p>
+                        <p class="lead-gen-success-fallback">Download didn't start? <a href="assets/downloads/ai-image-toolkit-2026.zip" download class="lead-gen-fallback-link">Click here.</a></p>
                     </div>
                 </div>
             </div>
@@ -941,33 +940,31 @@
     }
     .lead-gen-success {
         text-align: center;
-        padding: 1rem 0;
+        padding: 1.5rem 0;
+    }
+    .lead-gen-success-icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.75rem;
     }
     .lead-gen-success-title {
-        font-size: 1.1rem;
-        font-weight: 600;
+        font-size: 1.2rem;
+        font-weight: 700;
         color: var(--color-white);
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
     }
-    .lead-gen-success-links {
-        display: flex;
-        flex-direction: column;
-        gap: 0.6rem;
-    }
-    .lead-gen-download {
-        display: block;
-        padding: 0.75rem 1rem;
-        background: rgba(232,0,13,0.1);
-        border: 1px solid rgba(232,0,13,0.3);
-        border-radius: 8px;
-        color: var(--color-red);
-        text-decoration: none;
-        font-weight: 600;
+    .lead-gen-success-desc {
+        color: var(--color-text-secondary);
         font-size: 0.95rem;
-        transition: background 0.2s;
+        line-height: 1.5;
+        margin-bottom: 1.25rem;
     }
-    .lead-gen-download:hover {
-        background: rgba(232,0,13,0.2);
+    .lead-gen-success-fallback {
+        color: rgba(255,255,255,0.3);
+        font-size: 0.85rem;
+    }
+    .lead-gen-fallback-link {
+        color: var(--color-red);
+        text-decoration: underline;
     }
     @media (max-width: 768px) {
         .lead-gen-inner {
@@ -1000,10 +997,10 @@
                 if (r.ok) {
                     form.style.display = 'none';
                     success.style.display = 'block';
-                    // Auto-trigger PDF download
+                    // Auto-trigger toolkit download
                     var a = document.createElement('a');
-                    a.href = 'assets/downloads/prompt-engineering-toolkit-2026.pdf';
-                    a.download = 'prompt-engineering-toolkit-2026.pdf';
+                    a.href = 'assets/downloads/ai-image-toolkit-2026.zip';
+                    a.download = 'ai-image-toolkit-2026.zip';
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
