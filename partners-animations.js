@@ -357,12 +357,36 @@
     }
 
 
-    // ─── Lead Generator ────────────────────────────
-    var leadGen = document.querySelector('.lead-gen-inner.gsap-animate');
-    if (leadGen) {
-        gsap.from(leadGen, {
-            scrollTrigger: { trigger: leadGen, start: 'top 82%' },
-            autoAlpha: 0, y: 60, scale: 0.95, duration: 1, ease: 'back.out(1.1)', immediateRender: IR
+    // ─── Lead Generator Flow ────────────────────────
+    var flowWithout = document.getElementById('flow-without');
+    if (flowWithout) {
+        gsap.from(flowWithout, {
+            scrollTrigger: { trigger: flowWithout, start: 'top 85%' },
+            autoAlpha: 0, y: 50, duration: 0.9, ease: 'power3.out', immediateRender: IR
+        });
+    }
+
+    var flowWith = document.getElementById('flow-with');
+    if (flowWith) {
+        gsap.from(flowWith, {
+            scrollTrigger: { trigger: flowWith, start: 'top 85%' },
+            autoAlpha: 0, y: 50, duration: 0.9, delay: 0.15, ease: 'power3.out', immediateRender: IR
+        });
+        // Skill card gets a subtle bounce
+        var skillCard = flowWith.querySelector('.flow-skill');
+        if (skillCard) {
+            gsap.from(skillCard, {
+                scrollTrigger: { trigger: flowWith, start: 'top 82%' },
+                autoAlpha: 0, scale: 0.9, duration: 0.8, delay: 0.4, ease: 'back.out(1.4)', immediateRender: IR
+            });
+        }
+    }
+
+    var leadCta = document.querySelector('.lead-gen-cta.gsap-animate');
+    if (leadCta) {
+        gsap.from(leadCta, {
+            scrollTrigger: { trigger: leadCta, start: 'top 85%' },
+            autoAlpha: 0, y: 40, duration: 0.9, ease: 'power3.out', immediateRender: IR
         });
     }
 

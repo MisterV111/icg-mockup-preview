@@ -308,21 +308,70 @@
     <!-- ═══════════════════════════════════════ -->
     <section class="section partners-lead-gen" id="toolkit">
         <div class="container">
-            <div class="lead-gen-inner gsap-animate">
-                <div class="lead-gen-content">
-                    <span class="section-label">Free Toolkit</span>
-                    <h2 class="lead-gen-title">Generate Better AI Images<br><span class="text-accent">in Minutes.</span></h2>
-                    <p class="lead-gen-desc">A prompt engineering skill for Claude + a practical guide covering 6 AI image models, where to generate, and 5 techniques that immediately improve output quality.</p>
-                    <ul class="lead-gen-includes">
-                        <li>🔧 <strong>Image Prompt Engineer Skill</strong> — transforms plain English into optimized prompts for 6 models</li>
-                        <li>📖 <strong>Companion Guide (PDF)</strong> — which model, when, why, and where to generate</li>
-                    </ul>
+            <!-- Section header -->
+            <div class="section-header gsap-animate">
+                <span class="section-label">Free Toolkit</span>
+                <h2 class="section-title">Generate Better AI Images <span class="text-accent">in Minutes.</span></h2>
+                <p class="section-subtitle">Same prompt. Same model. Same settings. The only difference is what happens in between.</p>
+            </div>
+
+            <!-- Before/After Visual Flow -->
+            <div class="lead-gen-flow">
+                <!-- ROW 1: Without the skill -->
+                <div class="flow-row gsap-animate" id="flow-without">
+                    <span class="flow-label">Without prompt engineering</span>
+                    <div class="flow-steps flow-steps-2">
+                        <div class="flow-card flow-prompt">
+                            <span class="flow-card-label">Your prompt</span>
+                            <code class="flow-code">"a plate of pasta"</code>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-card flow-result">
+                            <img src="assets/images/lead-magnet/before-food.jpg" alt="Generic AI-generated pasta — flat lighting, no mood" class="flow-image" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ROW 2: With the skill -->
+                <div class="flow-row gsap-animate" id="flow-with">
+                    <span class="flow-label flow-label-accent">With the Image Prompt Engineer</span>
+                    <div class="flow-steps flow-steps-3">
+                        <div class="flow-card flow-prompt">
+                            <span class="flow-card-label">Same prompt</span>
+                            <code class="flow-code">"a plate of pasta"</code>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-card flow-skill">
+                            <span class="flow-card-label">The skill adds</span>
+                            <ul class="flow-skill-list">
+                                <li>Dramatic side-lighting</li>
+                                <li>100mm macro lens</li>
+                                <li>Steam &amp; texture detail</li>
+                                <li>Mood &amp; color direction</li>
+                                <li>Composition &amp; depth</li>
+                            </ul>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-card flow-result">
+                            <img src="assets/images/lead-magnet/after-food.jpg" alt="Skill-optimized pasta — cinematic lighting, steam, Michelin-star quality" class="flow-image" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA + Form -->
+            <div class="lead-gen-cta gsap-animate">
+                <div class="lead-gen-cta-text">
+                    <p class="lead-gen-cta-headline">Get the toolkit free.</p>
+                    <p class="lead-gen-cta-desc">Includes the skill (works with ChatGPT, Claude, Gemini, and more) + a 14-page guide covering 6 AI models.</p>
                 </div>
                 <div class="lead-gen-form-wrap">
                     <form id="lead-gen-form" action="https://formspree.io/f/mbdaagjg" method="POST">
                         <input type="hidden" name="_source" value="partners-page-toolkit">
-                        <input type="email" name="email" placeholder="Your work email" required class="lead-gen-input">
-                        <button type="submit" class="btn btn-primary lead-gen-btn">Download Free Toolkit</button>
+                        <div class="lead-gen-form-row">
+                            <input type="email" name="email" placeholder="Your work email" required class="lead-gen-input">
+                            <button type="submit" class="btn btn-primary lead-gen-btn">Download Free</button>
+                        </div>
                         <p class="lead-gen-privacy">No spam. Unsubscribe anytime.</p>
                     </form>
                     <div id="lead-gen-success" class="lead-gen-success" style="display: none;">
@@ -862,60 +911,144 @@
     .partners-lead-gen {
         padding: var(--space-xl) 0;
     }
-    .lead-gen-inner {
+
+    /* Flow layout */
+    .lead-gen-flow {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+        margin-bottom: 3rem;
+    }
+    .flow-row {
+        position: relative;
+    }
+    .flow-label {
+        display: inline-block;
+        font-family: var(--font-heading);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.4);
+        margin-bottom: 0.75rem;
+    }
+    .flow-label-accent {
+        color: var(--color-red);
+    }
+    .flow-steps {
+        display: grid;
+        align-items: center;
+        gap: 0;
+    }
+    .flow-steps-2 {
+        grid-template-columns: 1fr auto 1.5fr;
+    }
+    .flow-steps-3 {
+        grid-template-columns: 1fr auto 1.2fr auto 1.5fr;
+    }
+    .flow-arrow {
+        color: rgba(255,255,255,0.2);
+        font-size: 1.5rem;
+        text-align: center;
+        padding: 0 0.75rem;
+        font-weight: 300;
+    }
+    .flow-card {
         background: var(--color-surface);
         border: 1px solid rgba(255,255,255,0.08);
-        border-radius: 16px;
-        padding: 3rem;
-        display: grid;
-        grid-template-columns: 1.2fr 1fr;
-        gap: 3rem;
-        align-items: center;
+        border-radius: 12px;
+        padding: 1.25rem;
+        min-height: 100%;
     }
-    .lead-gen-title {
-        font-family: var(--font-heading);
-        font-size: clamp(1.5rem, 3vw, 2rem);
+    .flow-card-label {
+        display: block;
+        font-size: 0.7rem;
         font-weight: 700;
-        line-height: 1.2;
-        color: var(--color-white);
-        margin-bottom: 1rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.35);
+        margin-bottom: 0.5rem;
     }
-    .lead-gen-desc {
-        color: var(--color-text-secondary);
-        font-size: 1rem;
-        line-height: 1.6;
-        margin-bottom: 1.5rem;
+    .flow-code {
+        display: block;
+        font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+        font-size: 0.95rem;
+        color: rgba(255,255,255,0.85);
+        line-height: 1.5;
+        word-break: break-word;
     }
-    .lead-gen-includes {
+    .flow-skill {
+        border-left: 3px solid var(--color-red);
+    }
+    .flow-skill-list {
         list-style: none;
         padding: 0;
         margin: 0;
     }
-    .lead-gen-includes li {
+    .flow-skill-list li {
+        color: rgba(255,255,255,0.7);
+        font-size: 0.85rem;
+        line-height: 1.6;
+        padding-left: 0;
+    }
+    .flow-skill-list li::before {
+        content: "+ ";
+        color: var(--color-red);
+        font-weight: 700;
+    }
+    .flow-result {
+        padding: 0;
+        overflow: hidden;
+    }
+    .flow-image {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 12px;
+    }
+
+    /* CTA + Form */
+    .lead-gen-cta {
+        background: var(--color-surface);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 16px;
+        padding: 2.5rem 3rem;
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 2.5rem;
+        align-items: center;
+    }
+    .lead-gen-cta-headline {
+        font-family: var(--font-heading);
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--color-white);
+        margin-bottom: 0.5rem;
+    }
+    .lead-gen-cta-desc {
         color: var(--color-text-secondary);
         font-size: 0.95rem;
-        line-height: 1.5;
-        padding: 0.35rem 0;
-    }
-    .lead-gen-includes strong {
-        color: var(--color-white);
+        line-height: 1.6;
     }
     .lead-gen-form-wrap {
         background: rgba(255,255,255,0.03);
         border: 1px solid rgba(255,255,255,0.06);
         border-radius: 12px;
-        padding: 2rem;
+        padding: 1.5rem;
+    }
+    .lead-gen-form-row {
+        display: flex;
+        gap: 0.5rem;
     }
     .lead-gen-input {
-        width: 100%;
-        padding: 0.9rem 1rem;
+        flex: 1;
+        padding: 0.85rem 1rem;
         background: rgba(255,255,255,0.06);
         border: 1px solid rgba(255,255,255,0.12);
         border-radius: 8px;
         color: var(--color-white);
-        font-size: 1rem;
+        font-size: 0.95rem;
         font-family: var(--font-body);
-        margin-bottom: 0.75rem;
         outline: none;
         transition: border-color 0.2s;
     }
@@ -926,17 +1059,17 @@
         color: rgba(255,255,255,0.35);
     }
     .lead-gen-btn {
-        width: 100%;
-        padding: 0.9rem 1rem;
-        font-size: 1rem;
+        padding: 0.85rem 1.5rem;
+        font-size: 0.95rem;
         font-weight: 600;
         cursor: pointer;
+        white-space: nowrap;
     }
     .lead-gen-privacy {
         text-align: center;
         color: rgba(255,255,255,0.3);
-        font-size: 0.8rem;
-        margin-top: 0.6rem;
+        font-size: 0.75rem;
+        margin-top: 0.5rem;
     }
     .lead-gen-success {
         text-align: center;
@@ -966,11 +1099,29 @@
         color: var(--color-red);
         text-decoration: underline;
     }
+
+    /* Mobile */
     @media (max-width: 768px) {
-        .lead-gen-inner {
+        .flow-steps-2,
+        .flow-steps-3 {
+            grid-template-columns: 1fr;
+            gap: 0;
+        }
+        .flow-arrow {
+            transform: rotate(90deg);
+            padding: 0.5rem 0;
+            font-size: 1.2rem;
+        }
+        .lead-gen-cta {
             grid-template-columns: 1fr;
             padding: 2rem 1.5rem;
-            gap: 2rem;
+            gap: 1.5rem;
+        }
+        .lead-gen-form-row {
+            flex-direction: column;
+        }
+        .lead-gen-btn {
+            width: 100%;
         }
     }
     </style>
