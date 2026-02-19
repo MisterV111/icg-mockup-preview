@@ -1027,22 +1027,6 @@ ul {
     background: var(--color-surface);
 }
 
-.service-proof {
-    margin-top: var(--space-lg);
-    padding-top: var(--space-md);
-    border-top: 1px solid var(--color-border);
-}
-
-.service-proof-text {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    color: var(--color-gray-400);
-}
-
-.service-proof-text strong {
-    color: var(--color-white);
-}
-
 .text-accent-link {
     color: var(--color-red);
     text-decoration: none;
@@ -1054,38 +1038,19 @@ ul {
 }
 
 /* AI Consulting Bridge (Stakes section) */
-.ai-consulting-bridge {
-    max-width: 640px;
-    padding: 2.5rem 3rem;
-    margin: 3rem 0;
-    background: var(--color-surface);
-    border-left: 4px solid var(--color-red);
-    border-radius: 0 8px 8px 0;
-}
-
-.ai-bridge-title {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-white);
-    margin-bottom: var(--space-sm);
-}
-
-.ai-bridge-text {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    color: var(--color-gray-400);
-    margin-bottom: var(--space-lg);
-}
 
 /* Consulting Pillar Card (3+1 layout) */
 .pillar-card--consulting {
     grid-column: 1 / -1;
+    margin-top: var(--space-lg);
     display: grid;
     grid-template-columns: auto 1fr;
     grid-template-rows: auto auto auto auto;
     column-gap: var(--space-lg);
     align-items: start;
+    background: transparent;
+    border-style: dashed;
+    border-color: var(--color-border-light);
 }
 
 .pillar-card--consulting .pillar-icon {
@@ -2327,14 +2292,9 @@ a.work-card {
 
 /* Mobile */
 @media (max-width: 768px) {
-    .ai-consulting-bridge {
-        padding: 1.5rem 1.75rem;
-        margin: 2rem 0;
-    }
+    
 
-    .ai-bridge-title {
-        font-size: 1.25rem;
-    }
+    
 
     .pillar-card--consulting {
         grid-template-columns: 1fr;
