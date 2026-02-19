@@ -789,15 +789,17 @@ platforms = [
     ),
 ]
 for title, desc, link in platforms:
-    story.append(Paragraph(f"<b>{title}</b>", s_body_bold))
-    story.append(Paragraph(desc, s_body))
+    block = []
+    block.append(Paragraph(f"<b>{title}</b>", s_body_bold))
+    block.append(Paragraph(desc, s_body))
     if link:
-        story.append(Paragraph(
+        block.append(Paragraph(
             f'<font color="{RED.hexval()}">\u2192</font>  '
             f'<font color="{TEXT_SECONDARY.hexval()}" size="9">Setup guide: {link}</font>',
             ParagraphStyle("LinkLine", parent=s_body, fontSize=9, spaceAfter=4, leftIndent=4)
         ))
-    story.append(spacer(0.08))
+    block.append(spacer(0.08))
+    story.append(KeepTogether(block))
 
 story.append(spacer(0.1))
 story.append(Paragraph("<b>What you get for every image description:</b>", s_body_bold))
