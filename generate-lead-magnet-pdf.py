@@ -334,13 +334,13 @@ if os.path.exists(LOGO_PATH):
 
 story.append(accent_bar_center(60))
 story.append(spacer(0.2))
-story.append(Paragraph("Generate Better<br/>AI Images in Minutes", s_display))
+story.append(Paragraph("Make AI Images Look Like<br/>Real Photography", s_display))
 story.append(spacer(0.15))
 story.append(Paragraph("The Prompt Engineering Toolkit", s_cover_toolkit))
 story.append(spacer(0.35))
 story.append(Paragraph("A practical guide for agencies and creative teams.", s_cover_sub))
 story.append(spacer(0.08))
-story.append(Paragraph("6 AI Models  \u00b7  Optimized Prompts  \u00b7  Zero Guesswork", s_cover_sub))
+story.append(Paragraph("6 AI Models  \u00b7  Film Stocks & Lenses  \u00b7  Anti-AI Realism", s_cover_sub))
 story.append(spacer(2.0))
 story.append(accent_bar_center(30))
 story.append(spacer(0.1))
@@ -360,7 +360,7 @@ story.append(spacer(0.15))
 
 story.append(Paragraph(
     "This guide and the <b>Image Prompt Engineer</b> skill work together. "
-    "The skill does the heavy lifting\u200a\u2014\u200athe guide tells you what to aim at.", s_body
+    "The skill teaches AI to think like a photographer\u200a\u2014\u200athe guide tells you what to aim at.", s_body
 ))
 story.append(spacer(0.15))
 
@@ -372,16 +372,16 @@ toolkit_data = [
     ],
     [
         Paragraph(
-            "A Claude skill that transforms plain English into "
-            "production-ready prompts for 6 AI image models. "
-            "Handles model selection, keyword optimization, quality "
-            "scoring, and technical specs automatically.", s_body
+            "Transforms plain English into production-ready prompts "
+            "using real photography knowledge\u200a\u2014\u200afilm stocks, lens focal lengths, "
+            "lighting setups, and anti-AI realism techniques mapped across "
+            "6 models. Includes quality scoring and per-model optimization.", s_body
         ),
         Paragraph(
             "Covers which model to use, when, and why. "
             "Where to generate\u200a\u2014\u200afrom free web UIs to API pipelines. "
-            "Plus 5 prompt engineering techniques that make an "
-            "immediate difference.", s_body
+            "The photography intelligence that powers the skill. "
+            "Plus techniques that make an immediate difference.", s_body
         ),
     ],
 ]
@@ -455,6 +455,147 @@ story.append(Paragraph(
     "Ideogram\u00a03.0 leads in text rendering. GPT Image\u00a01.5 is uniquely conversational. "
     "Together: full coverage from $0.02 drafts to production 4K prints.", s_body
 ))
+story.append(PageBreak())
+
+# ═══════════════════════════════════════
+# CAMERA & PHOTOGRAPHY INTELLIGENCE
+# ═══════════════════════════════════════
+story.append(section_label("THE HEADLINE FEATURE"))
+story.append(spacer(0.05))
+story.append(Paragraph("Camera & Photography Intelligence", s_h1))
+story.append(accent_bar())
+story.append(spacer(0.15))
+
+story.append(Paragraph(
+    "This isn\u2019t prompt templates\u200a\u2014\u200ait\u2019s the same photography knowledge professionals "
+    "spend years learning, mapped to 6 AI image models through empirical testing.", s_body
+))
+story.append(spacer(0.12))
+
+# Film Stocks
+story.append(Paragraph("<b>Film Stock Color Science</b>", s_h3))
+story.append(spacer(0.04))
+story.append(Paragraph(
+    "Each film stock shifts AI color rendering in specific, repeatable ways. "
+    "The skill maps these to model-specific behavior:", s_body
+))
+story.append(spacer(0.06))
+film_data = [
+    ["Film Stock", "Character"],
+    ["Kodak Portra 400", "Warm skin tones, creamy highlights, subtle grain"],
+    ["CineStill 800T", "Tungsten-balanced, halation glow, neon color shift"],
+    ["Fuji Pro 400H", "Cool greens, muted pastels, soft contrast"],
+    ["Kodachrome 64", "Punchy saturation, deep reds, dense shadows"],
+    ["Ilford HP5", "Classic B&W, rich midtones, visible grain structure"],
+]
+t_film = Table(film_data, colWidths=[1.6*inch, CONTENT_W - 1.6*inch])
+t_film.setStyle(table_style_clean())
+story.append(t_film)
+story.append(spacer(0.15))
+
+# Lens & Lighting
+story.append(Paragraph("<b>Lens Focal Length \u2192 Composition</b>", s_h3))
+story.append(spacer(0.04))
+lens_items = [
+    "24mm wide-angle \u2192 environmental context, dramatic perspective",
+    "50mm standard \u2192 natural perspective, documentary feel",
+    "85mm portrait \u2192 flattering compression, creamy background separation",
+    "135mm telephoto \u2192 strong compression, isolated subjects, cinematic depth",
+]
+for item in lens_items:
+    story.append(Paragraph(f"\u2022  {item}", s_bullet))
+story.append(spacer(0.12))
+
+story.append(Paragraph("<b>Camera Body Aesthetic Anchors</b>", s_h3))
+story.append(spacer(0.04))
+story.append(Paragraph(
+    "Naming a camera body shifts the AI\u2019s entire rendering approach:", s_body
+))
+camera_items = [
+    "\u201cHasselblad X2D\u201d \u2192 medium format creaminess, extreme detail",
+    "\u201cLeica M6\u201d \u2192 street photography character, rangefinder aesthetic",
+    "\u201cFujifilm X-T5\u201d \u2192 warm film-like tones, rich color science",
+]
+for item in camera_items:
+    story.append(Paragraph(f"\u2022  {item}", s_bullet))
+story.append(spacer(0.12))
+
+story.append(Paragraph("<b>Professional Lighting Library</b>", s_h3))
+story.append(spacer(0.04))
+story.append(Paragraph(
+    "Lighting is the most reliable parameter across ALL 6 models. "
+    "The skill includes a full library:", s_body
+))
+light_items = [
+    "Rembrandt \u2014 triangle highlight on cheek, dramatic portraiture",
+    "Butterfly \u2014 glamour/beauty, overhead with fill below",
+    "Split \u2014 half-face illumination, maximum drama",
+    "Rim / edge \u2014 silhouette separation, cinematic depth",
+    "Golden hour \u2014 the universal quality booster across every model",
+    "Practical \u2014 in-scene light sources (lamps, neon, candles) for authenticity",
+]
+for item in light_items:
+    story.append(Paragraph(f"\u2022  {item}", s_bullet))
+
+story.append(spacer(0.12))
+story.append(Paragraph(
+    "Every parameter includes a <b>per-model compatibility matrix</b> "
+    "(\U0001f7e2/\U0001f7e1/\U0001f534) showing exactly what works on which model\u200a\u2014\u200a"
+    "so you never waste a generation on an unsupported feature.", s_body
+))
+
+story.append(PageBreak())
+
+# ═══════════════════════════════════════
+# ANTI-AI REALISM
+# ═══════════════════════════════════════
+story.append(section_label("THE DIFFERENTIATOR"))
+story.append(spacer(0.05))
+story.append(Paragraph("Anti-AI Realism System", s_h1))
+story.append(accent_bar())
+story.append(spacer(0.15))
+
+story.append(Paragraph(
+    "The biggest myth in AI image generation: \u201c8K ultra-detailed hyper-realistic\u201d "
+    "makes images look better. The truth? <b>It makes them look more artificial.</b>", s_body
+))
+story.append(spacer(0.1))
+
+story.append(Paragraph(
+    "Real photographs have imperfections. AI images are too perfect\u200a\u2014\u200athat\u2019s how you spot them. "
+    "The skill includes per-model realism recipes based on empirical testing:", s_body
+))
+story.append(spacer(0.1))
+
+story.append(Paragraph("<b>The 4 Realism Levers</b>", s_h3))
+story.append(spacer(0.06))
+realism_items = [
+    ("<b>Imperfection cues</b> \u2014 film grain, uneven lighting, slight chromatic aberration, "
+     "dust particles. The #1 realism lever across all models."),
+    ("<b>Capture context</b> \u2014 \u201cshot on location\u201d beats \u201cprofessional studio.\u201d "
+     "Describing how/where the photo was taken adds authenticity that equipment names don\u2019t."),
+    ("<b>Texture-first approach</b> \u2014 prioritize material textures (weathered wood, matte skin, "
+     "rough concrete) over global quality keywords. Specific textures = specific realism."),
+    ("<b>What-to-avoid guidance</b> \u2014 per-model anti-patterns that waste credits. "
+     "No negative prompts on Flux 2. Don\u2019t ignore Ideogram\u2019s style mode selector. "
+     "GPT Image\u2019s \u201cstudio polish\u201d trap. Each model has specific pitfalls."),
+]
+for item in realism_items:
+    story.append(Paragraph(f"\u2022  {item}", s_bullet))
+    story.append(spacer(0.04))
+
+story.append(spacer(0.1))
+story.append(Paragraph(
+    "The skill includes <b>copy-paste realism recipes</b> for each of the 6 models\u200a\u2014\u200a"
+    "tested combinations that consistently produce images indistinguishable from real photographs.",
+    s_body
+))
+story.append(spacer(0.08))
+story.append(Paragraph(
+    "\u2728  Based on empirical testing\u200a\u2014\u200aReddit A/B comparisons, official documentation, "
+    "and community validation. Not guesswork.", s_tip
+))
+
 story.append(PageBreak())
 
 # ═══════════════════════════════════════
@@ -691,41 +832,42 @@ story.append(PageBreak())
 # ═══════════════════════════════════════
 story.append(section_label("TECHNIQUES"))
 story.append(spacer(0.05))
-story.append(Paragraph("5 Prompt Tips That Work", s_h1))
+story.append(Paragraph("5 Techniques That Actually Work", s_h1))
 story.append(accent_bar())
 story.append(spacer(0.15))
 
 tips = [
     (
-        "Be Specific About What Makes It Good",
-        "Don\u2019t say \u2018beautiful sunset.\u2019 Say \u2018golden hour sunset with warm amber light "
-        "casting long shadows across wet sand, scattered clouds lit from below in pink and coral, "
-        "gentle wave foam in the foreground.\u2019 The more specific, the less the AI guesses\u200a\u2014\u200a"
-        "and guessing is where quality drops."
+        "Think Like a Photographer, Not a Prompter",
+        "Instead of \u2018beautiful photo of a woman,\u2019 think about what a photographer would set up: "
+        "\u2018Rembrandt lighting, 85mm f/1.4, Kodak Portra 400 film stock, shallow depth of field.\u2019 "
+        "Real photography parameters produce real-looking results. The skill maps these automatically."
     ),
     (
-        "Front-Load the Subject",
-        "Put your main subject first, then add context. AI models weight the beginning of prompts "
-        "more heavily. \u2018A golden retriever sitting in a sunlit meadow, wildflowers in soft focus, "
-        "photorealistic\u2019 works better than burying the subject mid-sentence."
+        "Specify Lighting\u200a\u2014\u200aThe #1 Lever",
+        "Lighting is the single most reliable parameter across ALL 6 models. "
+        "\u2018Golden hour side-lighting with long shadows\u2019 produces dramatically better results than "
+        "leaving it unspecified. The skill includes a full lighting library\u200a\u2014\u200aRembrandt, butterfly, "
+        "split, rim, practical\u200a\u2014\u200aeach mapped per model."
     ),
     (
-        "Specify Lighting\u200a\u2014\u200aAlways",
-        "Lighting is the single biggest quality lever in AI image generation. \u2018Studio lighting with "
-        "soft shadows\u2019 produces dramatically better results than leaving it unspecified. "
-        "Good defaults: golden hour, studio lighting, natural window light, dramatic rim lighting."
+        "Add Imperfections for Realism",
+        "The fastest way to make AI images look less AI: add film grain, slight chromatic aberration, "
+        "dust motes, uneven natural lighting. Real photos aren\u2019t perfect. "
+        "\u2018Shot on Fuji Pro 400H, slight vignette, natural window light\u2019 beats \u2018ultra-realistic 8K.\u2019"
+    ),
+    (
+        "Stop Using \u20188K Ultra-Detailed\u2019",
+        "Quality keyword spam (\u20188K, ultra-detailed, hyper-realistic, masterpiece\u2019) is the most common "
+        "mistake. It actually makes images look MORE artificial by pushing toward synthetic perfection. "
+        "The skill replaces these with empirically-tested parameters that work per model."
     ),
     (
         "Match Language to the Model",
-        "Each model responds to different styles. Flux\u00a02 rewards detail and photography terms. "
-        "Nano Banana Pro and GPT Image prefer conversation. Recraft\u00a0V4 responds to design vocabulary. "
-        "Grok wants aesthetic and mood keywords. The skill handles this automatically."
-    ),
-    (
-        "Use the Negative (When Available)",
-        "Ideogram\u00a03.0 supports negative prompts\u200a\u2014\u200atelling the AI what to avoid. "
-        "\u2018Negative: blurry, low quality, distorted faces, cluttered background\u2019 prevents common "
-        "failure modes. Even for other models, adding \u2018avoid blurry details\u2019 to the end helps."
+        "Each model responds differently. Flux\u00a02 rewards photography terms and film stocks. "
+        "Nano Banana Pro and GPT Image prefer conversational descriptions. Recraft\u00a0V4 responds to "
+        "design vocabulary. Grok\u2019s \u2018Aggressive Realism\u2019 technique is model-specific. "
+        "The skill handles all of this automatically."
     ),
 ]
 
@@ -805,12 +947,12 @@ story.append(spacer(0.1))
 story.append(Paragraph("<b>What you get for every image description:</b>", s_body_bold))
 story.append(spacer(0.06))
 outputs = [
-    "An <b>optimized prompt</b>\u200a\u2014\u200ahuman-readable, copy-paste ready for any interface",
+    "An <b>optimized prompt</b>\u200a\u2014\u200awith real photography parameters (film stock, lens, lighting), copy-paste ready",
     "A <b>model recommendation</b>\u200a\u2014\u200awhich AI model fits your specific needs",
+    "<b>Anti-AI realism recipes</b>\u200a\u2014\u200aper-model techniques for authentically photographic results",
     "<b>Provider options</b>\u200a\u2014\u200awhere to generate, with estimated pricing",
-    "A <b>quality score</b> (0\u201310)\u200a\u2014\u200ahow effective the prompt is likely to be",
-    "<b>Technical specs</b>\u200a\u2014\u200aresolution, aspect ratio, and parameters tuned for your use case",
-    "<b>Warnings</b>\u200a\u2014\u200aanything that might cause issues before you generate",
+    "A <b>quality score</b> (0\u201310)\u200a\u2014\u200aweighted across 6 dimensions with model-specific nuances",
+    "<b>What-to-avoid warnings</b>\u200a\u2014\u200amodel-specific pitfalls that waste generation credits",
 ]
 for o in outputs:
     story.append(Paragraph(f"\u2022  {o}", s_bullet))
@@ -836,7 +978,9 @@ story.append(Paragraph(
 story.append(spacer(0.3))
 story.append(Paragraph(
     "This toolkit is one piece of a 40+ agent system we built for creative "
-    "production\u200a\u2014\u200avideo, music, design, and strategy, all working together.", s_center
+    "production\u200a\u2014\u200avideo, music, design, and strategy, all working together. "
+    "The same photography knowledge that took professionals years to learn, "
+    "mapped to 6 AI models.", s_center
 ))
 story.append(spacer(0.08))
 story.append(Paragraph(
