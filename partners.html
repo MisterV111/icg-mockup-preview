@@ -1023,6 +1023,39 @@
         border-radius: 12px;
     }
 
+    /* Lightbox overlay */
+    .flow-lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0,0,0,0);
+        backdrop-filter: blur(0px);
+        cursor: zoom-out;
+        transition: background 0.35s ease, backdrop-filter 0.35s ease;
+        pointer-events: none;
+        opacity: 0;
+    }
+    .flow-lightbox.active {
+        background: rgba(0,0,0,0.85);
+        backdrop-filter: blur(12px);
+        pointer-events: all;
+        opacity: 1;
+    }
+    .flow-lightbox img {
+        max-width: 90vw;
+        max-height: 85vh;
+        border-radius: 12px;
+        box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+        transform: scale(0.85);
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .flow-lightbox.active img {
+        transform: scale(1);
+    }
+
     /* CTA + Form */
     .lead-gen-cta {
         background: var(--color-surface);
@@ -1148,6 +1181,43 @@
     </style>
 
     <script>
+    // Lightbox for before/after images
+    (function() {
+        const overlay = document.createElement('div');
+        overlay.className = 'flow-lightbox';
+        const lbImg = document.createElement('img');
+        overlay.appendChild(lbImg);
+        document.body.appendChild(overlay);
+
+        document.querySelectorAll('.flow-result-hover .flow-image').forEach(function(img) {
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', function(e) {
+                e.stopPropagation();
+                lbImg.src = img.src;
+                lbImg.alt = img.alt;
+                // Force reflow then activate
+                overlay.offsetHeight;
+                overlay.style.display = 'flex';
+                requestAnimationFrame(function() {
+                    overlay.classList.add('active');
+                });
+            });
+        });
+
+        overlay.addEventListener('click', function() {
+            overlay.classList.remove('active');
+            setTimeout(function() { overlay.style.display = 'none'; }, 350);
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                overlay.click();
+            }
+        });
+
+        overlay.style.display = 'none';
+    })();
+
     // Lead Gen Form — Formspree AJAX + instant download
     (function() {
         var form = document.getElementById('lead-gen-form');
