@@ -489,6 +489,12 @@
 }
 
 
+/* ─── MID-PAGE CTA ───────────────────────────────────────────── */
+.partners-pillars-cta {
+    text-align: center;
+    margin-top: var(--space-2xl);
+}
+
 /* ─── TWO TRACKS ─────────────────────────────────────────────── */
 .partners-tracks-grid {
     display: grid;
