@@ -489,13 +489,167 @@
 }
 
 
-/* ─── MID-PAGE CTA ───────────────────────────────────────────── */
-.partners-pillars-cta {
-    text-align: center;
-    margin-top: var(--space-2xl);
+/* ─── THE SOLUTION (3 progression cards) ─────────────────────── */
+.partners-solution-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
 }
 
-/* ─── TWO TRACKS ─────────────────────────────────────────────── */
+.partners-solution-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: var(--space-2xl) var(--space-lg);
+    position: relative;
+    transition: border-color 0.4s ease;
+}
+
+.partners-solution-card:hover {
+    border-color: var(--color-border-light);
+}
+
+.partners-solution-card--featured {
+    border-color: var(--color-red);
+    background: linear-gradient(135deg, var(--color-surface) 0%, rgba(232, 0, 13, 0.03) 100%);
+}
+
+.partners-solution-card--featured::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-red), transparent);
+    border-radius: 8px 8px 0 0;
+}
+
+.partners-solution-step {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-red);
+    letter-spacing: 0.15em;
+    display: block;
+    margin-bottom: var(--space-sm);
+}
+
+.partners-solution-icon {
+    color: var(--color-red);
+    margin-bottom: var(--space-md);
+}
+
+.partners-solution-title {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: var(--space-md);
+}
+
+.partners-solution-desc {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--color-gray-400);
+    margin-bottom: var(--space-lg);
+}
+
+.partners-solution-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.partners-solution-list li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-gray-300);
+}
+
+.partners-solution-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-red);
+}
+
+.partners-solution-proof {
+    margin-top: var(--space-md);
+    font-size: 0.85rem;
+    color: var(--color-gray-500);
+    line-height: 1.6;
+}
+
+/* ─── WHY US ─────────────────────────────────────────────────── */
+.partners-why-content {
+    max-width: 800px;
+    margin-bottom: var(--space-2xl);
+}
+
+.partners-why-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--color-gray-300);
+    margin-bottom: var(--space-md);
+}
+
+.partners-why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-2xl);
+}
+
+.partners-why-stat {
+    text-align: center;
+    padding: var(--space-xl) var(--space-md);
+}
+
+.partners-why-number {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-red);
+    display: block;
+    line-height: 1;
+    margin-bottom: var(--space-xs);
+}
+
+.partners-why-label {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-white);
+    display: block;
+    margin-bottom: var(--space-xs);
+}
+
+.partners-why-detail {
+    font-size: 0.85rem;
+    color: var(--color-gray-500);
+    line-height: 1.5;
+}
+
+.partners-why-empathy {
+    max-width: 800px;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--color-gray-400);
+    font-style: italic;
+    border-left: 3px solid var(--color-red);
+    padding-left: var(--space-lg);
+    margin-bottom: var(--space-2xl);
+}
+
+.partners-why-cta {
+    text-align: center;
+}
+
+/* ─── TWO TRACKS (REMOVED — kept for backwards compat) ──────── */
 .partners-tracks-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -588,6 +742,16 @@
    ═══════════════════════════════════════════════════════════════ */
 
 @media (max-width: 1024px) {
+    .partners-solution-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+
+    .partners-why-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
     .partners-tracks-grid {
         grid-template-columns: 1fr;
     }

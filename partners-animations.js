@@ -196,26 +196,26 @@
 
 
     // ═══════════════════════════════════════════════════════════
-    // TWO TRACKS — slide in from opposite sides
+    // SOLUTION CARDS — progressive reveal with scale + bounce
     // ═══════════════════════════════════════════════════════════
-    gsap.utils.toArray('.partners-track-card.gsap-animate').forEach(function(card, i) {
+    gsap.utils.toArray('.partners-solution-card.gsap-animate').forEach(function(card, i) {
         gsap.from(card, {
             scrollTrigger: { trigger: card, start: 'top 88%' },
-            autoAlpha: 0, x: i === 0 ? -60 : 60, y: 30,
-            duration: 1, delay: i * 0.15, ease: EASE, immediateRender: IR
+            autoAlpha: 0, y: 80, scale: 0.85,
+            rotation: i === 0 ? -2 : i === 2 ? 2 : 0,
+            duration: 1, delay: i * 0.2, ease: 'back.out(1.2)', immediateRender: IR
         });
     });
 
 
     // ═══════════════════════════════════════════════════════════
-    // PILLAR CARDS — scale + bounce (matches main page pillars)
+    // WHY US — stats counter-style + empathy block
     // ═══════════════════════════════════════════════════════════
-    gsap.utils.toArray('.partners-pillar-card.gsap-animate').forEach(function(card, i) {
-        gsap.from(card, {
-            scrollTrigger: { trigger: card, start: 'top 88%' },
-            autoAlpha: 0, y: 80, scale: 0.85,
-            rotation: i === 0 ? -3 : i === 2 ? 3 : 0,
-            duration: 1, delay: i * 0.25, ease: 'back.out(1.2)', immediateRender: IR
+    gsap.utils.toArray('.partners-why-stat.gsap-animate').forEach(function(stat, i) {
+        gsap.from(stat, {
+            scrollTrigger: { trigger: stat, start: 'top 88%' },
+            autoAlpha: 0, y: 60, scale: 0.9,
+            duration: 0.8, delay: i * 0.15, ease: 'back.out(1.1)', immediateRender: IR
         });
     });
 
