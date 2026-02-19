@@ -304,6 +304,40 @@
     </section>
 
     <!-- ═══════════════════════════════════════ -->
+    <!-- LEAD GENERATOR                          -->
+    <!-- ═══════════════════════════════════════ -->
+    <section class="section partners-lead-gen" id="toolkit">
+        <div class="container">
+            <div class="lead-gen-inner gsap-animate">
+                <div class="lead-gen-content">
+                    <span class="section-label">Free Toolkit</span>
+                    <h2 class="lead-gen-title">Generate Better AI Images<br><span class="text-accent">in Minutes.</span></h2>
+                    <p class="lead-gen-desc">A prompt engineering skill for Claude + a practical guide covering 6 AI image models, where to generate, and 5 techniques that immediately improve output quality.</p>
+                    <ul class="lead-gen-includes">
+                        <li>🔧 <strong>Image Prompt Engineer Skill</strong> — transforms plain English into optimized prompts for 6 models</li>
+                        <li>📖 <strong>Companion Guide (PDF)</strong> — which model, when, why, and where to generate</li>
+                    </ul>
+                </div>
+                <div class="lead-gen-form-wrap">
+                    <form id="lead-gen-form" action="https://formspree.io/f/mbdaagjg" method="POST">
+                        <input type="hidden" name="_source" value="partners-page-toolkit">
+                        <input type="email" name="email" placeholder="Your work email" required class="lead-gen-input">
+                        <button type="submit" class="btn btn-primary lead-gen-btn">Download Free Toolkit</button>
+                        <p class="lead-gen-privacy">No spam. Unsubscribe anytime.</p>
+                    </form>
+                    <div id="lead-gen-success" class="lead-gen-success" style="display: none;">
+                        <p class="lead-gen-success-title">✅ Check your downloads!</p>
+                        <p class="lead-gen-success-links">
+                            <a href="assets/downloads/prompt-engineering-toolkit-2026.pdf" download class="lead-gen-download">📖 Download Guide (PDF)</a>
+                            <a href="assets/downloads/image-prompt-engineer-skill.zip" download class="lead-gen-download">🔧 Download Skill (.zip)</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
     <!-- SECTION 4: HOW IT WORKS                 -->
     <!-- ═══════════════════════════════════════ -->
     <section class="section partners-process">
@@ -823,5 +857,168 @@
     })();
     </script>
     <script src="partners-animations.js"></script>
+
+    <style>
+    /* ── Lead Generator Section ── */
+    .partners-lead-gen {
+        padding: var(--space-xl) 0;
+    }
+    .lead-gen-inner {
+        background: var(--color-surface);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 16px;
+        padding: 3rem;
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 3rem;
+        align-items: center;
+    }
+    .lead-gen-title {
+        font-family: var(--font-heading);
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 700;
+        line-height: 1.2;
+        color: var(--color-white);
+        margin-bottom: 1rem;
+    }
+    .lead-gen-desc {
+        color: var(--color-text-secondary);
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+    .lead-gen-includes {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .lead-gen-includes li {
+        color: var(--color-text-secondary);
+        font-size: 0.95rem;
+        line-height: 1.5;
+        padding: 0.35rem 0;
+    }
+    .lead-gen-includes strong {
+        color: var(--color-white);
+    }
+    .lead-gen-form-wrap {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 12px;
+        padding: 2rem;
+    }
+    .lead-gen-input {
+        width: 100%;
+        padding: 0.9rem 1rem;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 8px;
+        color: var(--color-white);
+        font-size: 1rem;
+        font-family: var(--font-body);
+        margin-bottom: 0.75rem;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+    .lead-gen-input:focus {
+        border-color: var(--color-red);
+    }
+    .lead-gen-input::placeholder {
+        color: rgba(255,255,255,0.35);
+    }
+    .lead-gen-btn {
+        width: 100%;
+        padding: 0.9rem 1rem;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    .lead-gen-privacy {
+        text-align: center;
+        color: rgba(255,255,255,0.3);
+        font-size: 0.8rem;
+        margin-top: 0.6rem;
+    }
+    .lead-gen-success {
+        text-align: center;
+        padding: 1rem 0;
+    }
+    .lead-gen-success-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--color-white);
+        margin-bottom: 1rem;
+    }
+    .lead-gen-success-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+    .lead-gen-download {
+        display: block;
+        padding: 0.75rem 1rem;
+        background: rgba(232,0,13,0.1);
+        border: 1px solid rgba(232,0,13,0.3);
+        border-radius: 8px;
+        color: var(--color-red);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: background 0.2s;
+    }
+    .lead-gen-download:hover {
+        background: rgba(232,0,13,0.2);
+    }
+    @media (max-width: 768px) {
+        .lead-gen-inner {
+            grid-template-columns: 1fr;
+            padding: 2rem 1.5rem;
+            gap: 2rem;
+        }
+    }
+    </style>
+
+    <script>
+    // Lead Gen Form — Formspree AJAX + instant download
+    (function() {
+        var form = document.getElementById('lead-gen-form');
+        var success = document.getElementById('lead-gen-success');
+        if (!form) return;
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var btn = form.querySelector('.lead-gen-btn');
+            var data = new FormData(form);
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+
+            fetch(form.action, {
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            }).then(function(r) {
+                if (r.ok) {
+                    form.style.display = 'none';
+                    success.style.display = 'block';
+                    // Auto-trigger PDF download
+                    var a = document.createElement('a');
+                    a.href = 'assets/downloads/prompt-engineering-toolkit-2026.pdf';
+                    a.download = 'prompt-engineering-toolkit-2026.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                } else {
+                    btn.disabled = false;
+                    btn.textContent = 'Download Free Toolkit';
+                    alert('Something went wrong. Please try again.');
+                }
+            }).catch(function() {
+                btn.disabled = false;
+                btn.textContent = 'Download Free Toolkit';
+                alert('Connection error. Please try again.');
+            });
+        });
+    })();
+    </script>
 </body>
 </html>

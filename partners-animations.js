@@ -357,6 +357,15 @@
     }
 
 
+    // ─── Lead Generator ────────────────────────────
+    var leadGen = document.querySelector('.lead-gen-inner.gsap-animate');
+    if (leadGen) {
+        gsap.from(leadGen, {
+            scrollTrigger: { trigger: leadGen, start: 'top 82%' },
+            autoAlpha: 0, y: 60, scale: 0.95, duration: 1, ease: 'back.out(1.1)', immediateRender: IR
+        });
+    }
+
     // ─── Refresh ScrollTrigger after all images load ────────────
     window.addEventListener('load', function() {
         ScrollTrigger.refresh();
