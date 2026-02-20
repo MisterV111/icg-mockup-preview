@@ -783,6 +783,7 @@ ul {
     font-weight: 700;
     color: var(--color-white);
     margin-bottom: var(--space-sm);
+    text-wrap: balance;
 }
 
 .value-prop-desc {
