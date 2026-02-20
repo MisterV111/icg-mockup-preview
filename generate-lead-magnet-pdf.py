@@ -513,7 +513,7 @@ story.append(Paragraph(
     "6 AI Models  \u00b7  Film Stocks & Lenses  \u00b7  Anti-AI Realism", s_small_light_left
 ))
 story.append(spacer(3.0))
-story.append(Paragraph("inspiredcreativegroupinc.com", ParagraphStyle(
+story.append(Paragraph('<a href="https://inspiredcreativegroupinc.com">inspiredcreativegroupinc.com</a>', ParagraphStyle(
     "CoverURL", parent=s_body_light_left, fontName="Helvetica-Bold", fontSize=9, textColor=RED,
 )))
 story.append(NextPageTemplate('plain'))
@@ -1167,9 +1167,10 @@ for i, (title, desc, link) in enumerate(platforms, 1):
     block.append(spacer(0.03))
     block.append(Paragraph(desc, ParagraphStyle("PlatformDesc", parent=s_body, leftIndent=20)))
     if link:
+        full_url = f"https://{link}" if not link.startswith("http") else link
         block.append(Paragraph(
             f'<font color="{RED.hexval()}">\u2192</font>  '
-            f'<font color="{TEXT_SECONDARY.hexval()}" size="8.5">{link}</font>',
+            f'<a href="{full_url}"><font color="{TEXT_SECONDARY.hexval()}" size="8.5">{link}</font></a>',
             ParagraphStyle("LinkLine", parent=s_body, fontSize=8.5, spaceAfter=4, leftIndent=20)
         ))
     block.append(spacer(0.06))
@@ -1191,8 +1192,8 @@ for o in outputs:
 
 story.append(spacer(0.15))
 story.append(Paragraph(
-    "The optimized prompt is always written in plain English. Paste it into "
-    "Midjourney, Canva AI, Leonardo, ChatGPT, or any API.", s_body
+    "The optimized prompt is always written in plain English. Use it with "
+    "any image generation tool\u200a\u2014\u200aFal.ai, Replicate, Leonardo, Canva AI, or any API.", s_body
 ))
 
 # ═══════════════════════════════════════
@@ -1220,12 +1221,15 @@ story.append(Paragraph(
 ))
 story.append(spacer(0.5))
 story.append(Paragraph(
-    f'<font color="{RED.hexval()}"><b>Schedule a Discovery Call \u2192</b></font>',
+    '<a href="https://inspiredcreativegroupinc.com/partners.html#contact">'
+    f'<font color="{RED.hexval()}"><b>Schedule a Discovery Call \u2192</b></font></a>',
     ParagraphStyle("CTACta", parent=s_body_light_left)
 ))
 story.append(spacer(0.06))
-story.append(Paragraph("inspiredcreativegroupinc.com/partners", ParagraphStyle(
-    "CTAUrl", parent=s_body_light_left, textColor=Color(1, 1, 1, 0.6), fontSize=9,
+story.append(Paragraph(
+    '<a href="https://inspiredcreativegroupinc.com/partners.html">'
+    '<font color="#ffffff99">inspiredcreativegroupinc.com/partners</font></a>',
+    ParagraphStyle("CTAUrl", parent=s_body_light_left, textColor=Color(1, 1, 1, 0.6), fontSize=9,
 )))
 story.append(spacer(3.0))
 story.append(Paragraph(
