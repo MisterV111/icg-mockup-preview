@@ -649,6 +649,7 @@ ul {
     color: var(--color-white);
     line-height: 1.2;
     letter-spacing: -0.02em;
+    text-wrap: balance;
 }
 
 .section-subtitle {
@@ -946,6 +947,7 @@ ul {
     line-height: 1.9;
     color: var(--color-gray-300);
     text-align: center;
+    text-wrap: balance;
 }
 
 .about-story-text strong {
