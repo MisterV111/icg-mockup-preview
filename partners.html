@@ -1353,6 +1353,12 @@
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
+                    // Send auto-reply email via GAS
+                    var email = data.get('email');
+                    if (email) {
+                        var gasUrl = 'https://script.google.com/macros/s/AKfycbyBt62avorESe_eb_nTW6QyCAN3LllspGAsl5bKW6pYltmnfA9GS9f_Y2TdiXWTrSwb/exec?email=' + encodeURIComponent(email);
+                        fetch(gasUrl, {mode: 'no-cors'});
+                    }
                 } else {
                     btn.disabled = false;
                     btn.textContent = 'Download Free Toolkit';
