@@ -923,25 +923,39 @@ matrix_data = [
     ["Price", "$0.025+", "~$0.02", "Free+", "~$0.02", "$0.009+", "~$0.02"],
 ]
 
-col_w = [0.85*inch] + [(CONTENT_W - 0.85*inch) / 6] * 6
+col_w = [0.9*inch] + [(CONTENT_W - 0.9*inch) / 6] * 6
 t2 = Table(matrix_data, colWidths=col_w)
 t2.setStyle(TableStyle([
+    # Header row — dark with white text
     ("BACKGROUND", (0, 0), (-1, 0), NEAR_BLACK),
     ("TEXTCOLOR", (0, 0), (-1, 0), WHITE),
     ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
-    ("FONTSIZE", (0, 0), (-1, 0), 8),
+    ("FONTSIZE", (0, 0), (-1, 0), 7.5),
+    # Row label column — bold, slightly larger
     ("FONTNAME", (0, 1), (0, -1), "Helvetica-Bold"),
-    ("FONTSIZE", (0, 1), (-1, -1), 8),
-    ("TEXTCOLOR", (0, 1), (0, -1), CHARCOAL),
-    ("BACKGROUND", (0, 1), (-1, -1), LIGHT_BG),
-    ("ROWBACKGROUNDS", (0, 1), (-1, -1), [LIGHT_BG, WARM_BG]),
+    ("FONTSIZE", (0, 1), (0, -1), 8.5),
+    ("TEXTCOLOR", (0, 1), (0, -1), NEAR_BLACK),
+    ("BACKGROUND", (0, 1), (0, -1), HexColor("#F0F0F0")),
+    # Data cells
+    ("FONTSIZE", (1, 1), (-1, -1), 8),
+    ("TEXTCOLOR", (1, 1), (-1, -1), MID_GRAY),
+    # Alternating row backgrounds (data area only)
+    ("ROWBACKGROUNDS", (1, 1), (-1, -1), [WHITE, HexColor("#FAFAFA")]),
+    # Alignment
     ("ALIGN", (1, 0), (-1, -1), "CENTER"),
     ("ALIGN", (0, 0), (0, -1), "LEFT"),
     ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-    ("GRID", (0, 0), (-1, -1), 0.5, BORDER_GRAY),
-    ("TOPPADDING", (0, 0), (-1, -1), 5),
-    ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
-    ("LEFTPADDING", (0, 0), (-1, -1), 5),
+    # Subtle grid — light horizontal lines only, no vertical clutter
+    ("LINEBELOW", (0, 0), (-1, 0), 1, NEAR_BLACK),
+    ("LINEBELOW", (0, 1), (-1, -2), 0.3, HexColor("#E8E8E8")),
+    ("LINEBELOW", (0, -1), (-1, -1), 0.5, BORDER_GRAY),
+    # Generous padding for breathing room
+    ("TOPPADDING", (0, 0), (-1, 0), 7),
+    ("BOTTOMPADDING", (0, 0), (-1, 0), 7),
+    ("TOPPADDING", (0, 1), (-1, -1), 6),
+    ("BOTTOMPADDING", (0, 1), (-1, -1), 6),
+    ("LEFTPADDING", (0, 0), (-1, -1), 6),
+    ("RIGHTPADDING", (0, 0), (-1, -1), 4),
 ]))
 story.append(t2)
 story.append(spacer(0.25))
@@ -1124,33 +1138,30 @@ story.append(NextPageTemplate('cta'))
 story.append(PageBreak())
 
 story.append(spacer(2.0))
-story.append(AccentBarCentered(bar_width=60, color=RED))
-story.append(spacer(0.25))
 story.append(Paragraph(
     "Ready to See AI-Powered<br/>Production at Scale?",
-    ParagraphStyle("CTATitle", parent=s_display_light, fontSize=28, leading=34)
+    ParagraphStyle("CTATitle", parent=s_display_light_left, fontSize=28, leading=34)
 ))
 story.append(spacer(0.3))
 story.append(Paragraph(
     "This toolkit is one piece of a 40+ agent system we built for creative "
     "production\u200a\u2014\u200avideo, music, design, and strategy, all working together. "
     "The same photography knowledge that took professionals years to learn, "
-    "mapped to 6 AI models.", ParagraphStyle(
-        "CTABody", parent=s_center_light,
-        leftIndent=0.6*inch, rightIndent=0.6*inch,
-    )
+    "mapped to 6 AI models.", s_body_light_left
 ))
 story.append(spacer(0.08))
 story.append(Paragraph(
-    "We don\u2019t compete with your agency\u200a\u2014\u200awe complete it.", s_center_bold_light
+    "We don\u2019t compete with your agency\u200a\u2014\u200awe complete it.",
+    ParagraphStyle("CTATagline", parent=s_body_light_left, fontName="Helvetica-Bold", textColor=WHITE)
 ))
 story.append(spacer(0.5))
 story.append(Paragraph(
-    f'<font color="{RED.hexval()}"><b>Schedule a Discovery Call \u2192</b></font>', s_center_light
+    f'<font color="{RED.hexval()}"><b>Schedule a Discovery Call \u2192</b></font>',
+    ParagraphStyle("CTACta", parent=s_body_light_left)
 ))
 story.append(spacer(0.06))
 story.append(Paragraph("inspiredcreativegroupinc.com/partners", ParagraphStyle(
-    "CTAUrl", parent=s_center, textColor=Color(1, 1, 1, 0.6),
+    "CTAUrl", parent=s_body_light_left, textColor=Color(1, 1, 1, 0.6), fontSize=9,
 )))
 story.append(spacer(3.0))
 story.append(Paragraph(

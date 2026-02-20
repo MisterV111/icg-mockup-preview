@@ -11,15 +11,15 @@ echo "📄 Regenerating PDF..."
 python3 generate-lead-magnet-pdf.py
 
 echo "📦 Rebuilding bundle ZIP..."
-cd assets/downloads
-rm -f ai-image-toolkit-2026.zip
+BASEDIR="$(cd "$(dirname "$0")" && pwd)"
+rm -f "$BASEDIR/assets/downloads/ai-image-toolkit-2026.zip"
 TMPDIR=$(mktemp -d)
-unzip -q image-prompt-engineer-skill.zip -d "$TMPDIR/image-prompt-engineer-skill"
-cp prompt-engineering-toolkit-2026.pdf "$TMPDIR/"
+unzip -q "$BASEDIR/assets/downloads/image-prompt-engineer-skill.zip" -d "$TMPDIR/image-prompt-engineer-skill"
+cp "$BASEDIR/assets/downloads/prompt-engineering-toolkit-2026.pdf" "$TMPDIR/"
 cd "$TMPDIR"
-zip -rq "$(dirname "$0")/../../assets/downloads/ai-image-toolkit-2026.zip" prompt-engineering-toolkit-2026.pdf image-prompt-engineer-skill/
+zip -rq "$BASEDIR/assets/downloads/ai-image-toolkit-2026.zip" prompt-engineering-toolkit-2026.pdf image-prompt-engineer-skill/
 rm -rf "$TMPDIR"
-cd "$(dirname "$0")/../.."
+cd "$BASEDIR"
 
 echo "📊 Bundle size: $(du -h assets/downloads/ai-image-toolkit-2026.zip | cut -f1)"
 
