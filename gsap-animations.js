@@ -536,6 +536,25 @@
     }
 
 
+    // ─── Lead Generator ────────────────────────────────────────
+    var leadGenEls = document.querySelectorAll('.lead-gen .gsap-animate');
+    if (leadGenEls.length) {
+        leadGenEls.forEach(function(el) {
+            gsap.from(el, {
+                y: 60,
+                autoAlpha: 0,
+                duration: 0.8,
+                ease: 'back.out(1.1)',
+                immediateRender: true,
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+    }
+
     // ─── Refresh ScrollTrigger after all images load ────────────
     window.addEventListener('load', function() {
         ScrollTrigger.refresh();
