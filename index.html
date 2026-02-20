@@ -1280,49 +1280,20 @@
                                 <input type="text" id="lastName" name="last_name" required autocomplete="family-name" placeholder="Last name">
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="email">Email *</label>
-                                <input type="email" id="email" name="email" required autocomplete="email" placeholder="your@email.com">
-                            </div>
-                            <div class="form-group">
-                                <label for="company">Company</label>
-                                <input type="text" id="company" name="company" autocomplete="organization" placeholder="Your company (optional)">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="service">What are you looking for? *</label>
-                                <select id="service" name="service" required>
-                                    <option value="" disabled selected>Select a service</option>
-                                    <option value="video">Video Production</option>
-                                    <option value="audio">Music & Audio</option>
-                                    <option value="design">Design & Branding</option>
-                                    <option value="campaign">Full Campaign</option>
-                                    <option value="agency-partnership">Agency Partnership / AI Consulting</option>
-                                    <option value="unsure">Not Sure Yet</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="timeline">Timeline?</label>
-                                <select id="timeline" name="timeline">
-                                    <option value="" disabled selected>Select timeline</option>
-                                    <option value="asap">ASAP</option>
-                                    <option value="1-2weeks">1–2 Weeks</option>
-                                    <option value="1month">1 Month</option>
-                                    <option value="exploring">Just Exploring</option>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required autocomplete="email" placeholder="your@email.com">
                         </div>
                         <div class="form-group">
-                            <label for="budget">Budget Range</label>
-                            <select id="budget" name="budget">
-                                <option value="" disabled selected>Select budget range</option>
-                                <option value="under5k">Under $5K</option>
-                                <option value="5-15k">$5K – $15K</option>
-                                <option value="15-50k">$15K – $50K</option>
-                                <option value="50k+">$50K+</option>
-                                <option value="discuss">Let's Discuss</option>
+                            <label for="service">What are you looking for? *</label>
+                            <select id="service" name="service" required>
+                                <option value="" disabled selected>Select a service</option>
+                                <option value="video">Video Production</option>
+                                <option value="audio">Music & Audio</option>
+                                <option value="design">Design & Branding</option>
+                                <option value="campaign">Full Campaign</option>
+                                <option value="agency-partnership">Agency Partnership / AI Consulting</option>
+                                <option value="unsure">Not Sure Yet</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -1405,13 +1376,6 @@
             video: 'Video Production', audio: 'Music & Audio', design: 'Design & Branding',
             campaign: 'Full Campaign', 'agency-partnership': 'Agency Partnership / AI Consulting', unsure: 'Not Sure Yet'
         };
-        var timelineLabels = {
-            asap: 'ASAP', '1-2weeks': '1–2 Weeks', '1month': '1 Month', exploring: 'Just Exploring'
-        };
-        var budgetLabels = {
-            under5k: 'Under $5K', '5-15k': '$5K – $15K', '15-50k': '$15K – $50K',
-            '50k+': '$50K+', discuss: "Let's Discuss"
-        };
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -1428,9 +1392,7 @@
             var gasParams = new URLSearchParams({
                 first_name: data.get('first_name'),
                 to_email: data.get('email'),
-                service: serviceLabels[data.get('service')] || data.get('service') || 'Not specified',
-                timeline: timelineLabels[data.get('timeline')] || data.get('timeline') || 'Not specified',
-                budget: budgetLabels[data.get('budget')] || data.get('budget') || 'Not specified'
+                service: serviceLabels[data.get('service')] || data.get('service') || 'Not specified'
             });
             fetch('https://script.google.com/macros/s/AKfycbzB_Q9aauFWRbdOu9niF49uNrBcFQOXjQ0RnCs8DZTIWKy9JRPYDCCTTJ1QYp9DEY3U/exec?' + gasParams.toString(), {mode:'no-cors'});
 
