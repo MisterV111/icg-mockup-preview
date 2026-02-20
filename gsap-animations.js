@@ -537,7 +537,7 @@
 
 
     // ─── Lead Generator ────────────────────────────────────────
-    var leadGenEls = document.querySelectorAll('.lead-gen .gsap-animate');
+    var leadGenEls = document.querySelectorAll('.homepage-lead-gen .gsap-animate');
     if (leadGenEls.length) {
         leadGenEls.forEach(function(el) {
             gsap.from(el, {

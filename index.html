@@ -1159,50 +1159,76 @@
     <!-- ═══════════════════════════════════════ -->
     <!-- LEAD GENERATOR                            -->
     <!-- ═══════════════════════════════════════ -->
-    <section class="section lead-gen" id="toolkit">
+    <section class="section homepage-lead-gen" id="toolkit">
         <div class="container">
             <div class="section-header gsap-animate">
-                <span class="section-label">Free Resource</span>
-                <h2 class="section-title">One Skill From Our AI Pipeline. <span class="text-accent">Yours Free.</span></h2>
-                <p class="section-subtitle">See how production-grade prompt engineering actually works — and what it looks like when 40+ agents use skills like this together.</p>
+                <span class="section-label">Free Toolkit</span>
+                <h2 class="section-title">One Skill From Our Pipeline. <span class="text-accent">Yours Free.</span></h2>
+                <p class="section-subtitle">The Image Prompt Engineer is one skill inside our AI production system — the same one our visual agents use to generate photography-grade images across 6 models. Download it, use it with ChatGPT, Claude, or Gemini, and see what a single skill can do. Then imagine 40+ working together.</p>
             </div>
 
-            <div class="lead-gen-comparison gsap-animate">
-                <div class="lead-gen-col">
-                    <div class="lead-gen-img-wrap">
-                        <img src="assets/images/lead-magnet/before-food.jpg" alt="Generic AI prompt — flat lighting, no mood" class="lead-gen-img" loading="lazy">
+            <div class="lead-gen-flow">
+                <div class="flow-comparison gsap-animate">
+                    <div class="flow-col">
+                        <span class="flow-label">Without prompt engineering</span>
+                        <div class="flow-card flow-result flow-result-hover">
+                            <img src="assets/images/lead-magnet/before-food.jpg" alt="Generic AI-generated pasta — flat lighting, no mood" class="flow-image" loading="lazy">
+                        </div>
+                        <div class="flow-prompt-tag">
+                            <code class="flow-code">"a plate of pasta"</code>
+                        </div>
                     </div>
-                    <p class="lead-gen-label">Generic prompt</p>
-                </div>
-                <div class="lead-gen-arrow">→</div>
-                <div class="lead-gen-col">
-                    <div class="lead-gen-img-wrap">
-                        <img src="assets/images/lead-magnet/after-food.jpg" alt="Skill-optimized — cinematic lighting, Michelin-star quality" class="lead-gen-img" loading="lazy">
+
+                    <div class="flow-col flow-col-center">
+                        <div class="flow-arrow-down">→</div>
+                        <div class="flow-card flow-skill flow-skill-hover">
+                            <span class="flow-card-label">The skill adds</span>
+                            <ul class="flow-skill-list">
+                                <li>CineStill 800T film stock for warm tones</li>
+                                <li>100mm macro lens, shallow depth of field</li>
+                                <li>Candlelight with Rembrandt shadows</li>
+                                <li>Film grain &amp; imperfections to look real</li>
+                                <li>Optimized for Nano Banana Pro (Gemini)</li>
+                            </ul>
+                        </div>
+                        <div class="flow-arrow-down">→</div>
                     </div>
-                    <p class="lead-gen-label">With the skill</p>
+
+                    <div class="flow-col">
+                        <span class="flow-label flow-label-accent">With the Image Prompt Engineer</span>
+                        <div class="flow-card flow-result flow-result-hover">
+                            <img src="assets/images/lead-magnet/after-food.jpg" alt="Skill-optimized pasta — cinematic lighting, steam, Michelin-star quality" class="flow-image" loading="lazy">
+                        </div>
+                        <div class="flow-prompt-tag">
+                            <code class="flow-code">"a plate of pasta"</code>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="lead-gen-cta gsap-animate">
-                <p class="lead-gen-cta-desc">Includes the Image Prompt Engineer skill — film stocks, lighting setups, lens data, and a quality scoring system mapped across 6 models. Plus a 14-page companion guide. Works with any LLM.</p>
+                <div class="lead-gen-cta-text">
+                    <p class="lead-gen-cta-headline">Get the toolkit free.</p>
+                    <p class="lead-gen-cta-desc">Includes the Image Prompt Engineer skill — film stocks, lighting setups, lens data, anti-AI realism recipes, and a quality scoring system mapped across 6 models. Plus a 14-page companion guide. Works with any LLM.</p>
+                </div>
                 <div class="lead-gen-form-wrap">
                     <form id="homepage-lead-gen-form" action="https://formspree.io/f/mbdaagjg" method="POST">
                         <input type="hidden" name="_source" value="homepage-toolkit">
                         <div class="lead-gen-form-row">
-                            <input type="email" name="email" placeholder="Your email" required class="lead-gen-input">
+                            <input type="email" name="email" placeholder="Your work email" required class="lead-gen-input">
                             <button type="submit" class="btn btn-primary lead-gen-btn">Download Free</button>
                         </div>
                         <p class="lead-gen-privacy">No spam. Unsubscribe anytime.</p>
                     </form>
                     <div id="homepage-lead-gen-success" class="lead-gen-success" style="display: none;">
                         <div class="lead-gen-success-icon">
-                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                                <circle cx="24" cy="24" r="22" stroke="#E8000D" stroke-width="2.5" class="check-circle"/>
-                                <path d="M14 24L22 32L34 16" stroke="#E8000D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="check-mark"/>
+                            <svg class="success-checkmark" viewBox="0 0 52 52" width="56" height="56">
+                                <circle class="success-circle" cx="26" cy="26" r="24" fill="none" stroke="#E8000D" stroke-width="2.5"/>
+                                <path class="success-check" fill="none" stroke="#E8000D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M15 27l7 7 15-15"/>
                             </svg>
                         </div>
                         <p class="lead-gen-success-title">Your toolkit is downloading.</p>
-                        <p class="lead-gen-success-desc">The ZIP includes the PDF guide and the full Image Prompt Engineer skill.</p>
+                        <p class="lead-gen-success-desc">The ZIP includes the PDF guide and the full Image Prompt Engineer skill — ready to use.</p>
                         <p class="lead-gen-success-fallback">Download didn't start? <a href="assets/downloads/ai-image-toolkit-2026.zip" download class="lead-gen-fallback-link">Click here.</a></p>
                     </div>
                 </div>
@@ -1437,42 +1463,90 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/Flip.min.js"></script>
     <script src="gsap-animations.js"></script>
 
-    <!-- Homepage Lead Gen Form -->
+    <!-- Homepage Lead Gen: Lightboxes + Form -->
     <script>
+    // Lightbox for skill card
+    (function() {
+        var skillCard = document.querySelector('.homepage-lead-gen .flow-skill-hover');
+        if (!skillCard) return;
+        var overlay = document.createElement('div');
+        overlay.className = 'flow-lightbox-skill';
+        var inner = document.createElement('div');
+        inner.className = 'lightbox-skill-card';
+        inner.innerHTML = skillCard.innerHTML;
+        overlay.appendChild(inner);
+        document.body.appendChild(overlay);
+        skillCard.addEventListener('click', function(e) {
+            e.stopPropagation();
+            overlay.style.display = 'flex';
+            requestAnimationFrame(function() { overlay.classList.add('active'); });
+        });
+        function closeSkill() {
+            overlay.classList.remove('active');
+            setTimeout(function() { overlay.style.display = 'none'; }, 350);
+        }
+        overlay.addEventListener('click', closeSkill);
+        inner.addEventListener('click', function(e) { e.stopPropagation(); });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && overlay.classList.contains('active')) closeSkill();
+        });
+    })();
+
+    // Lightbox for before/after images
+    (function() {
+        var overlay = document.createElement('div');
+        overlay.className = 'flow-lightbox';
+        var lbImg = document.createElement('img');
+        overlay.appendChild(lbImg);
+        document.body.appendChild(overlay);
+        document.querySelectorAll('.homepage-lead-gen .flow-result-hover .flow-image').forEach(function(img) {
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', function(e) {
+                e.stopPropagation();
+                lbImg.src = img.src;
+                lbImg.alt = img.alt;
+                overlay.offsetHeight;
+                overlay.style.display = 'flex';
+                requestAnimationFrame(function() { overlay.classList.add('active'); });
+            });
+        });
+        overlay.addEventListener('click', function() {
+            overlay.classList.remove('active');
+            setTimeout(function() { overlay.style.display = 'none'; }, 350);
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && overlay.classList.contains('active')) overlay.click();
+        });
+        overlay.style.display = 'none';
+    })();
+
+    // Lead Gen Form — Formspree AJAX + auto-download + auto-reply
     (function() {
         var form = document.getElementById('homepage-lead-gen-form');
+        var success = document.getElementById('homepage-lead-gen-success');
         if (!form) return;
-        var successEl = document.getElementById('homepage-lead-gen-success');
-
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            var data = new FormData(form);
             var btn = form.querySelector('.lead-gen-btn');
+            var data = new FormData(form);
             btn.disabled = true;
             btn.textContent = 'Sending...';
-
-            // Formspree submission
-            var formspreeOk = fetch(form.action, {
+            fetch(form.action, {
                 method: 'POST', body: data, headers: { 'Accept': 'application/json' }
-            });
-
-            // Auto-reply email via GAS
-            var gasParams = new URLSearchParams({
-                email: data.get('email')
-            });
-            fetch('https://script.google.com/macros/s/AKfycbyBt62avorESe_eb_nTW6QyCAN3LllspGAsl5bKW6pYltmnfA9GS9f_Y2TdiXWTrSwb/exec?' + gasParams.toString(), {mode:'no-cors'});
-
-            formspreeOk.then(function(response) {
-                if (response.ok) {
+            }).then(function(r) {
+                if (r.ok) {
                     form.style.display = 'none';
-                    successEl.style.display = 'block';
-                    // Auto-download
+                    success.style.display = 'block';
                     var a = document.createElement('a');
                     a.href = 'assets/downloads/ai-image-toolkit-2026.zip';
-                    a.download = '';
+                    a.download = 'ai-image-toolkit-2026.zip';
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
+                    var email = data.get('email');
+                    if (email) {
+                        fetch('https://script.google.com/macros/s/AKfycbyBt62avorESe_eb_nTW6QyCAN3LllspGAsl5bKW6pYltmnfA9GS9f_Y2TdiXWTrSwb/exec?email=' + encodeURIComponent(email), {mode:'no-cors'});
+                    }
                 } else {
                     btn.disabled = false;
                     btn.textContent = 'Download Free';
