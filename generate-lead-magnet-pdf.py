@@ -520,9 +520,10 @@ for item in camera_items:
     story.append(Paragraph(f"\u2022  {item}", s_bullet))
 story.append(spacer(0.12))
 
-story.append(Paragraph("<b>Professional Lighting Library</b>", s_h3))
-story.append(spacer(0.04))
-story.append(Paragraph(
+lighting_block = []
+lighting_block.append(Paragraph("<b>Professional Lighting Library</b>", s_h3))
+lighting_block.append(spacer(0.04))
+lighting_block.append(Paragraph(
     "Lighting is the most reliable parameter across ALL 6 models. "
     "The skill includes a full library:", s_body
 ))
@@ -535,14 +536,14 @@ light_items = [
     "Practical \u2014 in-scene light sources (lamps, neon, candles) for authenticity",
 ]
 for item in light_items:
-    story.append(Paragraph(f"\u2022  {item}", s_bullet))
-
-story.append(spacer(0.12))
-story.append(Paragraph(
+    lighting_block.append(Paragraph(f"\u2022  {item}", s_bullet))
+lighting_block.append(spacer(0.12))
+lighting_block.append(Paragraph(
     "Every parameter includes a <b>per-model compatibility matrix</b> "
     "(\U0001f7e2/\U0001f7e1/\U0001f534) showing exactly what works on which model\u200a\u2014\u200a"
     "so you never waste a generation on an unsupported feature.", s_body
 ))
+story.append(KeepTogether(lighting_block))
 
 story.append(PageBreak())
 
