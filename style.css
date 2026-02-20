@@ -283,6 +283,17 @@ ul {
     transform: translateY(-1px);
 }
 
+.nav-cta-btn {
+    font-size: 0.85rem;
+    padding: 0.5rem 1.25rem;
+    margin-left: 0.5rem;
+    white-space: nowrap;
+}
+
+.nav-cta-btn::after {
+    display: none !important;
+}
+
 /* Mobile toggle */
 .nav-toggle {
     display: none;
@@ -2360,11 +2371,14 @@ a.work-card {
         color: var(--color-white);
     }
 
-    .nav-links .nav-link--cta {
+    .nav-links .nav-link--cta,
+    .nav-links .nav-cta-btn {
         margin-top: var(--space-md);
         font-size: 1.1rem;
         padding: 0.75rem 2rem;
         border-radius: 6px;
+        margin-left: 0;
+        text-align: center;
     }
 
     .nav-toggle {
