@@ -568,8 +568,6 @@ story.append(Paragraph(
     "Ideogram\u00a03.0 leads in text rendering. GPT Image\u00a01.5 is uniquely conversational. "
     "Together: full coverage from $0.02 drafts to production 4K prints.", s_body
 ))
-story.append(PageBreak())
-
 # ═══════════════════════════════════════
 # CAMERA & PHOTOGRAPHY INTELLIGENCE
 # ═══════════════════════════════════════
@@ -964,8 +962,6 @@ for q, a in decisions:
     story.append(Paragraph(
         f'<b>{q}</b>  <font color="{RED.hexval()}">\u2192</font>  {a}', s_body
     ))
-story.append(PageBreak())
-
 # ═══════════════════════════════════════
 # 5 PROMPT TIPS
 # ═══════════════════════════════════════
@@ -1120,8 +1116,6 @@ story.append(Paragraph(
     "The optimized prompt is always written in plain English. Paste it into "
     "Midjourney, Canva AI, Leonardo, ChatGPT, or any API.", s_body
 ))
-
-story.append(PageBreak())
 
 # ═══════════════════════════════════════
 # CTA PAGE (full-page 1940s light table background)
