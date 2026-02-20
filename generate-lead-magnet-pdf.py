@@ -45,6 +45,11 @@ WHITE = HexColor("#FFFFFF")
 OUTPUT_PATH = "assets/downloads/prompt-engineering-toolkit-2026.pdf"
 LOGO_PATH = "images/logo.png"
 
+# PDF imagery — macro close-ups, integrated into design
+IMG_COVER_SPIRAL = "assets/images/pdf/cover-spiral.jpg"
+IMG_MACRO_LENS = "assets/images/pdf/macro-lens.jpg"
+IMG_MACRO_LIGHT = "assets/images/pdf/macro-light.jpg"
+
 os.makedirs("assets/downloads", exist_ok=True)
 
 PAGE_W, PAGE_H = letter  # 612 x 792
@@ -327,23 +332,32 @@ story = []
 # ═══════════════════════════════════════
 # PAGE 1: COVER
 # ═══════════════════════════════════════
-story.append(spacer(1.2))
+# Cover image — nautilus spiral, full width, anchors the page
+if os.path.exists(IMG_COVER_SPIRAL):
+    # Full-bleed-ish image at top (spans content width)
+    img_w = CONTENT_W
+    img_h = img_w * 669 / 1200  # maintain aspect ratio
+    story.append(RLImage(IMG_COVER_SPIRAL, width=img_w, height=img_h, hAlign="CENTER"))
+    story.append(spacer(0.3))
+else:
+    story.append(spacer(1.2))
+
 if os.path.exists(LOGO_PATH):
-    story.append(RLImage(LOGO_PATH, width=1.4*inch, height=1.4*inch, hAlign="CENTER"))
-    story.append(spacer(0.4))
+    story.append(RLImage(LOGO_PATH, width=1.1*inch, height=1.1*inch, hAlign="CENTER"))
+    story.append(spacer(0.25))
 
 story.append(accent_bar_center(60))
-story.append(spacer(0.2))
-story.append(Paragraph("One Skill From Our Pipeline.<br/>Yours Free.", s_display))
 story.append(spacer(0.15))
+story.append(Paragraph("One Skill From Our Pipeline.<br/>Yours Free.", s_display))
+story.append(spacer(0.12))
 story.append(Paragraph("The Prompt Engineering Toolkit", s_cover_toolkit))
-story.append(spacer(0.35))
+story.append(spacer(0.25))
 story.append(Paragraph("A practical guide for agencies and creative teams.", s_cover_sub))
-story.append(spacer(0.08))
+story.append(spacer(0.06))
 story.append(Paragraph("6 AI Models  \u00b7  Film Stocks & Lenses  \u00b7  Anti-AI Realism", s_cover_sub))
-story.append(spacer(2.0))
+story.append(spacer(0.8))
 story.append(accent_bar_center(30))
-story.append(spacer(0.1))
+story.append(spacer(0.08))
 story.append(Paragraph("inspiredcreativegroupinc.com", ParagraphStyle(
     "CoverURL", parent=s_center, fontName="Helvetica-Bold", fontSize=9.5, textColor=RED,
 )))
@@ -465,6 +479,18 @@ story.append(spacer(0.05))
 story.append(Paragraph("Camera & Photography Intelligence", s_h1))
 story.append(accent_bar())
 story.append(spacer(0.15))
+
+# Macro lens image — sets the photography mood
+if os.path.exists(IMG_MACRO_LENS):
+    img_w = CONTENT_W * 0.75
+    img_h = img_w * 669 / 1200
+    story.append(RLImage(IMG_MACRO_LENS, width=img_w, height=img_h, hAlign="CENTER"))
+    story.append(spacer(0.06))
+    story.append(Paragraph(
+        "100mm macro  \u00b7  Kodak Portra 400  \u00b7  Rembrandt lighting",
+        ParagraphStyle("ImgCaption", parent=s_small, alignment=TA_CENTER, fontSize=8)
+    ))
+    story.append(spacer(0.15))
 
 story.append(Paragraph(
     "This isn\u2019t prompt templates\u200a\u2014\u200ait\u2019s the same photography knowledge professionals "
@@ -836,6 +862,18 @@ story.append(spacer(0.05))
 story.append(Paragraph("5 Techniques That Actually Work", s_h1))
 story.append(accent_bar())
 story.append(spacer(0.15))
+
+# Prism/light image — clean, editorial, matches the white-bg aesthetic
+if os.path.exists(IMG_MACRO_LIGHT):
+    img_w = CONTENT_W * 0.65
+    img_h = img_w * 669 / 1200
+    story.append(RLImage(IMG_MACRO_LIGHT, width=img_w, height=img_h, hAlign="CENTER"))
+    story.append(spacer(0.06))
+    story.append(Paragraph(
+        "Fuji Pro 400H  \u00b7  50mm Summicron  \u00b7  natural window light",
+        ParagraphStyle("ImgCaption2", parent=s_small, alignment=TA_CENTER, fontSize=8)
+    ))
+    story.append(spacer(0.15))
 
 tips = [
     (
