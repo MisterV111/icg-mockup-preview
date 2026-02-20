@@ -38,8 +38,8 @@ MID_GRAY = HexColor("#555555")
 TEXT_SECONDARY = HexColor("#666666")
 LIGHT_GRAY = HexColor("#999999")
 BORDER_GRAY = HexColor("#E0E0E0")
-LIGHT_BG = HexColor("#F7F7F7")
-WARM_BG = HexColor("#FAFAFA")
+LIGHT_BG = HexColor("#F0EDE8")  # Warm light bg (matches #F5F2EF page tint)
+WARM_BG = HexColor("#F5F2EF")  # Page tint color
 PAGE_BG = HexColor("#FFFFFF")
 WHITE = HexColor("#FFFFFF")
 
@@ -166,9 +166,60 @@ def cta_bg(canvas, doc):
     print(f"  [BG] cta_bg called on page {doc.page}")
     _draw_bg_image(canvas, doc, IMG_CTA, overlay_opacity=0.65)
 
+def models_intro_bg(canvas, doc):
+    """Models section intro — warm tint + red top stripe."""
+    canvas.saveState()
+    canvas.setFillColor(HexColor("#F5F2EF"))
+    canvas.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
+    canvas.setFillColor(RED)
+    canvas.rect(0, PAGE_H - 3, PAGE_W, 3, fill=1, stroke=0)
+    canvas.restoreState()
+    _draw_page_number(canvas, doc)
+
+def models_page_bg(canvas, doc):
+    """Model detail pages — warm tint + red top stripe."""
+    canvas.saveState()
+    canvas.setFillColor(HexColor("#F5F2EF"))
+    canvas.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
+    canvas.setFillColor(RED)
+    canvas.rect(0, PAGE_H - 2, PAGE_W, 2, fill=1, stroke=0)
+    canvas.restoreState()
+    _draw_page_number(canvas, doc)
+
+IMG_PAPER = "assets/images/pdf/vintage-paper.jpg"
+
+def paper_bg(canvas, doc):
+    """Vintage photographic paper background for content pages."""
+    if os.path.exists(IMG_PAPER):
+        canvas.saveState()
+        from reportlab.lib.utils import ImageReader
+        try:
+            img = ImageReader(IMG_PAPER)
+            iw, ih = img.getSize()
+            scale = max(PAGE_W / iw, PAGE_H / ih)
+            dw, dh = iw * scale, ih * scale
+            x = (PAGE_W - dw) / 2
+            y = (PAGE_H - dh) / 2
+            canvas.drawImage(IMG_PAPER, x, y, width=dw, height=dh)
+        except Exception as e:
+            print(f"  ⚠️ Paper bg error: {e}")
+        canvas.restoreState()
+
+def _draw_page_number(canvas, doc):
+    """Draw page number at bottom center."""
+    canvas.saveState()
+    canvas.setFont("Helvetica", 7.5)
+    canvas.setFillColor(LIGHT_GRAY)
+    canvas.drawCentredString(PAGE_W / 2, 0.4 * inch, str(doc.page))
+    canvas.restoreState()
+
 def plain_bg(canvas, doc):
-    """Standard white page — no background image."""
-    pass
+    """Warm off-white tinted page — subtle vintage feel."""
+    canvas.saveState()
+    canvas.setFillColor(HexColor("#F5F2EF"))
+    canvas.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
+    canvas.restoreState()
+    _draw_page_number(canvas, doc)
 
 # ── Document Setup (BaseDocTemplate for per-page backgrounds) ──
 main_frame = Frame(MARGIN_L, MARGIN_B, CONTENT_W, PAGE_H - MARGIN_T - MARGIN_B, id='main')
@@ -181,6 +232,9 @@ doc = BaseDocTemplate(
         PageTemplate(id='photo_section', frames=[main_frame], onPage=photo_section_bg),
         PageTemplate(id='techniques', frames=[main_frame], onPage=techniques_bg),
         PageTemplate(id='cta', frames=[main_frame], onPage=cta_bg),
+        PageTemplate(id='models_intro', frames=[main_frame], onPage=models_intro_bg),
+        PageTemplate(id='models_page', frames=[main_frame], onPage=models_page_bg),
+        PageTemplate(id='paper', frames=[main_frame], onPage=paper_bg),
         PageTemplate(id='plain', frames=[main_frame], onPage=plain_bg),
     ],
 )
@@ -438,26 +492,29 @@ story = []
 # PAGE 1: COVER (full-page nautilus spiral background)
 # ═══════════════════════════════════════
 # Template is already 'cover' (first template = default)
+# Editorial left-aligned cover — matches section opener system
 story.append(spacer(1.8))
 
 if os.path.exists(LOGO_PATH):
-    story.append(RLImage(LOGO_PATH, width=1.2*inch, height=1.2*inch, hAlign="CENTER"))
-    story.append(spacer(0.35))
+    story.append(RLImage(LOGO_PATH, width=1.0*inch, height=1.0*inch, hAlign="LEFT"))
+    story.append(spacer(0.3))
 
-story.append(AccentBarCentered(bar_width=60, color=RED))
+story.append(Paragraph("One Skill From<br/>Our Pipeline.<br/>Yours Free.", s_display_light_left))
 story.append(spacer(0.2))
-story.append(Paragraph("One Skill From Our Pipeline.<br/>Yours Free.", s_display_light))
-story.append(spacer(0.15))
-story.append(Paragraph("The Prompt Engineering Toolkit", s_cover_toolkit_light))
-story.append(spacer(0.35))
-story.append(Paragraph("A practical guide for agencies and creative teams.", s_cover_sub_light))
-story.append(spacer(0.08))
-story.append(Paragraph("6 AI Models  \u00b7  Film Stocks & Lenses  \u00b7  Anti-AI Realism", s_cover_sub_light))
-story.append(spacer(2.5))
-story.append(AccentBarCentered(bar_width=30, color=RED))
-story.append(spacer(0.1))
+story.append(Paragraph("The Prompt Engineering Toolkit", ParagraphStyle(
+    "CoverToolkitLeft", parent=s_label_light_left, fontSize=11, leading=14,
+)))
+story.append(spacer(0.4))
+story.append(Paragraph(
+    "A practical guide for agencies and creative teams.", s_body_light_left
+))
+story.append(spacer(0.06))
+story.append(Paragraph(
+    "6 AI Models  \u00b7  Film Stocks & Lenses  \u00b7  Anti-AI Realism", s_small_light_left
+))
+story.append(spacer(3.0))
 story.append(Paragraph("inspiredcreativegroupinc.com", ParagraphStyle(
-    "CoverURL", parent=s_center, fontName="Helvetica-Bold", fontSize=9.5, textColor=RED,
+    "CoverURL", parent=s_body_light_left, fontName="Helvetica-Bold", fontSize=9, textColor=RED,
 )))
 story.append(NextPageTemplate('plain'))
 story.append(PageBreak())
@@ -733,11 +790,12 @@ story.append(Paragraph(
     "and community validation. Not guesswork.", s_tip
 ))
 
-story.append(PageBreak())
-
 # ═══════════════════════════════════════
 # PAGES 4–9: THE 6 MODELS
 # ═══════════════════════════════════════
+story.append(NextPageTemplate('models_intro'))
+story.append(PageBreak())
+
 story.append(section_label("THE MODELS"))
 story.append(spacer(0.05))
 story.append(Paragraph("6 Models, Explained", s_h1))
@@ -795,6 +853,7 @@ story.extend(model_section(
     pro_tip="Write prompts like you\u2019re describing the image to a colleague\u200a\u2014\u200aconversational language outperforms keyword stacking with this model. Use the \u20184K\u2019 resolution tier for anything going to print.",
 ))
 
+story.append(NextPageTemplate('models_page'))
 story.append(PageBreak())
 
 # ── Model 3: Recraft V4 ──
@@ -901,6 +960,7 @@ story.extend(model_section(
     pro_tip="Focus on mood and aesthetics rather than technical details. Perfect for quick mood boards before committing to a detailed generation with Flux 2 or Ideogram.",
 ))
 
+story.append(NextPageTemplate('plain'))
 story.append(PageBreak())
 
 # ═══════════════════════════════════════
@@ -1098,17 +1158,21 @@ platforms = [
         None,
     ),
 ]
-for title, desc, link in platforms:
+for i, (title, desc, link) in enumerate(platforms, 1):
     block = []
-    block.append(Paragraph(f"<b>{title}</b>", s_body_bold))
-    block.append(Paragraph(desc, s_body))
+    block.append(Paragraph(
+        f'<font color="{RED.hexval()}" size="13"><b>{i}</b></font>  '
+        f'<font size="11"><b>{title}</b></font>', s_body
+    ))
+    block.append(spacer(0.03))
+    block.append(Paragraph(desc, ParagraphStyle("PlatformDesc", parent=s_body, leftIndent=20)))
     if link:
         block.append(Paragraph(
             f'<font color="{RED.hexval()}">\u2192</font>  '
-            f'<font color="{TEXT_SECONDARY.hexval()}" size="9">Setup guide: {link}</font>',
-            ParagraphStyle("LinkLine", parent=s_body, fontSize=9, spaceAfter=4, leftIndent=4)
+            f'<font color="{TEXT_SECONDARY.hexval()}" size="8.5">{link}</font>',
+            ParagraphStyle("LinkLine", parent=s_body, fontSize=8.5, spaceAfter=4, leftIndent=20)
         ))
-    block.append(spacer(0.08))
+    block.append(spacer(0.06))
     story.append(KeepTogether(block))
 
 story.append(spacer(0.1))
