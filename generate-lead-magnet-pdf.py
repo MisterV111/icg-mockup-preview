@@ -16,7 +16,8 @@ from reportlab.lib.units import inch, mm
 from reportlab.lib.colors import HexColor, white, black, Color
 from reportlab.platypus import (
     SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle,
-    PageBreak, KeepTogether, Image as RLImage, Flowable
+    PageBreak, KeepTogether, Image as RLImage, Flowable,
+    BaseDocTemplate, Frame, PageTemplate, NextPageTemplate
 )
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
@@ -46,9 +47,10 @@ OUTPUT_PATH = "assets/downloads/prompt-engineering-toolkit-2026.pdf"
 LOGO_PATH = "images/logo.png"
 
 # PDF imagery — macro close-ups, integrated into design
-IMG_COVER_SPIRAL = "assets/images/pdf/cover-spiral.jpg"
-IMG_MACRO_LENS = "assets/images/pdf/macro-lens.jpg"
-IMG_MACRO_LIGHT = "assets/images/pdf/macro-light.jpg"
+IMG_COVER_SPIRAL = "assets/images/pdf/cover-1920s-factory-v2.jpg"
+IMG_MACRO_LENS = "assets/images/pdf/camera-1910s-boxcamera.jpg"
+IMG_MACRO_LIGHT = "assets/images/pdf/techniques-1960s-darkroom-v2.jpg"
+IMG_CTA = "assets/images/pdf/cta-1940s-lighttable-v2.jpg"
 
 os.makedirs("assets/downloads", exist_ok=True)
 
@@ -119,14 +121,68 @@ class ModelCard(Flowable):
     # ModelCard is complex — we'll use simpler approach with tables instead
 
 
-# ── Document Setup ──
-doc = SimpleDocTemplate(
+# ── Full-Page Background Image Drawers ──
+def _draw_bg_image(canvas, doc, img_path, overlay_opacity=0.55, gradient=False):
+    """Draw a full-page background image (fill & crop) with dark overlay for text readability.
+    If gradient=True, overlay is darker in top half (where text sits) and lighter in bottom."""
+    if os.path.exists(img_path):
+        canvas.saveState()
+        from reportlab.lib.utils import ImageReader
+        try:
+            img = ImageReader(img_path)
+            iw, ih = img.getSize()
+            scale = max(PAGE_W / iw, PAGE_H / ih)
+            dw, dh = iw * scale, ih * scale
+            x = (PAGE_W - dw) / 2
+            y = (PAGE_H - dh) / 2
+            canvas.drawImage(img_path, x, y, width=dw, height=dh)
+            if gradient:
+                # Uniform overlay — clean, no banding artifacts
+                # Slightly lighter than non-gradient to let images breathe
+                canvas.setFillColor(Color(0, 0, 0, overlay_opacity))
+                canvas.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
+            else:
+                canvas.setFillColor(Color(0, 0, 0, overlay_opacity))
+                canvas.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
+        except Exception as e:
+            print(f"  ⚠️ Background image error for {img_path}: {e}")
+        canvas.restoreState()
+    else:
+        print(f"  ⚠️ Background image not found: {img_path}")
+
+def cover_page_bg(canvas, doc):
+    print(f"  [BG] cover_page_bg called on page {doc.page}")
+    _draw_bg_image(canvas, doc, IMG_COVER_SPIRAL, overlay_opacity=0.65)
+
+def photo_section_bg(canvas, doc):
+    print(f"  [BG] photo_section_bg called on page {doc.page}")
+    _draw_bg_image(canvas, doc, IMG_MACRO_LENS, overlay_opacity=0.55, gradient=True)
+
+def techniques_bg(canvas, doc):
+    print(f"  [BG] techniques_bg called on page {doc.page}")
+    _draw_bg_image(canvas, doc, IMG_MACRO_LIGHT, overlay_opacity=0.55, gradient=True)
+
+def cta_bg(canvas, doc):
+    print(f"  [BG] cta_bg called on page {doc.page}")
+    _draw_bg_image(canvas, doc, IMG_CTA, overlay_opacity=0.65)
+
+def plain_bg(canvas, doc):
+    """Standard white page — no background image."""
+    pass
+
+# ── Document Setup (BaseDocTemplate for per-page backgrounds) ──
+main_frame = Frame(MARGIN_L, MARGIN_B, CONTENT_W, PAGE_H - MARGIN_T - MARGIN_B, id='main')
+
+doc = BaseDocTemplate(
     OUTPUT_PATH,
     pagesize=letter,
-    topMargin=MARGIN_T,
-    bottomMargin=MARGIN_B,
-    leftMargin=MARGIN_L,
-    rightMargin=MARGIN_R,
+    pageTemplates=[
+        PageTemplate(id='cover', frames=[main_frame], onPage=cover_page_bg),
+        PageTemplate(id='photo_section', frames=[main_frame], onPage=photo_section_bg),
+        PageTemplate(id='techniques', frames=[main_frame], onPage=techniques_bg),
+        PageTemplate(id='cta', frames=[main_frame], onPage=cta_bg),
+        PageTemplate(id='plain', frames=[main_frame], onPage=plain_bg),
+    ],
 )
 
 # ── Typography System ──
@@ -230,6 +286,55 @@ s_tip = ParagraphStyle(
     spaceBefore=6, spaceAfter=8,
 )
 
+# ── Light-on-dark styles for photo background pages ──
+s_display_light = ParagraphStyle(
+    "DisplayLight", parent=s_display, textColor=WHITE,
+)
+s_h1_light = ParagraphStyle(
+    "H1Light", parent=s_h1, textColor=WHITE,
+)
+s_body_light = ParagraphStyle(
+    "BodyLight", parent=s_body, textColor=Color(1, 1, 1, 0.85),
+)
+s_center_light = ParagraphStyle(
+    "CenterLight", parent=s_center, textColor=Color(1, 1, 1, 0.85),
+)
+s_center_bold_light = ParagraphStyle(
+    "CenterBoldLight", parent=s_center_bold, textColor=WHITE,
+)
+s_cover_sub_light = ParagraphStyle(
+    "CoverSubLight", parent=s_cover_sub, textColor=Color(1, 1, 1, 0.75),
+)
+s_cover_toolkit_light = ParagraphStyle(
+    "CoverToolkitLight", parent=s_cover_toolkit, textColor=RED,
+)
+s_label_light = ParagraphStyle(
+    "LabelLight", parent=s_label, textColor=RED,
+)
+s_small_light = ParagraphStyle(
+    "SmallLight", parent=s_small, textColor=Color(1, 1, 1, 0.65), fontSize=9.5, leading=14,
+)
+
+# Left-aligned styles for editorial section openers
+s_label_light_left = ParagraphStyle(
+    "LabelLightLeft", parent=s_label, textColor=RED, alignment=TA_LEFT,
+)
+s_display_light_left = ParagraphStyle(
+    "DisplayLightLeft", parent=s_display, textColor=WHITE, alignment=TA_LEFT,
+)
+s_body_light_left = ParagraphStyle(
+    "BodyLightLeft", parent=s_body, textColor=Color(1, 1, 1, 0.85), alignment=TA_LEFT,
+)
+s_small_light_left = ParagraphStyle(
+    "SmallLightLeft", parent=s_small, textColor=Color(1, 1, 1, 0.65), fontSize=9.5, leading=14, alignment=TA_LEFT,
+)
+s_bullet_light = ParagraphStyle(
+    "BulletLight", parent=s_bullet, textColor=Color(1, 1, 1, 0.85),
+)
+s_h3_light = ParagraphStyle(
+    "H3Light", parent=s_h3, textColor=Color(1, 1, 1, 0.9),
+)
+
 # ── Helpers ──
 def spacer(h=0.2):
     return Spacer(1, h * inch)
@@ -330,37 +435,31 @@ def model_section(num, name, maker, best_for, strengths, copy_paste, api_provide
 story = []
 
 # ═══════════════════════════════════════
-# PAGE 1: COVER
+# PAGE 1: COVER (full-page nautilus spiral background)
 # ═══════════════════════════════════════
-# Cover image — nautilus spiral, full width, anchors the page
-if os.path.exists(IMG_COVER_SPIRAL):
-    # Full-bleed-ish image at top (spans content width)
-    img_w = CONTENT_W
-    img_h = img_w * 669 / 1200  # maintain aspect ratio
-    story.append(RLImage(IMG_COVER_SPIRAL, width=img_w, height=img_h, hAlign="CENTER"))
-    story.append(spacer(0.3))
-else:
-    story.append(spacer(1.2))
+# Template is already 'cover' (first template = default)
+story.append(spacer(1.8))
 
 if os.path.exists(LOGO_PATH):
-    story.append(RLImage(LOGO_PATH, width=1.1*inch, height=1.1*inch, hAlign="CENTER"))
-    story.append(spacer(0.25))
+    story.append(RLImage(LOGO_PATH, width=1.2*inch, height=1.2*inch, hAlign="CENTER"))
+    story.append(spacer(0.35))
 
-story.append(accent_bar_center(60))
+story.append(AccentBarCentered(bar_width=60, color=RED))
+story.append(spacer(0.2))
+story.append(Paragraph("One Skill From Our Pipeline.<br/>Yours Free.", s_display_light))
 story.append(spacer(0.15))
-story.append(Paragraph("One Skill From Our Pipeline.<br/>Yours Free.", s_display))
-story.append(spacer(0.12))
-story.append(Paragraph("The Prompt Engineering Toolkit", s_cover_toolkit))
-story.append(spacer(0.25))
-story.append(Paragraph("A practical guide for agencies and creative teams.", s_cover_sub))
-story.append(spacer(0.06))
-story.append(Paragraph("6 AI Models  \u00b7  Film Stocks & Lenses  \u00b7  Anti-AI Realism", s_cover_sub))
-story.append(spacer(0.8))
-story.append(accent_bar_center(30))
+story.append(Paragraph("The Prompt Engineering Toolkit", s_cover_toolkit_light))
+story.append(spacer(0.35))
+story.append(Paragraph("A practical guide for agencies and creative teams.", s_cover_sub_light))
 story.append(spacer(0.08))
+story.append(Paragraph("6 AI Models  \u00b7  Film Stocks & Lenses  \u00b7  Anti-AI Realism", s_cover_sub_light))
+story.append(spacer(2.5))
+story.append(AccentBarCentered(bar_width=30, color=RED))
+story.append(spacer(0.1))
 story.append(Paragraph("inspiredcreativegroupinc.com", ParagraphStyle(
     "CoverURL", parent=s_center, fontName="Helvetica-Bold", fontSize=9.5, textColor=RED,
 )))
+story.append(NextPageTemplate('plain'))
 story.append(PageBreak())
 
 # ═══════════════════════════════════════
@@ -474,27 +573,40 @@ story.append(PageBreak())
 # ═══════════════════════════════════════
 # CAMERA & PHOTOGRAPHY INTELLIGENCE
 # ═══════════════════════════════════════
-story.append(section_label("THE HEADLINE FEATURE"))
+# Switch to photo background for section opener
+story.append(NextPageTemplate('photo_section'))
+story.append(PageBreak())
+
+# ── Photo section title page (full-page vintage background, editorial left-align) ──
+story.append(spacer(2.5))
+story.append(Paragraph("THE HEADLINE FEATURE", s_label_light_left))
+story.append(spacer(0.08))
+story.append(Paragraph("Camera &<br/>Photography<br/>Intelligence", ParagraphStyle(
+    "PhotoH1", parent=s_display_light_left, fontSize=36, leading=42,
+)))
+story.append(spacer(0.35))
+story.append(Paragraph(
+    "The same photography knowledge professionals spend<br/>"
+    "years learning, mapped to 6 AI image models<br/>"
+    "through empirical testing.", s_body_light_left
+))
+story.append(spacer(0.15))
+story.append(Paragraph(
+    "100mm macro  \u00b7  Kodak Portra 400  \u00b7  Rembrandt lighting", s_small_light_left
+))
+story.append(NextPageTemplate('plain'))
+story.append(PageBreak())
+
+# ── Content continues on white pages ──
+story.append(section_label("CAMERA & PHOTOGRAPHY INTELLIGENCE"))
 story.append(spacer(0.05))
-story.append(Paragraph("Camera & Photography Intelligence", s_h1))
+story.append(Paragraph("The Photography Knowledge Base", s_h1))
 story.append(accent_bar())
 story.append(spacer(0.15))
 
-# Macro lens image — sets the photography mood
-if os.path.exists(IMG_MACRO_LENS):
-    img_w = CONTENT_W * 0.75
-    img_h = img_w * 669 / 1200
-    story.append(RLImage(IMG_MACRO_LENS, width=img_w, height=img_h, hAlign="CENTER"))
-    story.append(spacer(0.06))
-    story.append(Paragraph(
-        "100mm macro  \u00b7  Kodak Portra 400  \u00b7  Rembrandt lighting",
-        ParagraphStyle("ImgCaption", parent=s_small, alignment=TA_CENTER, fontSize=8)
-    ))
-    story.append(spacer(0.15))
-
 story.append(Paragraph(
-    "This isn\u2019t prompt templates\u200a\u2014\u200ait\u2019s the same photography knowledge professionals "
-    "spend years learning, mapped to 6 AI image models through empirical testing.", s_body
+    "This isn\u2019t prompt templates\u200a\u2014\u200ait\u2019s real photography knowledge "
+    "mapped to 6 AI image models through empirical testing.", s_body
 ))
 story.append(spacer(0.12))
 
@@ -857,23 +969,30 @@ story.append(PageBreak())
 # ═══════════════════════════════════════
 # 5 PROMPT TIPS
 # ═══════════════════════════════════════
+# Switch to prism background for section opener
+story.append(NextPageTemplate('techniques'))
+story.append(PageBreak())
+
+# ── Techniques title page (full-page darkroom background, editorial left-align) ──
+story.append(spacer(2.5))
+story.append(Paragraph("TECHNIQUES", s_label_light_left))
+story.append(spacer(0.08))
+story.append(Paragraph("5 Techniques<br/>That Actually Work", ParagraphStyle(
+    "TechH1", parent=s_display_light_left, fontSize=36, leading=42,
+)))
+story.append(spacer(0.35))
+story.append(Paragraph(
+    "Fuji Pro 400H  \u00b7  50mm Summicron  \u00b7  natural window light", s_small_light_left
+))
+story.append(NextPageTemplate('plain'))
+story.append(PageBreak())
+
+# ── Content on white page ──
 story.append(section_label("TECHNIQUES"))
 story.append(spacer(0.05))
 story.append(Paragraph("5 Techniques That Actually Work", s_h1))
 story.append(accent_bar())
 story.append(spacer(0.15))
-
-# Prism/light image — clean, editorial, matches the white-bg aesthetic
-if os.path.exists(IMG_MACRO_LIGHT):
-    img_w = CONTENT_W * 0.65
-    img_h = img_w * 669 / 1200
-    story.append(RLImage(IMG_MACRO_LIGHT, width=img_w, height=img_h, hAlign="CENTER"))
-    story.append(spacer(0.06))
-    story.append(Paragraph(
-        "Fuji Pro 400H  \u00b7  50mm Summicron  \u00b7  natural window light",
-        ParagraphStyle("ImgCaption2", parent=s_small, alignment=TA_CENTER, fontSize=8)
-    ))
-    story.append(spacer(0.15))
 
 tips = [
     (
@@ -1005,42 +1124,48 @@ story.append(Paragraph(
 story.append(PageBreak())
 
 # ═══════════════════════════════════════
-# CTA PAGE
+# CTA PAGE (full-page 1940s light table background)
 # ═══════════════════════════════════════
-story.append(spacer(1.5))
-story.append(accent_bar_center(60))
+story.append(NextPageTemplate('cta'))
+story.append(PageBreak())
+
+story.append(spacer(2.0))
+story.append(AccentBarCentered(bar_width=60, color=RED))
 story.append(spacer(0.25))
 story.append(Paragraph(
     "Ready to See AI-Powered<br/>Production at Scale?",
-    ParagraphStyle("CTATitle", parent=s_display, fontSize=28, leading=34)
+    ParagraphStyle("CTATitle", parent=s_display_light, fontSize=28, leading=34)
 ))
 story.append(spacer(0.3))
 story.append(Paragraph(
     "This toolkit is one piece of a 40+ agent system we built for creative "
     "production\u200a\u2014\u200avideo, music, design, and strategy, all working together. "
     "The same photography knowledge that took professionals years to learn, "
-    "mapped to 6 AI models.", s_center
+    "mapped to 6 AI models.", ParagraphStyle(
+        "CTABody", parent=s_center_light,
+        leftIndent=0.6*inch, rightIndent=0.6*inch,
+    )
 ))
 story.append(spacer(0.08))
 story.append(Paragraph(
-    "We don\u2019t compete with your agency\u200a\u2014\u200awe complete it.", s_center_bold
+    "We don\u2019t compete with your agency\u200a\u2014\u200awe complete it.", s_center_bold_light
 ))
 story.append(spacer(0.5))
 story.append(Paragraph(
-    f'<font color="{RED.hexval()}"><b>Schedule a Discovery Call \u2192</b></font>', s_center
+    f'<font color="{RED.hexval()}"><b>Schedule a Discovery Call \u2192</b></font>', s_center_light
 ))
 story.append(spacer(0.06))
-story.append(Paragraph("inspiredcreativegroupinc.com/partners", s_center))
-story.append(spacer(2.5))
-story.append(divider())
-story.append(spacer(0.08))
+story.append(Paragraph("inspiredcreativegroupinc.com/partners", ParagraphStyle(
+    "CTAUrl", parent=s_center, textColor=Color(1, 1, 1, 0.6),
+)))
+story.append(spacer(3.0))
 story.append(Paragraph(
     "\u00a9 2026 Inspired Creative Group Inc.  \u00b7  All rights reserved.",
-    s_footer
+    ParagraphStyle("FooterLight", parent=s_footer, textColor=Color(1, 1, 1, 0.35)),
 ))
 story.append(Paragraph(
     "Halifax, Nova Scotia  \u00b7  Toronto, Ontario  \u00b7  Bogot\u00e1, Colombia",
-    s_footer
+    ParagraphStyle("FooterLight2", parent=s_footer, textColor=Color(1, 1, 1, 0.35)),
 ))
 
 # ═══ BUILD ═══
