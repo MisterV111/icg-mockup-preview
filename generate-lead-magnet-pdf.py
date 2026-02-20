@@ -334,7 +334,7 @@ if os.path.exists(LOGO_PATH):
 
 story.append(accent_bar_center(60))
 story.append(spacer(0.2))
-story.append(Paragraph("Make AI Images Look Like<br/>Real Photography", s_display))
+story.append(Paragraph("One Skill From Our Pipeline.<br/>Yours Free.", s_display))
 story.append(spacer(0.15))
 story.append(Paragraph("The Prompt Engineering Toolkit", s_cover_toolkit))
 story.append(spacer(0.35))
