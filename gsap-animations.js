@@ -257,7 +257,29 @@
 
 
     // ═══════════════════════════════════════════════════════════
-    // THREE PILLARS — scale + bounce in
+    // STAKES CARDS — batch reveal
+    // ═══════════════════════════════════════════════════════════
+    gsap.utils.toArray('.stakes-card.gsap-animate').forEach(function(card, i) {
+        gsap.from(card, {
+            scrollTrigger: { trigger: card, start: 'top 88%' },
+            autoAlpha: 0, y: 60, scale: 0.9,
+            duration: 0.9, delay: i * 0.15, ease: EASE, immediateRender: IR
+        });
+    });
+
+    // VALUE PROPOSITION — scale + bounce (same pattern as pillars)
+    // ═══════════════════════════════════════════════════════════
+    gsap.utils.toArray('.value-prop-card.gsap-animate').forEach(function(card, i) {
+        gsap.from(card, {
+            scrollTrigger: { trigger: card, start: 'top 88%' },
+            autoAlpha: 0, y: 80, scale: 0.85,
+            rotation: i === 0 ? -3 : i === 2 ? 3 : 0,
+            duration: 1, delay: i * 0.25, ease: 'back.out(1.2)', immediateRender: IR
+        });
+    });
+
+
+    // THREE PILLARS — scale + bounce in (legacy)
     // ═══════════════════════════════════════════════════════════
     var pillarsIntro = document.querySelector('.pillars-intro.gsap-animate');
     if (pillarsIntro) {

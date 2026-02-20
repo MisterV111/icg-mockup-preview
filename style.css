@@ -687,7 +687,113 @@ ul {
 
 
 /* ═══════════════════════════════════════════════════════════════
-   THREE PILLARS
+   STAKES (Cost of Inaction)
+   ═══════════════════════════════════════════════════════════════ */
+.stakes-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+}
+
+.stakes-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: var(--space-2xl) var(--space-lg);
+    position: relative;
+}
+
+.stakes-card-num {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-red);
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: var(--space-sm);
+}
+
+.stakes-card-title {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: var(--space-sm);
+}
+
+.stakes-card p {
+    font-size: 0.95rem;
+    color: var(--color-gray-400);
+    line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   VALUE PROPOSITION (Customer Outcomes)
+   ═══════════════════════════════════════════════════════════════ */
+.value-prop-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+}
+
+.value-prop-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: var(--space-2xl) var(--space-lg);
+    position: relative;
+    transition: border-color 0.4s ease, transform 0.3s ease;
+}
+
+.value-prop-card:hover {
+    border-color: var(--color-border-light);
+    transform: translateY(-4px);
+}
+
+.value-prop-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-red), transparent);
+    border-radius: 8px 8px 0 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.value-prop-card:hover::before {
+    opacity: 1;
+}
+
+.value-prop-icon {
+    color: var(--color-red);
+    margin-bottom: var(--space-md);
+}
+
+.value-prop-title {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: var(--space-sm);
+}
+
+.value-prop-desc {
+    font-size: 0.95rem;
+    color: var(--color-gray-400);
+    line-height: 1.7;
+}
+
+.value-prop-cta {
+    text-align: center;
+    margin-top: var(--space-2xl);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   THREE PILLARS (legacy — kept for reference)
    ═══════════════════════════════════════════════════════════════ */
 .pillars-grid {
     display: grid;
@@ -2250,7 +2356,9 @@ a.work-card {
 
 /* Tablet */
 @media (max-width: 1024px) {
-    .pillars-grid {
+    .pillars-grid,
+    .stakes-cards,
+    .value-prop-grid {
         grid-template-columns: 1fr;
         gap: var(--space-md);
     }
