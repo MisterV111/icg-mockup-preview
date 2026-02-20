@@ -666,8 +666,13 @@ ul {
    ═══════════════════════════════════════════════════════════════ */
 .value-prop {
     padding: var(--space-3xl) 0;
+    background: var(--color-surface);
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
+}
+
+.value-prop .value-prop-card {
+    background: var(--color-dark);
 }
 
 .value-prop-content {
@@ -707,6 +712,11 @@ ul {
     border-radius: 8px;
     padding: var(--space-xl) var(--space-lg);
     position: relative;
+    border-top: 3px solid var(--color-red);
+}
+
+.stakes-card-icon {
+    margin-bottom: var(--space-md);
 }
 
 .stakes-card-num {
@@ -2173,7 +2183,13 @@ a.work-card {
    THE PLAN
    ═══════════════════════════════════════════════════════════════ */
 .plan {
-    background: var(--color-black);
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.plan .plan-step {
+    background: var(--color-dark);
 }
 
 .plan-steps {
@@ -2196,6 +2212,10 @@ a.work-card {
 .plan-step:hover {
     border-color: var(--color-red);
     transform: translateY(-4px);
+}
+
+.plan-step-icon {
+    margin-bottom: var(--space-sm);
 }
 
 .plan-step-num {
