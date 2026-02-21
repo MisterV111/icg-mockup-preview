@@ -1,0 +1,56 @@
+[
+  {
+    "id": "stakes-1890s",
+    "section": "Stakes",
+    "era": "1890s-1910s",
+    "title": "The Weight of Creation",
+    "flux2_prompt": {
+      "positive": "Authentic 1890s tintype photograph of a lone photographer hunched over a large format wooden camera on a heavy tripod in a cramped dimly lit photography studio. Glass plate negatives scattered on a wooden workbench beside chemical developing trays. A single gas lamp mounted on the wall casts dramatic warm side-lighting from the upper center, creating deep pools of shadow that fill the edges of the frame. The photographer's face is hidden beneath the camera's dark cloth. Victorian-era clothing, leather apron. The entire scene is concentrated in the center of the frame, surrounded by deep atmospheric darkness at all edges. Heavy photographic grain, sepia-toned, foxing spots and water stains on the print surface, narrow tonal range from chemical fading, yellowed emulsion, slight vignetting at corners, uneven chemical development marks. Shot on wet collodion process glass plate negative, scanned with visible dust and scratches.",
+      "negative": "modern elements, digital artifacts, clean pristine print, bright even lighting, visible face details, color photography, sharp modern lens quality, AI-looking skin, contemporary clothing"
+    },
+    "nano_banana_prompt": "An authentic 1890s photograph of a lone photographer hunched over a large format wooden camera in a cramped, dimly lit studio. Glass plates on a workbench. Single gas lamp casting dramatic warm light from center-top. Face hidden under camera cloth. Victorian clothing. Scene concentrated in center of frame, surrounded by deep shadow at all edges. Heavy grain, sepia tone, foxing spots, water stains, yellowed emulsion, narrow tonal range, chemical development marks.",
+    "composition_notes": "Safe zone: photographer + camera + lamp + workbench all in center 50%. Outer edges = pure shadow and wall texture. Reads at 3.2:1 (desktop) and 1:3 (mobile) crops from center.",
+    "specs": {
+      "resolution": "2560x1440",
+      "aspect_ratio": "16:9",
+      "model_primary": "flux-2-flex",
+      "model_comparison": "nano-banana-pro"
+    }
+  },
+  {
+    "id": "valueprop-1920s",
+    "section": "Value Prop",
+    "era": "1920s-1930s",
+    "title": "The First Crew",
+    "flux2_prompt": {
+      "positive": "Authentic 1920s gelatin silver print photograph of a silent film set, shot from behind the camera crew looking toward a brightly lit stage. A director seated in a canvas chair center-left, gesturing toward actors on a small elevated stage. Camera operator at a hand-cranked motion picture camera on a heavy wooden tripod center-right. A single powerful arc lamp above creates a cone of bright light on the stage area in the center of the frame, with the surrounding studio falling into deep darkness. 5-6 crew members visible as dark silhouettes against the bright stage light. Rigging and wooden lighting frames visible overhead. All key figures clustered in the center of the composition, edges dissolve into atmospheric studio darkness and shadow. Fine photographic grain, gelatin silver print texture, chemical development marks along print edges, slightly uneven tonal exposure, period-accurate 1920s clothing and equipment. Scanned vintage print with edge wear and handling marks.",
+      "negative": "modern film equipment, digital cameras, LED lights, color photography, visible detailed faces, clean pristine print, bright even lighting throughout, contemporary clothing, AI-generated appearance"
+    },
+    "nano_banana_prompt": "An authentic 1920s gelatin silver photograph shot from behind a silent film crew looking toward a brightly lit stage. Director in canvas chair center-left gesturing. Camera operator at hand-cranked camera center-right. Bright arc lamp illuminates the center stage area while surrounding studio falls into deep darkness. 5-6 crew as silhouettes against the light. All figures clustered in center of frame, edges dissolve into shadow. Fine grain, chemical marks on print edges, uneven exposure, 1920s clothing and equipment, vintage print with edge wear.",
+    "composition_notes": "Safe zone: director + camera + bright stage light all in center 50%. Light source IS in the center (the lit stage), radiating outward into darkness. Outer edges = dark studio walls, rigging shadows. Works at any crop because light always anchors center.",
+    "specs": {
+      "resolution": "2560x1440",
+      "aspect_ratio": "16:9",
+      "model_primary": "flux-2-flex",
+      "model_comparison": "nano-banana-pro"
+    }
+  },
+  {
+    "id": "plan-1940s",
+    "section": "Plan",
+    "era": "1940s",
+    "title": "Signal and Sound",
+    "flux2_prompt": {
+      "positive": "Authentic 1940s black and white photograph of a wartime radio broadcasting control room. An audio engineer seated at a large analog mixing console in the center of the frame, viewed from behind at a slight elevated angle. The console features rows of bakelite knobs, analog VU meters with glowing needles, patch bays with neatly routed cables. The engineer wears headphones around his neck, leaning forward with focused concentration. A warm overhead lamp creates a pool of light on the console surface and the engineer's hands in the center of the frame. The glowing VU meters create small scattered points of warm light across the center. Above and around the console, the room falls into deep shadow — dark walls, equipment racks barely visible, acoustic treatment panels. All visual interest concentrated in the center 50% of the composition, surrounded by atmospheric darkness. Faded black and white photograph, slightly yellowed with age, fingerprint smudges near corners, subtle chemical stains on print surface, period-accurate 1940s equipment and clothing, fine grain structure of wartime-era photographic paper.",
+      "negative": "modern audio equipment, digital displays, LED lights, color photography, visible detailed face, clean pristine print, bright even studio lighting, contemporary clothing, computer screens, AI-generated appearance"
+    },
+    "nano_banana_prompt": "An authentic 1940s black and white photograph of a wartime radio control room. Audio engineer seated at a large analog mixing console, viewed from behind at a slight angle. Console with bakelite knobs, glowing VU meters, patch cables neatly routed. Headphones around neck, focused posture. Warm overhead lamp pools light on console surface in center of frame. VU meters glow as warm light points. Room falls into deep shadow above and around the console. All visual interest in center 50%, surrounded by atmospheric darkness. Faded B&W, slightly yellowed, fingerprint smudges, chemical stains, 1940s equipment, fine wartime-era grain.",
+    "composition_notes": "Safe zone: engineer + console + overhead lamp all in center 50%. VU meter glows create recognizable texture even at 15% brightness. Outer edges = dark walls and equipment racks fading to black. On desktop, console's horizontal spread is visible. On mobile, engineer's posture and vertical equipment racks above are visible. Both work.",
+    "specs": {
+      "resolution": "2560x1440",
+      "aspect_ratio": "16:9",
+      "model_primary": "flux-2-flex",
+      "model_comparison": "nano-banana-pro"
+    }
+  }
+]

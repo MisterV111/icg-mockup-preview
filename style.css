@@ -3512,3 +3512,72 @@ a.pillar-card-link {
         width: 100%;
     }
 }
+
+/* ═══════════════════════════════════════ */
+/* VINTAGE SECTION BACKGROUNDS            */
+/* ═══════════════════════════════════════ */
+
+.stakes-section,
+.value-prop,
+.plan {
+    position: relative;
+    overflow: hidden;
+}
+
+.stakes-section::before,
+.value-prop::before,
+.plan::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 0.18;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.stakes-section::before {
+    background-image: url('assets/backgrounds/stakes-bg.jpg');
+}
+
+.value-prop::before {
+    background-image: url('assets/backgrounds/valueprop-bg.jpg');
+    opacity: 0.15;
+}
+
+.plan::before {
+    background-image: url('assets/backgrounds/plan-bg.jpg');
+    opacity: 0.18;
+}
+
+/* Content must sit above the background */
+.stakes-section > .container,
+.value-prop > .container,
+.plan > .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Mobile: swap to smaller images */
+@media (max-width: 768px) {
+    .stakes-section::before {
+        background-image: url('assets/backgrounds/stakes-bg-mobile.jpg');
+    }
+    .value-prop::before {
+        background-image: url('assets/backgrounds/valueprop-bg-mobile.jpg');
+    }
+    .plan::before {
+        background-image: url('assets/backgrounds/plan-bg-mobile.jpg');
+    }
+}
+
+/* Respect reduced motion — remove backgrounds */
+@media (prefers-reduced-motion: reduce) {
+    .stakes-section::before,
+    .value-prop::before,
+    .plan::before {
+        display: none;
+    }
+}
