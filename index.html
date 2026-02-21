@@ -1054,13 +1054,13 @@
     <!-- ═══════════════════════════════════════ -->
     <!-- TESTIMONIALS                             -->
     <!-- ═══════════════════════════════════════ -->
-    <section class="section testimonials">
+    <section class="section testimonials" aria-roledescription="carousel" aria-label="Client testimonials">
         <div class="container">
             <div class="section-header gsap-animate">
                 <span class="section-label">Testimonials</span>
                 <h2 class="section-title">What our clients <span class="text-accent">say.</span></h2>
             </div>
-            <div class="testimonials-grid">
+            <div class="testimonials-grid" aria-live="polite">
                 <div class="testimonial-card testimonial-card--featured gsap-animate">
                     <div class="testimonial-quote">"</div>
                     <p class="testimonial-text">The partnership with Juan, Sandy, and Inspired Creative Group has been one of the most valuable experiences in our business journey. They captured the essence of Nalu Retreat brilliantly and conveyed it to the world so effectively that we landed features in <a href="https://www.vogue.com/article/halifax-nova-scotia-travel-guide" target="_blank" class="testimonial-link">Vogue</a> and were named one of <a href="https://www.newsweek.com/worlds-most-extraordinary-spas-2026-11100600" target="_blank" class="testimonial-link">Newsweek's World's Most Extraordinary Spas 2026</a>.</p>
@@ -1093,6 +1093,12 @@
                         <span class="testimonial-company">Smashing Pictures</span>
                     </div>
                 </div>
+            </div>
+            <div class="testimonial-dots" role="tablist" aria-label="Testimonial navigation">
+                <button class="testimonial-dot active" role="tab" aria-selected="true" aria-label="Show testimonial 1 of 4" data-index="0"></button>
+                <button class="testimonial-dot" role="tab" aria-selected="false" aria-label="Show testimonial 2 of 4" data-index="1"></button>
+                <button class="testimonial-dot" role="tab" aria-selected="false" aria-label="Show testimonial 3 of 4" data-index="2"></button>
+                <button class="testimonial-dot" role="tab" aria-selected="false" aria-label="Show testimonial 4 of 4" data-index="3"></button>
             </div>
             <div class="testimonials-cta gsap-animate-cta">
                 <a href="#contact" class="btn btn-primary">Schedule a Discovery Call →</a>

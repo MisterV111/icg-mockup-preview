@@ -1821,9 +1821,11 @@ a.work-card {
 }
 
 .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-lg);
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
 .testimonial-card {
@@ -1832,7 +1834,15 @@ a.work-card {
     border-radius: 8px;
     background: var(--color-dark);
     transition: border-color 0.3s ease;
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    visibility: hidden;
+}
+
+.testimonial-card.is-active {
+    visibility: visible;
 }
 
 .testimonial-card:hover {
@@ -1884,6 +1894,35 @@ a.work-card {
     font-size: 0.8rem;
     color: var(--color-gray-500);
     line-height: 1.4;
+}
+
+/* Testimonial Carousel Dots */
+.testimonial-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: var(--space-lg);
+}
+
+.testimonial-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid var(--color-border-light);
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.testimonial-dot:hover {
+    border-color: var(--color-gray-400);
+}
+
+.testimonial-dot.active {
+    background: var(--color-red);
+    border-color: var(--color-red);
+    transform: scale(1.3);
 }
 
 /* Footer location */
@@ -2407,7 +2446,7 @@ a.work-card {
     }
     
     .testimonials-grid {
-        grid-template-columns: 1fr;
+        max-width: 100%;
     }
     
     .work-grid-featured {
@@ -3593,13 +3632,22 @@ a.pillar-card-link {
     }
 }
 
-/* Respect reduced motion — remove backgrounds */
+/* Respect reduced motion — remove backgrounds + show all testimonials */
 @media (prefers-reduced-motion: reduce) {
     .stakes-section::before,
     .value-prop::before,
     .plan::before,
     .ai-system-section::before,
     .services::before {
+        display: none;
+    }
+    .testimonial-card {
+        position: relative !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        margin-bottom: var(--space-lg);
+    }
+    .testimonial-dots {
         display: none;
     }
 }

@@ -421,50 +421,219 @@
 
 
     // ═══════════════════════════════════════════════════════════
-    // TESTIMONIALS — stagger with tilt
+    // TESTIMONIALS — crossfade carousel (DESIGN_TRUTH: restraint,
+    // dissolve transition, one focal point, ease-out entrances)
     // ═══════════════════════════════════════════════════════════
-    // Testimonials — batch cascade with layered internal reveal
-    var testimonialCards = gsap.utils.toArray('.testimonial-card.gsap-animate');
-    if (testimonialCards.length) {
-        // Pre-hide cards + internal elements
-        gsap.set(testimonialCards, { autoAlpha: 0, y: 60 });
-        testimonialCards.forEach(function(card) {
+    var testimonialCards = gsap.utils.toArray('.testimonial-card');
+    var testimonialDots = gsap.utils.toArray('.testimonial-dot');
+    var testimonialGrid = document.querySelector('.testimonials-grid');
+
+    if (testimonialCards.length && testimonialGrid) {
+        var currentTestimonial = 0;
+        var autoplayTimer = null;
+        var isAnimating = false;
+        var DWELL_TIME = 6; // seconds per testimonial
+
+        // ── Measure & set container height to tallest card ──
+        function measureHeight() {
+            // Temporarily make all cards relative to measure
+            testimonialCards.forEach(function(card) {
+                card.style.position = 'relative';
+                card.style.visibility = 'visible';
+            });
+            var maxH = 0;
+            testimonialCards.forEach(function(card) {
+                var h = card.offsetHeight;
+                if (h > maxH) maxH = h;
+            });
+            testimonialGrid.style.height = maxH + 'px';
+            // Restore absolute positioning
+            testimonialCards.forEach(function(card) {
+                card.style.position = '';
+                card.style.visibility = '';
+            });
+        }
+        measureHeight();
+        window.addEventListener('resize', measureHeight);
+
+        // ── Initial state: hide all, show first ──
+        testimonialCards.forEach(function(card, i) {
+            gsap.set(card, { autoAlpha: i === 0 ? 1 : 0, y: 0 });
+            if (i === 0) card.classList.add('is-active');
+            // Hide internal elements for cascade reveal
+            if (i !== 0) {
+                gsap.set(card.querySelector('.testimonial-quote'), { autoAlpha: 0, scale: 0.3 });
+                gsap.set(card.querySelector('.testimonial-text'), { autoAlpha: 0, y: 20 });
+                gsap.set(card.querySelector('.testimonial-author'), { autoAlpha: 0, x: -20 });
+            }
+        });
+
+        // ── Cascade reveal for a card's internal elements ──
+        function revealCardInternals(card) {
+            var quote = card.querySelector('.testimonial-quote');
+            var text = card.querySelector('.testimonial-text');
+            var author = card.querySelector('.testimonial-author');
+            gsap.to(quote, { autoAlpha: 1, scale: 1, duration: 0.5, ease: 'back.out(2)', delay: 0.2 });
+            gsap.to(text, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out', delay: 0.35 });
+            gsap.to(author, { autoAlpha: 1, x: 0, duration: 0.5, ease: 'power2.out', delay: 0.5 });
+        }
+
+        // ── Reset internal elements for next reveal ──
+        function resetCardInternals(card) {
             gsap.set(card.querySelector('.testimonial-quote'), { autoAlpha: 0, scale: 0.3 });
             gsap.set(card.querySelector('.testimonial-text'), { autoAlpha: 0, y: 20 });
             gsap.set(card.querySelector('.testimonial-author'), { autoAlpha: 0, x: -20 });
+        }
+
+        // ── Update dot indicators ──
+        function updateDots(index) {
+            testimonialDots.forEach(function(dot, i) {
+                if (i === index) {
+                    dot.classList.add('active');
+                    dot.setAttribute('aria-selected', 'true');
+                } else {
+                    dot.classList.remove('active');
+                    dot.setAttribute('aria-selected', 'false');
+                }
+            });
+        }
+
+        // ── Go to specific testimonial ──
+        function goToSlide(index) {
+            if (isAnimating || index === currentTestimonial) return;
+            isAnimating = true;
+
+            var outCard = testimonialCards[currentTestimonial];
+            var inCard = testimonialCards[index];
+
+            // Outro: fade out + slight upward drift
+            gsap.to(outCard, {
+                autoAlpha: 0, y: -20,
+                duration: 0.5, ease: 'power3.in',
+                onComplete: function() {
+                    outCard.classList.remove('is-active');
+                    gsap.set(outCard, { y: 0 }); // reset position
+                    resetCardInternals(outCard);
+                }
+            });
+
+            // Intro: fade in from below + cascade
+            inCard.classList.add('is-active');
+            gsap.fromTo(inCard,
+                { autoAlpha: 0, y: 20 },
+                {
+                    autoAlpha: 1, y: 0,
+                    duration: 0.6, ease: 'power3.out', delay: 0.15,
+                    onComplete: function() { isAnimating = false; }
+                }
+            );
+            revealCardInternals(inCard);
+
+            currentTestimonial = index;
+            updateDots(index);
+        }
+
+        function nextSlide() {
+            var next = gsap.utils.wrap(0, testimonialCards.length, currentTestimonial + 1);
+            goToSlide(next);
+        }
+
+        function prevSlide() {
+            var prev = gsap.utils.wrap(0, testimonialCards.length, currentTestimonial - 1);
+            goToSlide(prev);
+        }
+
+        // ── Auto-play timer ──
+        function startAutoplay() {
+            stopAutoplay();
+            autoplayTimer = gsap.delayedCall(DWELL_TIME, function() {
+                nextSlide();
+                startAutoplay();
+            });
+        }
+
+        function stopAutoplay() {
+            if (autoplayTimer) {
+                autoplayTimer.kill();
+                autoplayTimer = null;
+            }
+        }
+
+        // ── Pause on hover ──
+        testimonialGrid.addEventListener('mouseenter', stopAutoplay);
+        testimonialGrid.addEventListener('mouseleave', function() {
+            autoplayTimer = gsap.delayedCall(1, function() {
+                nextSlide();
+                startAutoplay();
+            });
         });
 
-        ScrollTrigger.batch(testimonialCards, {
+        // ── Dot click navigation ──
+        testimonialDots.forEach(function(dot) {
+            dot.addEventListener('click', function() {
+                var index = parseInt(dot.getAttribute('data-index'), 10);
+                stopAutoplay();
+                goToSlide(index);
+                // Restart autoplay after manual navigation
+                autoplayTimer = gsap.delayedCall(DWELL_TIME, function() {
+                    nextSlide();
+                    startAutoplay();
+                });
+            });
+        });
+
+        // ── Keyboard navigation on dots ──
+        var dotsContainer = document.querySelector('.testimonial-dots');
+        if (dotsContainer) {
+            dotsContainer.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    stopAutoplay();
+                    nextSlide();
+                    testimonialDots[currentTestimonial].focus();
+                    startAutoplay();
+                } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    stopAutoplay();
+                    prevSlide();
+                    testimonialDots[currentTestimonial].focus();
+                    startAutoplay();
+                }
+            });
+        }
+
+        // ── Touch/swipe via ScrollTrigger.observe ──
+        ScrollTrigger.observe({
+            target: testimonialGrid,
+            type: 'touch,pointer',
+            dragMinimum: 30,
+            onLeft: function() { stopAutoplay(); nextSlide(); startAutoplay(); },
+            onRight: function() { stopAutoplay(); prevSlide(); startAutoplay(); }
+        });
+
+        // ── Scroll-triggered entrance: reveal first card + dots when section visible ──
+        gsap.set(testimonialGrid, { autoAlpha: 0, y: 40 });
+        gsap.set('.testimonial-dots', { autoAlpha: 0 });
+
+        ScrollTrigger.create({
+            trigger: '.testimonials',
             start: 'top 85%',
-            onEnter: function(batch) {
-                // Cards slide up with stagger
-                gsap.to(batch, {
+            once: true,
+            onEnter: function() {
+                // Container entrance
+                gsap.to(testimonialGrid, {
                     autoAlpha: 1, y: 0,
-                    duration: 0.8, ease: 'power3.out',
-                    stagger: 0.15
+                    duration: 0.8, ease: 'power3.out'
                 });
-                // Internal elements reveal per card
-                batch.forEach(function(card, i) {
-                    var delay = i * 0.15 + 0.3;
-                    // Quote mark scales in with bounce
-                    gsap.to(card.querySelector('.testimonial-quote'), {
-                        autoAlpha: 1, scale: 1,
-                        duration: 0.5, ease: 'back.out(2)',
-                        delay: delay
-                    });
-                    // Text fades up
-                    gsap.to(card.querySelector('.testimonial-text'), {
-                        autoAlpha: 1, y: 0,
-                        duration: 0.6, ease: 'power2.out',
-                        delay: delay + 0.15
-                    });
-                    // Author slides in from left
-                    gsap.to(card.querySelector('.testimonial-author'), {
-                        autoAlpha: 1, x: 0,
-                        duration: 0.5, ease: 'power2.out',
-                        delay: delay + 0.3
-                    });
+                // First card internal cascade
+                revealCardInternals(testimonialCards[0]);
+                // Dots fade in
+                gsap.to('.testimonial-dots', {
+                    autoAlpha: 1,
+                    duration: 0.5, ease: 'power2.out', delay: 0.6
                 });
+                // Start autoplay after entrance completes
+                gsap.delayedCall(1.2, startAutoplay);
             }
         });
     }
