@@ -3526,7 +3526,9 @@ a.pillar-card-link {
 
 .stakes-section::before,
 .value-prop::before,
-.plan::before {
+.plan::before,
+.ai-system-section::before,
+.services::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -3552,10 +3554,22 @@ a.pillar-card-link {
     opacity: 0.18;
 }
 
+.ai-system-section::before {
+    background-image: url('assets/backgrounds/system-bg.jpg');
+    opacity: 0.16;
+}
+
+.services::before {
+    background-image: url('assets/backgrounds/services-bg.jpg');
+    opacity: 0.17;
+}
+
 /* Content must sit above the background */
 .stakes-section > .container,
 .value-prop > .container,
-.plan > .container {
+.plan > .container,
+.ai-system-section > .container,
+.services > .container {
     position: relative;
     z-index: 1;
 }
@@ -3571,13 +3585,21 @@ a.pillar-card-link {
     .plan::before {
         background-image: url('assets/backgrounds/plan-bg-mobile.jpg');
     }
+    .ai-system-section::before {
+        background-image: url('assets/backgrounds/system-bg-mobile.jpg');
+    }
+    .services::before {
+        background-image: url('assets/backgrounds/services-bg-mobile.jpg');
+    }
 }
 
 /* Respect reduced motion — remove backgrounds */
 @media (prefers-reduced-motion: reduce) {
     .stakes-section::before,
     .value-prop::before,
-    .plan::before {
+    .plan::before,
+    .ai-system-section::before,
+    .services::before {
         display: none;
     }
 }
