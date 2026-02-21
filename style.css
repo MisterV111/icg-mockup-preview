@@ -1246,42 +1246,31 @@ ul {
 }
 
 .service-details {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-xl);
+    padding-top: 0.5rem;
 }
 
-.service-col h4 {
-    font-family: var(--font-heading);
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-gray-300);
-    margin-bottom: var(--space-sm);
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--color-border);
-}
-
-.service-col ul {
+/* Outcome-focused service lists */
+.service-outcomes {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.75rem;
 }
-
-.service-col li {
-    font-size: 0.9rem;
-    color: var(--color-gray-500);
-    padding-left: 1rem;
+.service-outcomes li {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+    padding-left: 1.25rem;
     position: relative;
 }
-
-.service-col li::before {
-    content: '›';
+.service-outcomes li::before {
+    content: '→';
     position: absolute;
     left: 0;
     color: var(--color-red);
-    font-weight: 700;
+    font-weight: 400;
 }
 
 /* AI Capabilities */
