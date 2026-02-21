@@ -614,24 +614,26 @@
         gsap.set('.testimonial-dots', { autoAlpha: 0 });
 
         ScrollTrigger.create({
-            trigger: '.testimonials',
-            start: 'top 85%',
+            trigger: '.testimonials-grid',
+            start: 'top 80%',
             once: true,
             onEnter: function() {
-                // Container entrance
+                // Container entrance — slower, more visible
                 gsap.to(testimonialGrid, {
                     autoAlpha: 1, y: 0,
-                    duration: 0.8, ease: 'power3.out'
+                    duration: 1.0, ease: 'power3.out'
                 });
-                // First card internal cascade
-                revealCardInternals(testimonialCards[0]);
-                // Dots fade in
+                // First card internal cascade — delayed so container is visible first
+                gsap.delayedCall(0.4, function() {
+                    revealCardInternals(testimonialCards[0]);
+                });
+                // Dots fade in after card reveals
                 gsap.to('.testimonial-dots', {
                     autoAlpha: 1,
-                    duration: 0.5, ease: 'power2.out', delay: 0.6
+                    duration: 0.6, ease: 'power2.out', delay: 1.0
                 });
-                // Start autoplay after entrance completes
-                gsap.delayedCall(1.2, startAutoplay);
+                // Start autoplay after full entrance completes
+                gsap.delayedCall(1.8, startAutoplay);
             }
         });
     }
