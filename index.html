@@ -1196,31 +1196,73 @@
             </div>
 
             <div class="lead-gen-flow">
-                <!-- Before / After images side by side -->
-                <div class="flow-images gsap-animate">
-                    <div class="flow-before">
-                        <span class="flow-label">Same prompt</span>
-                        <div class="flow-card flow-result flow-result-hover">
-                            <img src="assets/images/lead-magnet/before-food.jpg" alt="Generic AI-generated pasta — flat lighting, no mood" class="flow-image" loading="lazy">
+                <!-- Step 1: Your simple prompt -->
+                <div class="prompt-transform gsap-animate">
+                    <div class="prompt-step prompt-input">
+                        <span class="prompt-step-label">Your prompt</span>
+                        <div class="prompt-block prompt-block-dim">
+                            <code>"a plate of pasta"</code>
                         </div>
                     </div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-after">
-                        <span class="flow-label flow-label-accent">With the skill</span>
-                        <div class="flow-card flow-result flow-result-hover flow-result-hero">
-                            <img src="assets/images/lead-magnet/after-food.jpg" alt="Skill-optimized pasta — cinematic lighting, steam, Michelin-star quality" class="flow-image" loading="lazy">
+
+                    <!-- Step 2: What the skill knows -->
+                    <div class="prompt-step prompt-knowledge">
+                        <span class="prompt-step-label"><span class="text-accent">The skill</span> adds what it knows</span>
+                        <div class="knowledge-grid">
+                            <div class="knowledge-card">
+                                <svg class="knowledge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                                <span class="knowledge-title">Film Stock</span>
+                                <span class="knowledge-detail">CineStill 800T warm tones</span>
+                            </div>
+                            <div class="knowledge-card">
+                                <svg class="knowledge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="1"/></svg>
+                                <span class="knowledge-title">Lens Data</span>
+                                <span class="knowledge-detail">100mm macro, f/2.8</span>
+                            </div>
+                            <div class="knowledge-card">
+                                <svg class="knowledge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L12 8M12 2L9 5M12 2L15 5"/><path d="M5 12a7 7 0 1 0 14 0" stroke-dasharray="3 3"/></svg>
+                                <span class="knowledge-title">Lighting Setup</span>
+                                <span class="knowledge-detail">Candlelight, Rembrandt shadows</span>
+                            </div>
+                            <div class="knowledge-card">
+                                <svg class="knowledge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18" stroke-dasharray="2 2"/></svg>
+                                <span class="knowledge-title">Anti-AI Realism</span>
+                                <span class="knowledge-detail">Film grain, imperfections</span>
+                            </div>
+                            <div class="knowledge-card">
+                                <svg class="knowledge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20V10M6 20V14M18 20V4"/></svg>
+                                <span class="knowledge-title">Quality Score</span>
+                                <span class="knowledge-detail">0–10 validation system</span>
+                            </div>
+                            <div class="knowledge-card">
+                                <svg class="knowledge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg>
+                                <span class="knowledge-title">6 Models</span>
+                                <span class="knowledge-detail">Flux, Gemini, Recraft, GPT…</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Optimized prompt -->
+                    <div class="prompt-step prompt-output">
+                        <span class="prompt-step-label">Optimized prompt <span class="prompt-score">Score: 8.7/10</span></span>
+                        <div class="prompt-block prompt-block-rich">
+                            <code>"Hasselblad 500C, CineStill 800T, 100mm macro f/2.8 — artisan pasta, hand-rolled pappardelle, wild boar ragù, candlelit trattoria, Rembrandt side-lighting, shallow DOF, steam rising through warm amber light, film grain, chromatic aberration at edges, food photography by Conde Nast Traveler"</code>
                         </div>
                     </div>
                 </div>
-                <!-- What the skill adds — subordinated below -->
-                <div class="flow-details gsap-animate">
-                    <span class="flow-details-label">What the skill adds to <code>"a plate of pasta"</code></span>
-                    <div class="flow-details-list">
-                        <span class="flow-detail-item">CineStill 800T film stock</span>
-                        <span class="flow-detail-item">100mm macro lens</span>
-                        <span class="flow-detail-item">Candlelight + Rembrandt shadows</span>
-                        <span class="flow-detail-item">Film grain &amp; imperfections</span>
-                        <span class="flow-detail-item">Optimized for Gemini</span>
+
+                <!-- The proof — supporting evidence, not the hero -->
+                <div class="prompt-proof gsap-animate">
+                    <span class="prompt-proof-label">Same model. Same settings. The prompt makes the difference.</span>
+                    <div class="prompt-proof-pair">
+                        <div class="proof-item">
+                            <img src="assets/images/lead-magnet/before-food.jpg" alt="Generic AI result from a simple prompt" class="proof-image" loading="lazy">
+                            <span class="proof-caption">Without the skill</span>
+                        </div>
+                        <div class="proof-item proof-item-hero">
+                            <img src="assets/images/lead-magnet/after-food.jpg" alt="Cinematic result from a skill-optimized prompt" class="proof-image" loading="lazy">
+                            <span class="proof-caption proof-caption-accent">With the skill</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1453,7 +1495,7 @@
         var lbImg = document.createElement('img');
         overlay.appendChild(lbImg);
         document.body.appendChild(overlay);
-        document.querySelectorAll('.homepage-lead-gen .flow-result-hover .flow-image').forEach(function(img) {
+        document.querySelectorAll('.homepage-lead-gen .proof-image').forEach(function(img) {
             img.style.cursor = 'zoom-in';
             img.addEventListener('click', function(e) {
                 e.stopPropagation();

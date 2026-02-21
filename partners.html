@@ -493,45 +493,74 @@
                 <p class="section-subtitle">The Image Prompt Engineer is one skill inside our AI production system — the same one our visual agents use to generate photography-grade images across 6 models. Download it, use it with ChatGPT, Claude, or Gemini, and see what a single skill can do. Then imagine 40+ working together.</p>
             </div>
 
-            <!-- Before/After Visual Flow — Balanced 3-column -->
+            <!-- Prompt Transformation Flow -->
             <div class="lead-gen-flow">
-                <!-- Single row: Before → Skill → After -->
-                <div class="flow-comparison gsap-animate">
-                    <!-- Column 1: Before -->
-                    <div class="flow-col">
-                        <span class="flow-label">Without prompt engineering</span>
-                        <div class="flow-card flow-result flow-result-hover">
-                            <img src="assets/images/lead-magnet/before-food.jpg" alt="Generic AI-generated pasta — flat lighting, no mood" class="flow-image" loading="lazy">
-                        </div>
-                        <div class="flow-prompt-tag">
-                            <code class="flow-code">"a plate of pasta"</code>
+                <!-- Step 1: Your simple prompt -->
+                <div class="prompt-transform gsap-animate">
+                    <div class="prompt-step prompt-input">
+                        <span class="prompt-step-label">Your prompt</span>
+                        <div class="prompt-block prompt-block-dim">
+                            <code>"a plate of pasta"</code>
                         </div>
                     </div>
 
-                    <!-- Column 2: The Skill (center) -->
-                    <div class="flow-col flow-col-center">
-                        <div class="flow-arrow-down">→</div>
-                        <div class="flow-card flow-skill flow-skill-hover">
-                            <span class="flow-card-label">The skill adds</span>
-                            <ul class="flow-skill-list">
-                                <li>CineStill 800T film stock for warm tones</li>
-                                <li>100mm macro lens, shallow depth of field</li>
-                                <li>Candlelight with Rembrandt shadows</li>
-                                <li>Film grain &amp; imperfections to look real</li>
-                                <li>Optimized for Nano Banana Pro (Gemini)</li>
-                            </ul>
+                    <!-- Step 2: What the skill knows -->
+                    <div class="prompt-step prompt-knowledge">
+                        <span class="prompt-step-label"><span class="text-accent">The skill</span> adds what it knows</span>
+                        <div class="knowledge-grid">
+                            <div class="knowledge-card">
+                                <svg class="knowledge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                                <span class="knowledge-title">Film Stock</span>
+                                <span class="knowledge-detail">CineStill 800T warm tones</span>
+                            </div>
+                            <div class="knowledge-card">
+                                <svg class="knowledge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="1"/></svg>
+                                <span class="knowledge-title">Lens Data</span>
+                                <span class="knowledge-detail">100mm macro, f/2.8</span>
+                            </div>
+                            <div class="knowledge-card">
+                                <svg class="knowledge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L12 8M12 2L9 5M12 2L15 5"/><path d="M5 12a7 7 0 1 0 14 0" stroke-dasharray="3 3"/></svg>
+                                <span class="knowledge-title">Lighting Setup</span>
+                                <span class="knowledge-detail">Candlelight, Rembrandt shadows</span>
+                            </div>
+                            <div class="knowledge-card">
+                                <svg class="knowledge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18" stroke-dasharray="2 2"/></svg>
+                                <span class="knowledge-title">Anti-AI Realism</span>
+                                <span class="knowledge-detail">Film grain, imperfections</span>
+                            </div>
+                            <div class="knowledge-card">
+                                <svg class="knowledge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20V10M6 20V14M18 20V4"/></svg>
+                                <span class="knowledge-title">Quality Score</span>
+                                <span class="knowledge-detail">0–10 validation system</span>
+                            </div>
+                            <div class="knowledge-card">
+                                <svg class="knowledge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg>
+                                <span class="knowledge-title">6 Models</span>
+                                <span class="knowledge-detail">Flux, Gemini, Recraft, GPT…</span>
+                            </div>
                         </div>
-                        <div class="flow-arrow-down">→</div>
                     </div>
 
-                    <!-- Column 3: After -->
-                    <div class="flow-col">
-                        <span class="flow-label flow-label-accent">With the Image Prompt Engineer</span>
-                        <div class="flow-card flow-result flow-result-hover">
-                            <img src="assets/images/lead-magnet/after-food.jpg" alt="Skill-optimized pasta — cinematic lighting, steam, Michelin-star quality" class="flow-image" loading="lazy">
+                    <!-- Step 3: Optimized prompt -->
+                    <div class="prompt-step prompt-output">
+                        <span class="prompt-step-label">Optimized prompt <span class="prompt-score">Score: 8.7/10</span></span>
+                        <div class="prompt-block prompt-block-rich">
+                            <code>"Hasselblad 500C, CineStill 800T, 100mm macro f/2.8 — artisan pasta, hand-rolled pappardelle, wild boar ragù, candlelit trattoria, Rembrandt side-lighting, shallow DOF, steam rising through warm amber light, film grain, chromatic aberration at edges, food photography by Conde Nast Traveler"</code>
                         </div>
-                        <div class="flow-prompt-tag">
-                            <code class="flow-code">"a plate of pasta"</code>
+                    </div>
+                </div>
+
+                <!-- The proof — supporting evidence -->
+                <div class="prompt-proof gsap-animate">
+                    <span class="prompt-proof-label">Same model. Same settings. The prompt makes the difference.</span>
+                    <div class="prompt-proof-pair">
+                        <div class="proof-item">
+                            <img src="assets/images/lead-magnet/before-food.jpg" alt="Generic AI result from a simple prompt" class="proof-image" loading="lazy">
+                            <span class="proof-caption">Without the skill</span>
+                        </div>
+                        <div class="proof-item proof-item-hero">
+                            <img src="assets/images/lead-magnet/after-food.jpg" alt="Cinematic result from a skill-optimized prompt" class="proof-image" loading="lazy">
+                            <span class="proof-caption proof-caption-accent">With the skill</span>
                         </div>
                     </div>
                 </div>
@@ -915,170 +944,160 @@
         padding: var(--space-xl) 0;
     }
 
-    /* Flow layout — balanced 3-column comparison */
+    /* ─── Prompt Transformation Flow ─── */
     .lead-gen-flow {
         margin-bottom: 3rem;
     }
-    .flow-comparison {
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        gap: 1.5rem;
-        align-items: start;
+    .prompt-transform {
+        max-width: 720px;
+        margin: 0 auto 3rem;
     }
-    .flow-col {
-        display: flex;
-        flex-direction: column;
+    .prompt-step {
+        margin-bottom: 2rem;
+        position: relative;
     }
-    .flow-col-center {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 1rem;
-        padding-top: 2rem;
+    .prompt-step:not(:last-child)::after {
+        content: '';
+        display: block;
+        width: 1px;
+        height: 1.5rem;
+        background: rgba(255,255,255,0.1);
+        margin: 1.25rem auto 0;
     }
-    .flow-label {
-        display: inline-block;
+    .prompt-step-label {
+        display: block;
         font-family: var(--font-heading);
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         font-weight: 700;
-        letter-spacing: 0.08em;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
         color: rgba(255,255,255,0.4);
         margin-bottom: 0.75rem;
     }
-    .flow-label-accent {
-        color: var(--color-red);
-    }
-    .flow-arrow-down {
-        color: rgba(255,255,255,0.2);
-        font-size: 1.5rem;
-        font-weight: 300;
-    }
-    .flow-card {
-        background: var(--color-surface);
-        border: 1px solid rgba(255,255,255,0.08);
-        border-radius: 12px;
-        padding: 1.25rem;
-    }
-    .flow-card-label {
-        display: block;
-        font-size: 0.7rem;
-        font-weight: 700;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: rgba(255,255,255,0.35);
-        margin-bottom: 0.5rem;
-    }
-    .flow-prompt-tag {
-        margin-top: 0.75rem;
-        padding: 0.6rem 1rem;
-        background: var(--color-surface);
-        border: 1px solid rgba(255,255,255,0.08);
-        border-radius: 8px;
-    }
-    .flow-code {
-        display: block;
+    .prompt-block {
+        padding: 1.25rem 1.5rem;
+        border-radius: 10px;
         font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+        font-size: 0.9rem;
+        line-height: 1.7;
+    }
+    .prompt-block code {
+        font-family: inherit;
+        color: inherit;
+    }
+    .prompt-block-dim {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        color: rgba(255,255,255,0.45);
+    }
+    .prompt-block-rich {
+        background: rgba(232, 0, 13, 0.04);
+        border: 1px solid rgba(232, 0, 13, 0.2);
+        border-left: 3px solid var(--color-red);
+        color: rgba(255,255,255,0.8);
+    }
+    .prompt-score {
+        font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+        font-size: 0.7rem;
+        color: var(--color-red);
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        text-transform: none;
+        margin-left: 0.75rem;
+    }
+    .knowledge-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+    .knowledge-card {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 10px;
+        padding: 1.25rem;
+        text-align: center;
+        transition: border-color 0.3s ease, background 0.3s ease;
+    }
+    .knowledge-card:hover {
+        border-color: rgba(232, 0, 13, 0.3);
+        background: rgba(232, 0, 13, 0.03);
+    }
+    .knowledge-icon {
+        width: 28px;
+        height: 28px;
+        color: var(--color-red);
+        margin-bottom: 0.75rem;
+        opacity: 0.8;
+    }
+    .knowledge-title {
+        display: block;
+        font-family: var(--font-heading);
         font-size: 0.85rem;
-        color: rgba(255,255,255,0.65);
-        line-height: 1.5;
-        word-break: break-word;
+        font-weight: 700;
+        color: var(--color-white);
+        margin-bottom: 0.35rem;
+    }
+    .knowledge-detail {
+        display: block;
+        font-size: 0.75rem;
+        color: rgba(255,255,255,0.4);
+        line-height: 1.4;
+    }
+    .prompt-proof {
+        max-width: 640px;
+        margin: 0 auto 3rem;
+    }
+    .prompt-proof-label {
+        display: block;
+        text-align: center;
+        font-size: 0.8rem;
+        color: rgba(255,255,255,0.35);
+        margin-bottom: 1.25rem;
+        font-style: italic;
+    }
+    .prompt-proof-pair {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        align-items: end;
+    }
+    .proof-item {
         text-align: center;
     }
-    .flow-skill {
-        border-left: 3px solid var(--color-red);
-    }
-    .flow-skill-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-    .flow-skill-list li {
-        color: rgba(255,255,255,0.7);
-        font-size: 0.85rem;
-        line-height: 1.6;
-        padding-left: 0;
-    }
-    .flow-skill-list li::before {
-        content: "+ ";
-        color: var(--color-red);
-        font-weight: 700;
-    }
-    .flow-skill-hover {
-        cursor: pointer;
-        transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
-    }
-    .flow-skill-hover:hover {
-        transform: scale(1.05);
-        box-shadow: 0 12px 40px rgba(0,0,0,0.5);
-        z-index: 10;
-        position: relative;
-    }
-
-    /* Lightbox for skill card */
-    .flow-lightbox-skill {
-        position: fixed;
-        inset: 0;
-        z-index: 9999;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        background: rgba(0,0,0,0);
-        backdrop-filter: blur(0px);
-        cursor: zoom-out;
-        transition: background 0.35s ease, backdrop-filter 0.35s ease;
-        pointer-events: none;
-        opacity: 0;
-    }
-    .flow-lightbox-skill.active {
-        background: rgba(0,0,0,0.85);
-        backdrop-filter: blur(12px);
-        pointer-events: all;
-        opacity: 1;
-    }
-    .flow-lightbox-skill .lightbox-skill-card {
-        background: var(--color-surface);
-        border: 1px solid rgba(255,255,255,0.12);
-        border-left: 4px solid var(--color-red);
-        border-radius: 16px;
-        padding: 2.5rem 3rem;
-        max-width: 520px;
-        width: 90vw;
-        transform: scale(0.85);
-        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .flow-lightbox-skill.active .lightbox-skill-card {
-        transform: scale(1);
-    }
-    .flow-lightbox-skill .lightbox-skill-card .flow-card-label {
-        font-size: 0.85rem;
-        margin-bottom: 1rem;
-    }
-    .flow-lightbox-skill .lightbox-skill-card .flow-skill-list li {
-        font-size: 1.1rem;
-        line-height: 2;
-    }
-
-    .flow-result {
-        padding: 0;
-        overflow: hidden;
-    }
-    .flow-result-hover {
-        cursor: pointer;
-        transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
-    }
-    .flow-result-hover:hover {
-        transform: scale(1.05);
-        box-shadow: 0 12px 40px rgba(0,0,0,0.5);
-        z-index: 10;
-        position: relative;
-    }
-    .flow-image {
+    .proof-image {
         width: 100%;
         height: auto;
         display: block;
-        border-radius: 12px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.08);
+        cursor: pointer;
+        transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+    }
+    .proof-image:hover {
+        transform: scale(1.03);
+        box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+        z-index: 10;
+        position: relative;
+    }
+    .proof-item:first-child .proof-image {
+        filter: brightness(0.85) saturate(0.8);
+    }
+    .proof-item-hero .proof-image {
+        border-color: rgba(232, 0, 13, 0.25);
+        box-shadow: 0 0 30px rgba(232, 0, 13, 0.06);
+    }
+    .proof-caption {
+        display: block;
+        font-size: 0.7rem;
+        font-family: var(--font-heading);
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.3);
+        margin-top: 0.75rem;
+    }
+    .proof-caption-accent {
+        color: var(--color-red);
     }
 
     /* Lightbox overlay */
@@ -1226,20 +1245,19 @@
 
     /* Mobile */
     @media (max-width: 768px) {
-        .flow-comparison {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-        .flow-col-center {
-            flex-direction: row;
-            padding-top: 0;
+        .knowledge-grid {
+            grid-template-columns: repeat(2, 1fr);
             gap: 0.75rem;
         }
-        .flow-col-center .flow-card {
-            flex: 1;
+        .knowledge-card {
+            padding: 1rem;
         }
-        .flow-arrow-down {
-            transform: rotate(90deg);
+        .prompt-block {
+            font-size: 0.8rem;
+            padding: 1rem 1.25rem;
+        }
+        .prompt-proof-pair {
+            gap: 1rem;
         }
         .lead-gen-cta {
             grid-template-columns: 1fr;
@@ -1256,37 +1274,7 @@
     </style>
 
     <script>
-    // Lightbox for skill card
-    (function() {
-        var skillCard = document.querySelector('.flow-skill-hover');
-        if (!skillCard) return;
-
-        var overlay = document.createElement('div');
-        overlay.className = 'flow-lightbox-skill';
-        var inner = document.createElement('div');
-        inner.className = 'lightbox-skill-card';
-        inner.innerHTML = skillCard.innerHTML;
-        overlay.appendChild(inner);
-        document.body.appendChild(overlay);
-
-        skillCard.addEventListener('click', function(e) {
-            e.stopPropagation();
-            overlay.style.display = 'flex';
-            requestAnimationFrame(function() { overlay.classList.add('active'); });
-        });
-
-        function closeSkill() {
-            overlay.classList.remove('active');
-            setTimeout(function() { overlay.style.display = 'none'; }, 350);
-        }
-        overlay.addEventListener('click', closeSkill);
-        inner.addEventListener('click', function(e) { e.stopPropagation(); });
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && overlay.classList.contains('active')) closeSkill();
-        });
-    })();
-
-    // Lightbox for before/after images
+    // Lightbox for proof images
     (function() {
         const overlay = document.createElement('div');
         overlay.className = 'flow-lightbox';
@@ -1294,7 +1282,7 @@
         overlay.appendChild(lbImg);
         document.body.appendChild(overlay);
 
-        document.querySelectorAll('.flow-result-hover .flow-image').forEach(function(img) {
+        document.querySelectorAll('.proof-image').forEach(function(img) {
             img.style.cursor = 'zoom-in';
             img.addEventListener('click', function(e) {
                 e.stopPropagation();
