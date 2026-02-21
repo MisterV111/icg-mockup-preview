@@ -3191,164 +3191,156 @@ a.pillar-card-link {
     margin-bottom: 3rem;
 }
 
-/* ─── Prompt Transformation Flow ─── */
-.prompt-transform {
-    max-width: 720px;
-    margin: 0 auto 3rem;
-}
-.prompt-step {
+/* Before/After image pair */
+.flow-images {
+    display: grid;
+    grid-template-columns: 1fr auto 1.25fr;
+    gap: 2rem;
+    align-items: center;
     margin-bottom: 2rem;
-    position: relative;
 }
-.prompt-step:not(:last-child)::after {
-    content: '';
-    display: block;
-    width: 1px;
-    height: 1.5rem;
-    background: rgba(255,255,255,0.1);
-    margin: 1.25rem auto 0;
+.flow-before,
+.flow-after {
+    display: flex;
+    flex-direction: column;
 }
-.prompt-step-label {
-    display: block;
+.flow-label {
+    display: inline-block;
     font-family: var(--font-heading);
     font-size: 0.75rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
-    margin-bottom: 0.75rem;
-}
-.prompt-block {
-    padding: 1.25rem 1.5rem;
-    border-radius: 10px;
-    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-    font-size: 0.9rem;
-    line-height: 1.7;
-}
-.prompt-block code {
-    font-family: inherit;
-    color: inherit;
-}
-.prompt-block-dim {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-    color: rgba(255,255,255,0.45);
-}
-.prompt-block-rich {
-    background: rgba(232, 0, 13, 0.04);
-    border: 1px solid rgba(232, 0, 13, 0.2);
-    border-left: 3px solid var(--color-red);
-    color: rgba(255,255,255,0.8);
-}
-.prompt-score {
-    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-    font-size: 0.7rem;
-    color: var(--color-red);
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    text-transform: none;
-    margin-left: 0.75rem;
-}
-
-/* Knowledge grid — THE HERO of this section */
-.knowledge-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-}
-.knowledge-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 10px;
-    padding: 1.25rem;
-    text-align: center;
-    transition: border-color 0.3s ease, background 0.3s ease;
-}
-.knowledge-card:hover {
-    border-color: rgba(232, 0, 13, 0.3);
-    background: rgba(232, 0, 13, 0.03);
-}
-.knowledge-icon {
-    width: 28px;
-    height: 28px;
-    color: var(--color-red);
-    margin-bottom: 0.75rem;
-    opacity: 0.8;
-}
-.knowledge-title {
-    display: block;
-    font-family: var(--font-heading);
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--color-white);
-    margin-bottom: 0.35rem;
-}
-.knowledge-detail {
-    display: block;
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.4);
-    line-height: 1.4;
-}
-
-/* Proof pair — supporting evidence */
-.prompt-proof {
-    max-width: 640px;
-    margin: 0 auto 3rem;
-}
-.prompt-proof-label {
-    display: block;
-    text-align: center;
-    font-size: 0.8rem;
     color: rgba(255,255,255,0.35);
-    margin-bottom: 1.25rem;
-    font-style: italic;
+    margin-bottom: 0.75rem;
 }
-.prompt-proof-pair {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    align-items: end;
+.flow-label-accent {
+    color: var(--color-red);
 }
-.proof-item {
-    text-align: center;
+.flow-arrow {
+    color: rgba(255,255,255,0.15);
+    font-size: 2rem;
+    font-weight: 300;
 }
-.proof-image {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 10px;
+.flow-card {
+    border-radius: 12px;
+    overflow: hidden;
+}
+.flow-result {
+    padding: 0;
+    overflow: hidden;
     border: 1px solid rgba(255,255,255,0.08);
+}
+.flow-result-hover {
     cursor: pointer;
     transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
 }
-.proof-image:hover {
+.flow-result-hover:hover {
     transform: scale(1.03);
     box-shadow: 0 12px 40px rgba(0,0,0,0.5);
     z-index: 10;
     position: relative;
 }
-.proof-item:first-child .proof-image {
+
+/* Before image slightly dimmed */
+.flow-before .flow-image {
     filter: brightness(0.85) saturate(0.8);
 }
-.proof-item-hero .proof-image {
-    border-color: rgba(232, 0, 13, 0.25);
-    box-shadow: 0 0 30px rgba(232, 0, 13, 0.06);
-}
-.proof-caption {
-    display: block;
-    font-size: 0.7rem;
-    font-family: var(--font-heading);
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.3);
-    margin-top: 0.75rem;
-}
-.proof-caption-accent {
-    color: var(--color-red);
+
+/* After image = hero of the comparison */
+.flow-result-hero {
+    border-color: rgba(232, 0, 13, 0.3);
+    box-shadow: 0 0 40px rgba(232, 0, 13, 0.08);
 }
 
-/* Lightbox for proof images */
+.flow-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+}
+
+/* Skill details — subordinated below images */
+.flow-details {
+    text-align: center;
+    padding: 1.25rem 0;
+}
+.flow-details-label {
+    display: block;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 1rem;
+    font-family: var(--font-body);
+}
+.flow-details-label code {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    color: rgba(255,255,255,0.55);
+}
+.flow-details-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1rem;
+}
+.flow-detail-item {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    padding: 0.35rem 0.75rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    white-space: nowrap;
+}
+.flow-detail-item::before {
+    content: "+ ";
+    color: var(--color-red);
+    font-weight: 700;
+}
+
+/* Lightbox for skill card */
+.flow-lightbox-skill {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0);
+    backdrop-filter: blur(0px);
+    cursor: zoom-out;
+    transition: background 0.35s ease, backdrop-filter 0.35s ease;
+    pointer-events: none;
+    opacity: 0;
+}
+.flow-lightbox-skill.active {
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(12px);
+    pointer-events: all;
+    opacity: 1;
+}
+.flow-lightbox-skill .lightbox-skill-card {
+    background: var(--color-surface);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-left: 4px solid var(--color-red);
+    border-radius: 16px;
+    padding: 2.5rem 3rem;
+    max-width: 520px;
+    width: 90vw;
+    transform: scale(0.85);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.flow-lightbox-skill.active .lightbox-skill-card {
+    transform: scale(1);
+}
+.flow-lightbox-skill .lightbox-skill-card .flow-card-label {
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+.flow-lightbox-skill .lightbox-skill-card .flow-skill-list li {
+    font-size: 1.1rem;
+    line-height: 2;
+}
+
+/* Lightbox for before/after images */
 .flow-lightbox {
     position: fixed;
     inset: 0;
@@ -3492,19 +3484,19 @@ a.pillar-card-link {
 }
 
 @media (max-width: 768px) {
-    .knowledge-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.75rem;
-    }
-    .knowledge-card {
-        padding: 1rem;
-    }
-    .prompt-block {
-        font-size: 0.8rem;
-        padding: 1rem 1.25rem;
-    }
-    .prompt-proof-pair {
+    .flow-images {
+        grid-template-columns: 1fr;
         gap: 1rem;
+    }
+    .flow-images .flow-arrow {
+        transform: rotate(90deg);
+        text-align: center;
+    }
+    .flow-details-list {
+        gap: 0.4rem;
+    }
+    .flow-detail-item {
+        font-size: 0.75rem;
     }
     .lead-gen-cta {
         grid-template-columns: 1fr;
