@@ -1196,31 +1196,44 @@
             </div>
 
             <div class="lead-gen-flow">
-                <!-- Before / After images side by side -->
-                <div class="flow-images gsap-animate">
-                    <div class="flow-before">
-                        <span class="flow-label">Same prompt</span>
+                <!-- Single row: Before → Skill → After -->
+                <div class="flow-comparison gsap-animate">
+                    <!-- Column 1: Before -->
+                    <div class="flow-col">
+                        <span class="flow-label">Without prompt engineering</span>
                         <div class="flow-card flow-result flow-result-hover">
                             <img src="assets/images/lead-magnet/before-food.jpg" alt="Generic AI-generated pasta — flat lighting, no mood" class="flow-image" loading="lazy">
                         </div>
-                    </div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-after">
-                        <span class="flow-label flow-label-accent">With the skill</span>
-                        <div class="flow-card flow-result flow-result-hover flow-result-hero">
-                            <img src="assets/images/lead-magnet/after-food.jpg" alt="Skill-optimized pasta — cinematic lighting, steam, Michelin-star quality" class="flow-image" loading="lazy">
+                        <div class="flow-prompt-tag">
+                            <code class="flow-code">"a plate of pasta"</code>
                         </div>
                     </div>
-                </div>
-                <!-- What the skill adds — subordinated below -->
-                <div class="flow-details gsap-animate">
-                    <span class="flow-details-label">What the skill adds to <code>"a plate of pasta"</code></span>
-                    <div class="flow-details-list">
-                        <span class="flow-detail-item">CineStill 800T film stock</span>
-                        <span class="flow-detail-item">100mm macro lens</span>
-                        <span class="flow-detail-item">Candlelight + Rembrandt shadows</span>
-                        <span class="flow-detail-item">Film grain &amp; imperfections</span>
-                        <span class="flow-detail-item">Optimized for Gemini</span>
+
+                    <!-- Column 2: The Skill (center) -->
+                    <div class="flow-col flow-col-center">
+                        <div class="flow-arrow-down">→</div>
+                        <div class="flow-card flow-skill flow-skill-hover">
+                            <span class="flow-card-label">The skill adds</span>
+                            <ul class="flow-skill-list">
+                                <li>CineStill 800T film stock for warm tones</li>
+                                <li>100mm macro lens, shallow depth of field</li>
+                                <li>Candlelight with Rembrandt shadows</li>
+                                <li>Film grain &amp; imperfections to look real</li>
+                                <li>Optimized for Nano Banana Pro (Gemini)</li>
+                            </ul>
+                        </div>
+                        <div class="flow-arrow-down">→</div>
+                    </div>
+
+                    <!-- Column 3: After -->
+                    <div class="flow-col">
+                        <span class="flow-label flow-label-accent">With the Image Prompt Engineer</span>
+                        <div class="flow-card flow-result flow-result-hover">
+                            <img src="assets/images/lead-magnet/after-food.jpg" alt="Skill-optimized pasta — cinematic lighting, steam, Michelin-star quality" class="flow-image" loading="lazy">
+                        </div>
+                        <div class="flow-prompt-tag">
+                            <code class="flow-code">"a plate of pasta"</code>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1446,6 +1459,33 @@
 
     <!-- Homepage Lead Gen: Lightboxes + Form -->
     <script>
+    // Lightbox for skill card
+    (function() {
+        var skillCard = document.querySelector('.homepage-lead-gen .flow-skill-hover');
+        if (!skillCard) return;
+        var overlay = document.createElement('div');
+        overlay.className = 'flow-lightbox-skill';
+        var inner = document.createElement('div');
+        inner.className = 'lightbox-skill-card';
+        inner.innerHTML = skillCard.innerHTML;
+        overlay.appendChild(inner);
+        document.body.appendChild(overlay);
+        skillCard.addEventListener('click', function(e) {
+            e.stopPropagation();
+            overlay.style.display = 'flex';
+            requestAnimationFrame(function() { overlay.classList.add('active'); });
+        });
+        function closeSkill() {
+            overlay.classList.remove('active');
+            setTimeout(function() { overlay.style.display = 'none'; }, 350);
+        }
+        overlay.addEventListener('click', closeSkill);
+        inner.addEventListener('click', function(e) { e.stopPropagation(); });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && overlay.classList.contains('active')) closeSkill();
+        });
+    })();
+
     // Lightbox for before/after images
     (function() {
         var overlay = document.createElement('div');
