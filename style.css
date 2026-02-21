@@ -1136,11 +1136,11 @@ ul {
 .services-grid {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3xl);
+    gap: 1.5rem;
 }
 
 .service-block {
-    padding: var(--space-2xl);
+    padding: 2rem 2.25rem;
     border: 1px solid var(--color-border);
     border-radius: 12px;
     background: var(--color-surface);
