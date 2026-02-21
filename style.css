@@ -1826,6 +1826,7 @@ a.work-card {
     max-width: 720px;
     margin: 0 auto;
     overflow: hidden;
+    visibility: hidden; /* FOUC prevention — GSAP reveals via autoAlpha */
 }
 
 .testimonial-card {
@@ -1898,6 +1899,7 @@ a.work-card {
 
 /* Testimonial Carousel Dots */
 .testimonial-dots {
+    visibility: hidden; /* FOUC prevention — GSAP reveals via autoAlpha */
     display: flex;
     justify-content: center;
     gap: 0.75rem;

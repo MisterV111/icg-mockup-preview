@@ -456,16 +456,14 @@
         measureHeight();
         window.addEventListener('resize', measureHeight);
 
-        // ── Initial state: hide all, show first ──
+        // ── Initial state: hide all, show first (internals hidden for entrance cascade) ──
         testimonialCards.forEach(function(card, i) {
             gsap.set(card, { autoAlpha: i === 0 ? 1 : 0, y: 0 });
             if (i === 0) card.classList.add('is-active');
-            // Hide internal elements for cascade reveal
-            if (i !== 0) {
-                gsap.set(card.querySelector('.testimonial-quote'), { autoAlpha: 0, scale: 0.3 });
-                gsap.set(card.querySelector('.testimonial-text'), { autoAlpha: 0, y: 20 });
-                gsap.set(card.querySelector('.testimonial-author'), { autoAlpha: 0, x: -20 });
-            }
+            // Hide internal elements for cascade reveal (ALL cards, including first)
+            gsap.set(card.querySelector('.testimonial-quote'), { autoAlpha: 0, scale: 0.3 });
+            gsap.set(card.querySelector('.testimonial-text'), { autoAlpha: 0, y: 20 });
+            gsap.set(card.querySelector('.testimonial-author'), { autoAlpha: 0, x: -20 });
         });
 
         // ── Cascade reveal for a card's internal elements ──
