@@ -537,21 +537,63 @@
 
 
     // ─── Lead Generator ────────────────────────────────────────
-    var leadGenEls = document.querySelectorAll('.homepage-lead-gen .gsap-animate');
-    if (leadGenEls.length) {
-        leadGenEls.forEach(function(el) {
-            gsap.from(el, {
-                y: 60,
-                autoAlpha: 0,
-                duration: 0.8,
-                ease: 'back.out(1.1)',
-                immediateRender: true,
-                scrollTrigger: {
-                    trigger: el,
-                    start: 'top 85%',
-                    toggleActions: 'play none none none'
-                }
-            });
+    // Header: fade up
+    var leadGenHeader = document.querySelector('.homepage-lead-gen .section-header');
+    if (leadGenHeader) {
+        gsap.from(leadGenHeader, {
+            y: 50, autoAlpha: 0, duration: 0.8, ease: 'power3.out',
+            immediateRender: true,
+            scrollTrigger: { trigger: leadGenHeader, start: 'top 85%', toggleActions: 'play none none none' }
+        });
+    }
+
+    // Before image: slide from left
+    var flowBefore = document.querySelector('.homepage-lead-gen .flow-before');
+    if (flowBefore) {
+        gsap.from(flowBefore, {
+            x: -80, autoAlpha: 0, duration: 0.9, ease: 'power3.out',
+            immediateRender: true,
+            scrollTrigger: { trigger: '.homepage-lead-gen .flow-images', start: 'top 80%', toggleActions: 'play none none none' }
+        });
+    }
+
+    // Arrow: fade in with delay
+    var flowArrow = document.querySelector('.homepage-lead-gen .flow-arrow');
+    if (flowArrow) {
+        gsap.from(flowArrow, {
+            autoAlpha: 0, scale: 0.5, duration: 0.5, delay: 0.4, ease: 'back.out(2)',
+            immediateRender: true,
+            scrollTrigger: { trigger: '.homepage-lead-gen .flow-images', start: 'top 80%', toggleActions: 'play none none none' }
+        });
+    }
+
+    // After image: slide from right with slight scale pop
+    var flowAfter = document.querySelector('.homepage-lead-gen .flow-after');
+    if (flowAfter) {
+        gsap.from(flowAfter, {
+            x: 80, autoAlpha: 0, duration: 0.9, delay: 0.2, ease: 'power3.out',
+            immediateRender: true,
+            scrollTrigger: { trigger: '.homepage-lead-gen .flow-images', start: 'top 80%', toggleActions: 'play none none none' }
+        });
+    }
+
+    // Skill detail pills: stagger up
+    var flowDetails = document.querySelector('.homepage-lead-gen .flow-details');
+    if (flowDetails) {
+        gsap.from(flowDetails, {
+            y: 30, autoAlpha: 0, duration: 0.7, delay: 0.5, ease: 'power2.out',
+            immediateRender: true,
+            scrollTrigger: { trigger: flowDetails, start: 'top 90%', toggleActions: 'play none none none' }
+        });
+    }
+
+    // CTA card: scale up with bounce
+    var leadGenCta = document.querySelector('.homepage-lead-gen .lead-gen-cta');
+    if (leadGenCta) {
+        gsap.from(leadGenCta, {
+            y: 60, autoAlpha: 0, scale: 0.95, duration: 0.9, ease: 'back.out(1.2)',
+            immediateRender: true,
+            scrollTrigger: { trigger: leadGenCta, start: 'top 85%', toggleActions: 'play none none none' }
         });
     }
 
