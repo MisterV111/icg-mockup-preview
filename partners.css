@@ -333,6 +333,12 @@
     gap: var(--space-lg);
 }
 
+/* Override homepage carousel styles for partners grid layout */
+.partners-testimonials .testimonial-card {
+    position: relative;
+    visibility: visible;
+}
+
 
 /* ─── FAQ ────────────────────────────────────────────────────── */
 .partners-faq {
