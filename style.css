@@ -3585,6 +3585,15 @@ a.pillar-card-link {
     background-image: url('assets/backgrounds/stakes-bg.jpg');
 }
 
+.stakes-section::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at center, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+    z-index: 0;
+    pointer-events: none;
+}
+
 .value-prop::before {
     background-image: url('assets/backgrounds/valueprop-bg.jpg');
     opacity: 0.15;
