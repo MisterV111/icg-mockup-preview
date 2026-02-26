@@ -1593,7 +1593,7 @@ ul {
 .ai-bottom-line {
     text-align: center;
     padding-top: var(--space-2xl);
-    border-top: 1px solid var(--color-border);
+    border-top: 1px solid var(--color-border-light);
 }
 
 .ai-quote {
