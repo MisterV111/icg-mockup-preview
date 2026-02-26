@@ -2690,6 +2690,21 @@ a.pillar-card-link {
     }
 }
 
+/* Reduced motion: make carousel manually scrollable instead of animated */
+@media (prefers-reduced-motion: reduce) {
+    .logo-carousel {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .logo-carousel-track {
+        animation: none !important;
+    }
+    .logo-carousel::before,
+    .logo-carousel::after {
+        display: none;
+    }
+}
+
 .logo-carousel::before,
 .logo-carousel::after {
     content: '';
