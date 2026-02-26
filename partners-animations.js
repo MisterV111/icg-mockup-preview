@@ -266,53 +266,128 @@
     // ═══════════════════════════════════════════════════════════
     // TESTIMONIALS — 3-layer cascade (matches main page)
     // ═══════════════════════════════════════════════════════════
-    var testimonialCards = gsap.utils.toArray('.testimonial-card.gsap-animate');
-    if (testimonialCards.length) {
-        gsap.set(testimonialCards, { autoAlpha: 0, y: 60 });
-        testimonialCards.forEach(function(card) {
-            var quote = card.querySelector('.testimonial-quote');
-            var text = card.querySelector('.testimonial-text');
-            var author = card.querySelector('.testimonial-author');
-            if (quote) gsap.set(quote, { autoAlpha: 0, scale: 0.3 });
-            if (text) gsap.set(text, { autoAlpha: 0, y: 20 });
-            if (author) gsap.set(author, { autoAlpha: 0, x: -20 });
+    // TESTIMONIALS — crossfade carousel (same as homepage)
+    var testimonialCards = gsap.utils.toArray('.testimonial-card');
+    var testimonialDots = gsap.utils.toArray('.testimonial-dot');
+    var testimonialGrid = document.querySelector('.testimonials-grid');
+
+    if (testimonialCards.length && testimonialGrid) {
+        var currentTestimonial = 0;
+        var autoplayTimer = null;
+        var isAnimating = false;
+        var DWELL_TIME = 6;
+
+        function measureHeight() {
+            testimonialCards.forEach(function(card) {
+                card.style.position = 'relative';
+                card.style.visibility = 'visible';
+            });
+            var maxH = 0;
+            testimonialCards.forEach(function(card) {
+                var h = card.offsetHeight;
+                if (h > maxH) maxH = h;
+            });
+            testimonialGrid.style.height = maxH + 'px';
+            testimonialCards.forEach(function(card) {
+                card.style.position = '';
+                card.style.visibility = '';
+            });
+        }
+        measureHeight();
+        window.addEventListener('resize', measureHeight);
+
+        testimonialCards.forEach(function(card, i) {
+            gsap.set(card, { autoAlpha: i === 0 ? 1 : 0, y: 0 });
+            if (i === 0) card.classList.add('is-active');
+            gsap.set(card.querySelector('.testimonial-quote'), { autoAlpha: 0, scale: 0.3 });
+            gsap.set(card.querySelector('.testimonial-text'), { autoAlpha: 0, y: 20 });
+            gsap.set(card.querySelector('.testimonial-author'), { autoAlpha: 0, x: -20 });
         });
 
-        ScrollTrigger.batch(testimonialCards, {
-            start: 'top 85%',
-            onEnter: function(batch) {
-                gsap.to(batch, {
-                    autoAlpha: 1, y: 0,
-                    duration: 0.8, ease: 'power3.out',
-                    stagger: 0.15
-                });
-                batch.forEach(function(card, i) {
-                    var delay = i * 0.15 + 0.3;
-                    var quote = card.querySelector('.testimonial-quote');
-                    var text = card.querySelector('.testimonial-text');
-                    var author = card.querySelector('.testimonial-author');
-                    if (quote) {
-                        gsap.to(quote, {
-                            autoAlpha: 1, scale: 1,
-                            duration: 0.5, ease: 'back.out(2)',
-                            delay: delay
-                        });
-                    }
-                    if (text) {
-                        gsap.to(text, {
-                            autoAlpha: 1, y: 0,
-                            duration: 0.6, ease: 'power2.out',
-                            delay: delay + 0.15
-                        });
-                    }
-                    if (author) {
-                        gsap.to(author, {
-                            autoAlpha: 1, x: 0,
-                            duration: 0.5, ease: 'power2.out',
-                            delay: delay + 0.3
-                        });
-                    }
-                });
+        function revealCardInternals(card) {
+            gsap.to(card.querySelector('.testimonial-quote'), { autoAlpha: 1, scale: 1, duration: 0.5, ease: 'back.out(2)', delay: 0.2 });
+            gsap.to(card.querySelector('.testimonial-text'), { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out', delay: 0.35 });
+            gsap.to(card.querySelector('.testimonial-author'), { autoAlpha: 1, x: 0, duration: 0.5, ease: 'power2.out', delay: 0.5 });
+        }
+
+        function resetCardInternals(card) {
+            gsap.set(card.querySelector('.testimonial-quote'), { autoAlpha: 0, scale: 0.3 });
+            gsap.set(card.querySelector('.testimonial-text'), { autoAlpha: 0, y: 20 });
+            gsap.set(card.querySelector('.testimonial-author'), { autoAlpha: 0, x: -20 });
+        }
+
+        function updateDots(index) {
+            testimonialDots.forEach(function(dot, i) {
+                dot.classList[i === index ? 'add' : 'remove']('active');
+                dot.setAttribute('aria-selected', i === index ? 'true' : 'false');
+            });
+        }
+
+        function goToSlide(index) {
+            if (isAnimating || index === currentTestimonial) return;
+            isAnimating = true;
+            var outCard = testimonialCards[currentTestimonial];
+            var inCard = testimonialCards[index];
+            gsap.to(outCard, {
+                autoAlpha: 0, y: -20, duration: 0.5, ease: 'power3.in',
+                onComplete: function() {
+                    outCard.classList.remove('is-active');
+                    gsap.set(outCard, { y: 0 });
+                    resetCardInternals(outCard);
+                }
+            });
+            inCard.classList.add('is-active');
+            gsap.fromTo(inCard, { autoAlpha: 0, y: 20 }, {
+                autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out', delay: 0.15,
+                onComplete: function() { isAnimating = false; }
+            });
+            revealCardInternals(inCard);
+            currentTestimonial = index;
+            updateDots(index);
+        }
+
+        function nextSlide() { goToSlide(gsap.utils.wrap(0, testimonialCards.length, currentTestimonial + 1)); }
+        function prevSlide() { goToSlide(gsap.utils.wrap(0, testimonialCards.length, currentTestimonial - 1)); }
+
+        function startAutoplay() {
+            stopAutoplay();
+            autoplayTimer = gsap.delayedCall(DWELL_TIME, function() { nextSlide(); startAutoplay(); });
+        }
+        function stopAutoplay() { if (autoplayTimer) { autoplayTimer.kill(); autoplayTimer = null; } }
+
+        testimonialGrid.addEventListener('mouseenter', stopAutoplay);
+        testimonialGrid.addEventListener('mouseleave', function() {
+            autoplayTimer = gsap.delayedCall(1, function() { nextSlide(); startAutoplay(); });
+        });
+
+        testimonialDots.forEach(function(dot) {
+            dot.addEventListener('click', function() {
+                stopAutoplay();
+                goToSlide(parseInt(dot.getAttribute('data-index'), 10));
+                autoplayTimer = gsap.delayedCall(DWELL_TIME, function() { nextSlide(); startAutoplay(); });
+            });
+        });
+
+        ScrollTrigger.observe({
+            target: testimonialGrid,
+            type: 'touch,pointer',
+            dragMinimum: 30,
+            onLeft: function() { stopAutoplay(); nextSlide(); startAutoplay(); },
+            onRight: function() { stopAutoplay(); prevSlide(); startAutoplay(); }
+        });
+
+        gsap.set(testimonialGrid, { autoAlpha: 0, y: 40 });
+        gsap.set('.testimonial-dots', { autoAlpha: 0 });
+
+        ScrollTrigger.create({
+            trigger: '.testimonials-grid',
+            start: 'top 80%',
+            once: true,
+            onEnter: function() {
+                gsap.to(testimonialGrid, { autoAlpha: 1, y: 0, duration: 1.0, ease: 'power3.out' });
+                gsap.delayedCall(0.4, function() { revealCardInternals(testimonialCards[0]); });
+                gsap.to('.testimonial-dots', { autoAlpha: 1, duration: 0.6, ease: 'power2.out', delay: 1.0 });
+                gsap.delayedCall(1.8, startAutoplay);
             }
         });
     }

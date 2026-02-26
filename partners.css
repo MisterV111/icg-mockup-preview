@@ -327,17 +327,7 @@
     background: var(--color-surface);
 }
 
-.partners-testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-lg);
-}
-
-/* Override homepage carousel styles for partners grid layout */
-.partners-testimonials .testimonial-card {
-    position: relative;
-    visibility: visible;
-}
+/* Partners testimonials use the same carousel as homepage (testimonials-grid class) */
 
 
 /* ─── FAQ ────────────────────────────────────────────────────── */
