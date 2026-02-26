@@ -2034,9 +2034,11 @@ a.work-card {
     overflow: hidden;
 }
 
-.contact .container {
+.contact-info,
+.contact-form-wrap {
     max-width: 100%;
-    overflow: hidden;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .contact-grid {
@@ -2726,8 +2728,27 @@ a.work-card {
         grid-template-columns: 1fr;
     }
 
+    .contact .container {
+        padding: 0 var(--space-md);
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .contact-grid {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .contact-info {
+        width: 100%;
+        min-width: 0;
+    }
+
     .contact-form-wrap {
         padding: var(--space-lg);
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
     }
 
     .contact-detail a,
@@ -2739,6 +2760,10 @@ a.work-card {
 
     .contact-info .section-title {
         font-size: clamp(1.4rem, 5vw, 2rem);
+    }
+
+    .contact-text {
+        font-size: 0.95rem;
     }
     
     .footer-grid {
