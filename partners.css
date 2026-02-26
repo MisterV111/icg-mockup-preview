@@ -880,39 +880,12 @@
     }
 }
 
-/* ─── VINTAGE SECTION BACKGROUNDS ─────────────────────────── */
+/* ─── VINTAGE SECTION BACKGROUNDS (uses shared .section-bg from style.css) ─── */
 .partners-problem,
 .partners-why,
 .partners-deliverables {
     position: relative;
     overflow: hidden;
-}
-
-.partners-problem::before,
-.partners-why::before,
-.partners-deliverables::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    opacity: 0.16;
-    z-index: 0;
-}
-
-.partners-problem::before {
-    background-image: url('assets/backgrounds/partners/partners-problem-bg.jpg');
-}
-
-.partners-why::before {
-    background-image: url('assets/backgrounds/partners/partners-whyus-bg.jpg');
-    opacity: 0.15;
-}
-
-.partners-deliverables::before {
-    background-image: url('assets/backgrounds/partners/partners-deliverables-bg.jpg');
-    opacity: 0.17;
 }
 
 /* Content above backgrounds */
@@ -922,25 +895,4 @@
     position: relative;
     z-index: 1;
 }
-
-/* Mobile: smaller images */
-@media (max-width: 768px) {
-    .partners-problem::before {
-        background-image: url('assets/backgrounds/partners/partners-problem-bg-mobile.jpg');
-    }
-    .partners-why::before {
-        background-image: url('assets/backgrounds/partners/partners-whyus-bg-mobile.jpg');
-    }
-    .partners-deliverables::before {
-        background-image: url('assets/backgrounds/partners/partners-deliverables-bg-mobile.jpg');
-    }
-}
-
-/* Reduced motion: hide backgrounds */
-@media (prefers-reduced-motion: reduce) {
-    .partners-problem::before,
-    .partners-why::before,
-    .partners-deliverables::before {
-        display: none;
-    }
 }
