@@ -405,6 +405,7 @@
 /* ─── CONTACT ────────────────────────────────────────────────── */
 .partners-contact {
     background: var(--color-dark);
+    overflow: hidden;
 }
 
 .partners-contact-grid {
@@ -432,6 +433,9 @@
     border: 1px solid var(--color-border);
     border-radius: 8px;
     padding: var(--space-xl);
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 /* Ensure form inputs are visible on dark bg */
