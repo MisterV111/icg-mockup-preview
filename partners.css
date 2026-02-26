@@ -92,6 +92,7 @@
 
 .partners-problem-card:hover {
     border-color: var(--color-border-light);
+    box-shadow: var(--shadow-card-hover);
 }
 
 .partners-problem-card:hover .partners-problem-icon {
@@ -294,6 +295,7 @@
 
 .partners-deliverable:hover {
     border-color: var(--color-border-light);
+    box-shadow: var(--shadow-card-hover);
 }
 
 .partners-deliverable-icon {

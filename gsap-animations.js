@@ -767,6 +767,22 @@
     }
 
     // ─── Refresh ScrollTrigger after all images load ────────────
+        // ─── FAQ Items ─────────────────────────────────────────────
+    var faqItems = gsap.utils.toArray('.partners-faq-item.gsap-animate');
+    if (faqItems.length) {
+        gsap.set(faqItems, { autoAlpha: 0, y: 30 });
+        ScrollTrigger.batch(faqItems, {
+            start: 'top 88%',
+            onEnter: function(batch) {
+                gsap.to(batch, {
+                    autoAlpha: 1, y: 0,
+                    duration: 0.6, ease: 'power3.out',
+                    stagger: 0.08
+                });
+            }
+        });
+    }
+
     window.addEventListener('load', function() {
         ScrollTrigger.refresh();
     });

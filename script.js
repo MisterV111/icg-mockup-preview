@@ -408,6 +408,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ─── FAQ Accordion ──────────────────────────────────────────
+    document.querySelectorAll('.partners-faq-toggle').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var item = btn.closest('.partners-faq-item');
+            var answer = item.querySelector('.partners-faq-answer');
+            var icon = btn.querySelector('.partners-faq-icon');
+            var isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+            document.querySelectorAll('.partners-faq-item').forEach(function(other) {
+                if (other !== item) {
+                    other.querySelector('.partners-faq-toggle').setAttribute('aria-expanded', 'false');
+                    other.querySelector('.partners-faq-answer').style.maxHeight = null;
+                    other.querySelector('.partners-faq-icon').textContent = '+';
+                }
+            });
+
+            if (isOpen) {
+                btn.setAttribute('aria-expanded', 'false');
+                answer.style.maxHeight = null;
+                icon.textContent = '+';
+            } else {
+                btn.setAttribute('aria-expanded', 'true');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                icon.textContent = '×';
+            }
+        });
+    });
+
     // ─── Bio Read More Toggle ──────────────────────────────────
     document.querySelectorAll('.team-read-more').forEach(function(btn) {
         btn.addEventListener('click', function() {
