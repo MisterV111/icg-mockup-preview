@@ -1132,6 +1132,7 @@ ul {
    SERVICES
    ═══════════════════════════════════════════════════════════════ */
 .services {
+    position: relative;
     background: var(--color-surface);
     overflow: hidden;
 }
@@ -3593,24 +3594,26 @@ a.pillar-card-link {
     overflow: hidden;
 }
 
-.stakes-section::before,
-.value-prop::before,
-.plan::before,
-.ai-system-section::before,
-.services::before {
-    content: '';
+/* Section background images — responsive <img> approach */
+.section-bg {
     position: absolute;
     inset: 0;
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
     opacity: 0.18;
     z-index: 0;
     pointer-events: none;
+    user-select: none;
 }
 
-.stakes-section::before {
-    background-image: url('assets/backgrounds/stakes-bg.jpg');
+/* On mobile: switch to contain so the full image is visible */
+@media (max-width: 768px) {
+    .section-bg {
+        object-fit: contain;
+        object-position: center top;
+    }
 }
 
 .stakes-section::after {
@@ -3620,26 +3623,6 @@ a.pillar-card-link {
     background: radial-gradient(ellipse 60% 50% at center, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
     z-index: 0;
     pointer-events: none;
-}
-
-.value-prop::before {
-    background-image: url('assets/backgrounds/valueprop-bg.jpg');
-    opacity: 0.15;
-}
-
-.plan::before {
-    background-image: url('assets/backgrounds/plan-bg.jpg');
-    opacity: 0.18;
-}
-
-.ai-system-section::before {
-    background-image: url('assets/backgrounds/system-bg.jpg');
-    opacity: 0.16;
-}
-
-.services::before {
-    background-image: url('assets/backgrounds/services-bg.jpg');
-    opacity: 0.17;
 }
 
 /* Content must sit above the background */
@@ -3652,32 +3635,9 @@ a.pillar-card-link {
     z-index: 1;
 }
 
-/* Mobile: swap to smaller images */
-@media (max-width: 768px) {
-    .stakes-section::before {
-        background-image: url('assets/backgrounds/stakes-bg-mobile.jpg');
-    }
-    .value-prop::before {
-        background-image: url('assets/backgrounds/valueprop-bg-mobile.jpg');
-    }
-    .plan::before {
-        background-image: url('assets/backgrounds/plan-bg-mobile.jpg');
-    }
-    .ai-system-section::before {
-        background-image: url('assets/backgrounds/system-bg-mobile.jpg');
-    }
-    .services::before {
-        background-image: url('assets/backgrounds/services-bg-mobile.jpg');
-    }
-}
-
 /* Respect reduced motion — remove backgrounds + show all testimonials */
 @media (prefers-reduced-motion: reduce) {
-    .stakes-section::before,
-    .value-prop::before,
-    .plan::before,
-    .ai-system-section::before,
-    .services::before {
+    .section-bg {
         display: none;
     }
     .testimonial-card {
