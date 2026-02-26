@@ -114,6 +114,9 @@ ul {
 .hide-mobile {
     display: inline;
 }
+.hide-desktop {
+    display: none;
+}
 
 
 /* ─── SKIP NAVIGATION (Accessibility) ────────────────────────── */
@@ -2552,6 +2555,9 @@ a.work-card {
     
     .hide-mobile {
         display: none;
+    }
+    .hide-desktop {
+        display: inline;
     }
     
     .hero-stats {
