@@ -2034,6 +2034,11 @@ a.work-card {
     overflow: hidden;
 }
 
+.contact .container {
+    max-width: 100%;
+    overflow: hidden;
+}
+
 .contact-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -2125,6 +2130,9 @@ a.work-card {
     color: var(--color-white);
     transition: border-color 0.3s ease;
     -webkit-appearance: none;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .form-group input::placeholder,
@@ -2716,6 +2724,21 @@ a.work-card {
     
     .form-row {
         grid-template-columns: 1fr;
+    }
+
+    .contact-form-wrap {
+        padding: var(--space-lg);
+    }
+
+    .contact-detail a,
+    .contact-detail span {
+        word-break: break-word;
+        overflow-wrap: break-word;
+        font-size: 0.85rem;
+    }
+
+    .contact-info .section-title {
+        font-size: clamp(1.4rem, 5vw, 2rem);
     }
     
     .footer-grid {
