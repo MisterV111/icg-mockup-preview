@@ -648,9 +648,9 @@ ul {
 .section-label {
     display: inline-block;
     font-family: var(--font-heading);
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     font-weight: 600;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--color-red);
     margin-bottom: var(--space-sm);
@@ -1089,6 +1089,58 @@ ul {
     background: var(--color-red-glow-2);
     border-radius: 0 4px 4px 0;
     margin-top: var(--space-sm);
+}
+
+/* Bio read-more toggle — collapses on mobile, open on desktop */
+.team-member-more {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+    margin-top: 0;
+}
+
+.team-member-more.is-open {
+    max-height: 500px;
+    opacity: 1;
+    margin-top: var(--space-sm);
+}
+
+.team-read-more {
+    background: none;
+    border: none;
+    color: var(--color-red);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+    margin-top: var(--space-xs);
+    transition: color 0.2s ease;
+}
+
+.team-read-more:hover {
+    color: var(--color-red-light);
+}
+
+.team-read-more[aria-expanded="true"]::after {
+    content: ' ↑';
+}
+
+.team-read-more[aria-expanded="false"]::after {
+    content: ' →';
+}
+
+/* Desktop: always show full bio, hide toggle */
+@media (min-width: 769px) {
+    .team-member-more {
+        max-height: none;
+        opacity: 1;
+        margin-top: var(--space-sm);
+    }
+    .team-read-more {
+        display: none;
+    }
 }
 
 /* The System */

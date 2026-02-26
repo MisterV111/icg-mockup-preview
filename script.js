@@ -408,6 +408,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ─── Bio Read More Toggle ──────────────────────────────────
+    document.querySelectorAll('.team-read-more').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var more = btn.previousElementSibling;
+            var isOpen = more.classList.toggle('is-open');
+            btn.setAttribute('aria-expanded', isOpen);
+            btn.textContent = isOpen ? 'Read less' : 'Read more';
+        });
+    });
+
     // ─── Sticky Contact Pill ───────────────────────────────────
     const stickyContact = document.getElementById('stickyContact');
     const contactSection = document.getElementById('contact');
