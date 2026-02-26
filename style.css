@@ -3608,11 +3608,15 @@ a.pillar-card-link {
     user-select: none;
 }
 
-/* On mobile: switch to contain so the full image is visible */
+/* On mobile: contain + gradient mask so image fades before hitting text */
 @media (max-width: 768px) {
     .section-bg {
         object-fit: contain;
         object-position: center top;
+        height: auto;
+        max-height: 45%;
+        -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+        mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
     }
 }
 
