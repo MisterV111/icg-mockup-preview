@@ -1282,6 +1282,30 @@ ul { list-style: none; }
         padding: var(--space-lg) 0;
     }
     
+    /* Gallery scroll hint arrow */
+    .project-gallery {
+        position: relative;
+    }
+    .project-gallery::after {
+        content: '→';
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.5rem;
+        color: rgba(255,255,255,0.5);
+        background: linear-gradient(to right, transparent, rgba(0,0,0,0.6) 40%);
+        padding: 1rem 0.5rem 1rem 1.5rem;
+        pointer-events: none;
+        z-index: 2;
+        border-radius: 0 8px 8px 0;
+        animation: scrollHint 2s ease-in-out infinite;
+    }
+    @keyframes scrollHint {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.4; }
+    }
+
     /* Mobile gallery: horizontal swipeable carousel */
     .project-gallery,
     .project-gallery.two-images,
