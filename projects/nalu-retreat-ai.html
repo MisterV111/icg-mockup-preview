@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P07TX5YY6H"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-P07TX5YY6H');
+    </script>
+    <title>Nalu Retreat — AI-Produced Testimonial Video | Inspired Creative Group Inc.</title>
+    <meta name="description" content="No Premiere. No After Effects. No Pro Tools. 31 AI agents across 5 layers produced a broadcast-quality testimonial video from client photos and reviews alone.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="projects.css">
+    <style>
+        .ai-deep-dive { padding: 4rem 0; }
+        .ai-deep-dive h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 1.5rem; }
+        .ai-deep-dive h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 600; color: var(--color-red, #E8000D); margin-bottom: 0.75rem; margin-top: 2rem; }
+        .ai-deep-dive p, .ai-deep-dive li { font-family: 'Inter', sans-serif; color: rgba(255,255,255,0.75); line-height: 1.7; }
+        .ai-deep-dive ul { list-style: none; padding: 0; }
+        .ai-deep-dive ul li { padding-left: 1.5rem; position: relative; margin-bottom: 0.5rem; }
+        .ai-deep-dive ul li::before { content: '→'; position: absolute; left: 0; color: var(--color-red, #E8000D); }
+
+        .ai-callout { background: rgba(232, 0, 13, 0.06); border-left: 3px solid var(--color-red, #E8000D); padding: 1.5rem 2rem; margin: 2rem 0; border-radius: 0 8px 8px 0; }
+        .ai-callout p { color: rgba(255,255,255,0.85); font-size: 1.05rem; margin: 0; }
+
+        .layer-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+        .layer-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.5rem 2rem; }
+        .layer-card-num { font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; font-weight: 600; color: var(--color-red, #E8000D); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+        .layer-card h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 600; color: #fff; margin-bottom: 0.75rem; }
+        .layer-card p { font-size: 0.95rem; margin-bottom: 0; }
+        .layer-card ul { margin-top: 0.5rem; }
+        .layer-card ul li { font-size: 0.95rem; }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .stat-card { text-align: center; padding: 1.5rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; }
+        .stat-number { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; color: var(--color-red, #E8000D); display: block; }
+        .stat-label { font-family: 'Inter', sans-serif; font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-top: 0.25rem; }
+
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+        .tool-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 1rem 1.25rem; }
+        .tool-item strong { color: #fff; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; display: block; margin-bottom: 0.25rem; }
+        .tool-item span { color: rgba(255,255,255,0.6); font-size: 0.85rem; }
+
+        .editing-principles { counter-reset: principle; margin-top: 1rem; }
+        .editing-principles li { counter-increment: principle; padding-left: 2rem; margin-bottom: 0.75rem; }
+        .editing-principles li::before { content: counter(principle); position: absolute; left: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--color-red, #E8000D); }
+
+        @media (min-width: 768px) {
+            .layer-grid { grid-template-columns: 1fr 1fr; }
+            .layer-card--full { grid-column: 1 / -1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="../index.html#hero" class="nav-logo">
+                <img src="../assets/logo.png" alt="Inspired Creative Group Inc." />
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../index.html#about" class="nav-link">About</a>
+                <a href="../index.html#services" class="nav-link">Services</a>
+                <a href="../partners.html" class="nav-link">Partners</a>
+                <a href="../index.html#contact" class="btn btn-primary nav-cta-btn">Schedule a Discovery Call</a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <section class="project-hero">
+        <div class="project-hero-bg">
+            <img src="../assets/portfolio/13-nalu-retreat.jpg" alt="Nalu Retreat — AI-Produced Testimonial Video" />
+        </div>
+        <div class="project-hero-content">
+            <div class="project-hero-breadcrumb">
+                <a href="../index.html#work">Portfolio</a>
+                <span class="sep">›</span>
+                <a href="../index.html#work">AI-Generated Work</a>
+            </div>
+            <div class="project-hero-client">Nalu Retreat</div>
+            <h1 class="project-hero-title">AI-Produced Testimonial Video</h1>
+            <div class="project-hero-tags">
+                <span class="project-tag">AI Production</span>
+                <span class="project-tag">Video</span>
+                <span class="project-tag">Music</span>
+                <span class="project-tag">Voiceover</span>
+                <span class="project-tag">Sound Design</span>
+            </div>
+            <a href="../index.html#work" class="project-back-top">← Back to Portfolio</a>
+        </div>
+    </section>
+
+    <!-- Project Info -->
+    <section class="project-info">
+        <div class="container">
+            <div class="project-info-grid">
+                <div class="project-description">
+                    <h2>About This Project</h2>
+                    <p>No Premiere. No After Effects. No Pro Tools. Starting from nothing but client photos and online testimonials, our AI production system produced a broadcast-quality promotional video — original music, professional voiceover, simulated camera movements, and frame-accurate editing. One producer directing 31 specialized agents. A traditional workflow would require a team of 5–8.</p>
+                    <p>This page is a transparent look at how it was built — every layer, every tool, every decision point between human and machine.</p>
+                </div>
+                <div class="project-meta">
+                    <div class="project-meta-block">
+                        <h3>Client</h3>
+                        <p><a href="https://www.naluretreat.com" target="_blank" style="color: var(--color-red); text-decoration: underline; text-underline-offset: 2px;">naluretreat.com</a></p>
+                    </div>
+                    <div class="project-meta-block">
+                        <h3>Timeline</h3>
+                        <p>5 weeks (Nov 17 – Dec 20, 2025)</p>
+                    </div>
+                    <div class="project-meta-block">
+                        <h3>Deliverables</h3>
+                        <ul class="project-services-list">
+                            <li>4K master (3840×2160)</li>
+                            <li>1080p full version (1:38)</li>
+                            <li>1080p short cut (1:00)</li>
+                        </ul>
+                    </div>
+                    <div class="project-meta-block">
+                        <h3>Featured In</h3>
+                        <p><a href="https://www.vogue.com/article/halifax-nova-scotia-travel-guide" target="_blank" style="color: var(--color-red); text-decoration: underline; text-underline-offset: 2px;">Vogue</a> · <a href="https://www.newsweek.com/worlds-most-extraordinary-spas-2026-11100600" target="_blank" style="color: var(--color-red); text-decoration: underline; text-underline-offset: 2px;">Newsweek</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video -->
+    <section class="project-media">
+        <div class="container project-media-inner">
+            <div class="video-embed">
+                <iframe src="https://player.vimeo.com/video/1160810772?badge=0&autopause=0&player_id=0&app_id=58479" 
+                        style="position:absolute;top:0;left:0;width:100%;height:100%;" 
+                        frameborder="0" allow="autoplay; fullscreen; picture-in-picture" 
+                        allowfullscreen title="Nalu Retreat — AI-Produced Testimonial Video"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="ai-deep-dive">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">31</span>
+                    <span class="stat-label">AI Agents</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">5</span>
+                    <span class="stat-label">Production Layers</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">24</span>
+                    <span class="stat-label">Video Clips Generated</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">25</span>
+                    <span class="stat-label">Beat Markers</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">1</span>
+                    <span class="stat-label">Human Producer</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">0</span>
+                    <span class="stat-label">Traditional Editing Tools</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Architecture -->
+    <section class="ai-deep-dive">
+        <div class="container">
+            <h2>The 5-Layer Production Architecture</h2>
+            <p>Every project runs through the same system — but the agents, tools, and creative decisions change based on what the content demands. Here's exactly how this video was built.</p>
+
+            <div class="layer-grid">
+                <div class="layer-card">
+                    <div class="layer-card-num">Layer 01</div>
+                    <h4>Strategic — Research & Brief</h4>
+                    <ul>
+                        <li>Apify agents scraped testimonials from multiple review platforms</li>
+                        <li>Perplexity analyzed Nalu's positioning and competitive landscape</li>
+                        <li>Top 5 testimonials synthesized into a creative brief</li>
+                        <li>Source material: client-provided photos + scraped reviews</li>
+                    </ul>
+                </div>
+                <div class="layer-card">
+                    <div class="layer-card-num">Layer 02</div>
+                    <h4>Coordination — Orchestration</h4>
+                    <ul>
+                        <li>Routes tasks across all specialist agents and APIs</li>
+                        <li>Handles parallel execution — video, music, and voiceover generated simultaneously</li>
+                        <li>Manages dependencies between asset generation steps</li>
+                        <li>Tracks cost and quality across the entire pipeline</li>
+                    </ul>
+                </div>
+                <div class="layer-card">
+                    <div class="layer-card-num">Layer 03</div>
+                    <h4>Specialist Orchestrators — The Production Floor</h4>
+                    <ul>
+                        <li><strong style="color:#fff;">Video:</strong> 24 clips generated via Kling 2.5 from client photos. 92% static shots to reinforce meditative calm. Simulated camera movement on 8% of shots (opening aerials only)</li>
+                        <li><strong style="color:#fff;">Music:</strong> Suno V5 composed "Peaceful Awakening" — calm, continuous, 60–80 BPM, ambient/acoustic. 2 variations generated, best selected</li>
+                        <li><strong style="color:#fff;">Voiceover:</strong> ElevenLabs produced professional VO from a synthesized testimonial script with emotion tagging for natural delivery</li>
+                        <li><strong style="color:#fff;">Image:</strong> Nano Banana generated the end screen and signage elements</li>
+                    </ul>
+                </div>
+                <div class="layer-card">
+                    <div class="layer-card-num">Layer 04</div>
+                    <h4>Verification — Quality Control</h4>
+                    <ul>
+                        <li>Gemini 2.5 Flash + Pro analyzed every single generated clip</li>
+                        <li>24 individual clip analysis JSONs: visual description, location type, key elements</li>
+                        <li>Content-based clip mapping — Gemini matched clip content to voiceover sections (not sequential)</li>
+                        <li>Misalignment reports generated and corrected across 3 iterative cuts</li>
+                        <li>Total QC cost: ~$0.08</li>
+                    </ul>
+                </div>
+                <div class="layer-card layer-card--full">
+                    <div class="layer-card-num">Layer 05</div>
+                    <h4>Assembly — Final Composition</h4>
+                    <ul>
+                        <li>FFmpeg-based composition — no Premiere, After Effects, or Pro Tools at any stage</li>
+                        <li>5+ iterative rough cuts refined through the verification loop</li>
+                        <li>Sound design and color correction from the creative brief's storyboard</li>
+                        <li>Final delivery: 4K master + 1080p versions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Beat-Marker System -->
+    <section class="ai-deep-dive">
+        <div class="container">
+            <h2>The Beat-Marker System</h2>
+            <p>This is where human direction meets machine execution. The producer places markers over the audio track — defining exactly where each visual cut should land. The system generates a JSON file with frame-accurate timestamps. Agents handle the execution. Humans handle the creative decisions.</p>
+
+            <div class="ai-callout">
+                <p><strong>25 markers across 89 seconds of audio.</strong> Each marker is a creative decision — when to cut, when to hold, when to breathe. The agents execute with frame-level precision, but the rhythm comes from a human ear.</p>
+            </div>
+
+            <h3>Editing Principles Derived from This Project</h3>
+            <ul class="editing-principles">
+                <li><strong style="color:#fff;">Rhythm is King</strong> — 96% of scenes are exactly 3 seconds. Consistent pacing creates a meditative feel.</li>
+                <li><strong style="color:#fff;">Hard Cuts Only</strong> — 92% hard cuts. Single fade to black before the end card. No transitions for the sake of transitions.</li>
+                <li><strong style="color:#fff;">Voiceover Leads</strong> — Cuts align with natural speech pauses, not music beats. The voice drives the edit.</li>
+                <li><strong style="color:#fff;">Stillness Creates Calm</strong> — 92% static shots. Camera movement reserved for opening aerials only.</li>
+                <li><strong style="color:#fff;">Visual Arc</strong> — Wide (aerial) → Intimate (interior) → Wide (night aerial) → CTA. A journey inward and back out.</li>
+                <li><strong style="color:#fff;">Uniform Pacing</strong> — Slow throughout. No acceleration. The retreat doesn't rush and neither does the video.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Tools & APIs -->
+    <section class="ai-deep-dive">
+        <div class="container">
+            <h2>Tools & APIs</h2>
+            <p>Every tool was selected for a specific job. No all-in-one platforms. No compromises.</p>
+            <div class="tools-grid">
+                <div class="tool-item">
+                    <strong>Kling 2.5</strong>
+                    <span>Video generation — 24 clips from photos</span>
+                </div>
+                <div class="tool-item">
+                    <strong>Suno V5</strong>
+                    <span>Original music composition</span>
+                </div>
+                <div class="tool-item">
+                    <strong>ElevenLabs</strong>
+                    <span>Professional voiceover</span>
+                </div>
+                <div class="tool-item">
+                    <strong>Nano Banana</strong>
+                    <span>End screen & signage generation</span>
+                </div>
+                <div class="tool-item">
+                    <strong>Gemini 2.5</strong>
+                    <span>QC, clip analysis, content mapping</span>
+                </div>
+                <div class="tool-item">
+                    <strong>Apify</strong>
+                    <span>Testimonial scraping</span>
+                </div>
+                <div class="tool-item">
+                    <strong>Perplexity</strong>
+                    <span>Competitive research</span>
+                </div>
+                <div class="tool-item">
+                    <strong>FFmpeg</strong>
+                    <span>Assembly, rendering, delivery</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Human Element -->
+    <section class="ai-deep-dive">
+        <div class="container">
+            <div class="ai-callout">
+                <p><strong>What the AI did:</strong> Research, generate, analyze, compose, render, verify, assemble.</p>
+                <p style="margin-top: 0.75rem;"><strong>What the human did:</strong> Creative brief, beat markers, quality judgment, client relationship, and the one thing no agent can do — know when it's done.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scene Distribution -->
+    <section class="ai-deep-dive" style="padding-top: 0;">
+        <div class="container">
+            <h2>Scene Distribution</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">63%</span>
+                    <span class="stat-label">Interior Scenes</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">21%</span>
+                    <span class="stat-label">Aerial Exterior</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">8%</span>
+                    <span class="stat-label">Ground Exterior</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">3s</span>
+                    <span class="stat-label">Average Scene Length</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="project-results">
+        <div class="container">
+            <div class="project-results-inner">
+                <span class="project-results-label">Results</span>
+                <div class="project-results-grid">
+                    <div class="project-result-card">
+                        <div class="project-result-stat">Featured in Vogue</div>
+                        <div class="project-result-desc">Nalu highlighted in Vogue's Halifax travel guide as a must-visit destination</div>
+                    </div>
+                    <div class="project-result-card">
+                        <div class="project-result-stat">Newsweek Top Spas 2026</div>
+                        <div class="project-result-desc">Named one of Newsweek's World's Most Extraordinary Spas</div>
+                    </div>
+                    <div class="project-result-card">
+                        <div class="project-result-stat">Zero Traditional Tools</div>
+                        <div class="project-result-desc">No Premiere, After Effects, or Pro Tools used at any stage of production</div>
+                    </div>
+                    <div class="project-result-card">
+                        <div class="project-result-stat">1 Producer, 31 Agents</div>
+                        <div class="project-result-desc">Traditional workflow would require a team of 5–8 people</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Navigation -->
+    <section class="project-nav">
+        <div class="container project-nav-inner">
+            <a href="../index.html#work" class="project-nav-back">← Back to Portfolio</a>
+            <div class="project-nav-links">
+                <a href="nalu-retreat.html" class="project-nav-link project-nav-link--prev">
+                    <span class="project-nav-direction">← Brand & Design</span>
+                    <span class="project-nav-title">Nalu Retreat — Full Brand Project</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="../assets/logo.png" alt="Inspired Creative Group Inc." class="footer-logo" />
+                    <p class="footer-tagline">Two decades of creative expertise.<br>Amplified by 40+ AI agents.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Navigation</h4>
+                    <a href="../index.html#home">Home</a>
+                    <a href="../index.html#about">About</a>
+                    <a href="../index.html#services">Services</a>
+                    <a href="../index.html#work">Work</a>
+                    <a href="../index.html#contact">Contact</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Services</h4>
+                    <a href="../index.html#services-creative">Inspired Creative</a>
+                    <a href="../index.html#services-ai">Inspired A.I. Innovation</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Connect</h4>
+                    <a href="mailto:info@inspiredcreativegroupinc.com">Email Us</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Inspired Creative Group Inc. All rights reserved.<br>
+                <span class="footer-location">Halifax, Nova Scotia · Working Globally</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+        navToggle.classList.toggle('active');
+        navLinks.classList.toggle('open');
+    });
+    </script>
+
+</body>
+</html>
