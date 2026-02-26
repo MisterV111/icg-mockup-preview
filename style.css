@@ -1393,6 +1393,7 @@ ul {
     color: var(--color-white);
     margin-bottom: var(--space-md);
     text-align: center;
+    line-height: 1.2;
 }
 
 .ai-difference {
