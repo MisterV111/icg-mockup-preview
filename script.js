@@ -408,6 +408,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ─── Scroll Progress Indicator ─────────────────────────────
+    var scrollProgress = document.getElementById('scrollProgress');
+    if (scrollProgress) {
+        window.addEventListener('scroll', function() {
+            var h = document.documentElement.scrollHeight - window.innerHeight;
+            var pct = h > 0 ? (window.scrollY / h) * 100 : 0;
+            scrollProgress.style.width = pct + '%';
+        }, {passive: true});
+    }
+
     // ─── FAQ Accordion ──────────────────────────────────────────
     document.querySelectorAll('.partners-faq-toggle').forEach(function(btn) {
         btn.addEventListener('click', function() {

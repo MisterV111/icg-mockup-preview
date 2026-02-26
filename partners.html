@@ -97,6 +97,7 @@
     </script>
 </head>
 <body class="partners-page">
+    <div class="scroll-progress" id="scrollProgress"></div>
 
     <!-- Navigation -->
     <nav class="nav" id="nav">
@@ -1375,6 +1376,39 @@
             });
         });
     })();
+    </script>
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+    <a href="#partners-contact" class="sticky-contact" id="stickyContact">Schedule a Discovery Call</a>
+    <script>
+    // Scroll progress
+    var scrollProgress = document.getElementById('scrollProgress');
+    if (scrollProgress) {
+        window.addEventListener('scroll', function() {
+            var h = document.documentElement.scrollHeight - window.innerHeight;
+            scrollProgress.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+        }, {passive: true});
+    }
+    // Back to top
+    var btt = document.getElementById('backToTop');
+    if (btt) {
+        window.addEventListener('scroll', function() {
+            btt.classList[window.scrollY > window.innerHeight ? 'add' : 'remove']('visible');
+        });
+        btt.addEventListener('click', function() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+    }
+    // Sticky contact pill
+    var stickyContact = document.getElementById('stickyContact');
+    var contactSection = document.getElementById('partners-contact');
+    if (stickyContact && contactSection) {
+        window.addEventListener('scroll', function() {
+            var contactTop = contactSection.getBoundingClientRect().top;
+            var pastFirst = window.scrollY > window.innerHeight;
+            var contactInView = contactTop < window.innerHeight;
+            stickyContact.classList[pastFirst && !contactInView ? 'add' : 'remove']('visible');
+        });
+    }
     </script>
 </body>
 </html>

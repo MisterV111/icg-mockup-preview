@@ -2450,6 +2450,19 @@ a.work-card {
 }
 
 /* Back to Top */
+/* Scroll progress indicator */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: var(--color-red);
+    z-index: 10000;
+    width: 0%;
+    transition: none;
+    pointer-events: none;
+}
+
 .back-to-top {
     position: fixed;
     bottom: 2rem;
