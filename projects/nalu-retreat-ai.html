@@ -114,7 +114,7 @@
             <div class="project-info-grid">
                 <div class="project-description">
                     <h2>About This Project</h2>
-                    <p>No Premiere. No After Effects. No Pro Tools. Starting from nothing but client photos and online testimonials, our AI production system produced a broadcast-quality promotional video — original music, professional voiceover, simulated camera movements, and frame-accurate editing. One producer directing 31 specialized agents. A traditional workflow would require a team of 5–8.</p>
+                    <p>No Premiere. No After Effects. No Pro Tools. Starting from nothing but client photos and online testimonials, our AI production system produced a broadcast-quality promotional video — original music, professional voiceover, simulated camera movements, and frame-accurate editing. One producer directing 17 specialized agents (from a system of 40+). A traditional workflow would require a team of 5–8.</p>
                     <p>This page is a transparent look at how it was built — every layer, every tool, every decision point between human and machine.</p>
                 </div>
                 <div class="project-meta">
@@ -160,8 +160,8 @@
         <div class="container">
             <div class="stats-grid">
                 <div class="stat-card">
-                    <span class="stat-number">31</span>
-                    <span class="stat-label">AI Agents</span>
+                    <span class="stat-number">17</span>
+                    <span class="stat-label">AI Agents Used</span>
                 </div>
                 <div class="stat-card">
                     <span class="stat-number">5</span>
@@ -191,59 +191,63 @@
     <section class="ai-deep-dive">
         <div class="container">
             <h2>The 5-Layer Production Architecture</h2>
-            <p>Every project runs through the same system — but the agents, tools, and creative decisions change based on what the content demands. Here's exactly how this video was built.</p>
+            <p>Our system has 40+ agents, but not every project needs all of them. For this video, 17 agents were activated across 5 layers — each one handling a specific job in the pipeline. Here's exactly how they worked together.</p>
 
             <div class="layer-grid">
                 <div class="layer-card">
-                    <div class="layer-card-num">Layer 01</div>
+                    <div class="layer-card-num">Layer 01 — 3 Agents</div>
                     <h4>Strategic — Research & Brief</h4>
+                    <p>Before any content is generated, the system needs raw material and context. Three agents work in parallel to build the creative foundation:</p>
                     <ul>
-                        <li>Apify agents scraped testimonials from multiple review platforms</li>
-                        <li>Perplexity analyzed Nalu's positioning and competitive landscape</li>
-                        <li>Top 5 testimonials synthesized into a creative brief</li>
-                        <li>Source material: client-provided photos + scraped reviews</li>
+                        <li><strong style="color:#fff;">Scraper Agent (Apify)</strong> — Collected real guest testimonials from multiple review platforms. No generic copy — real words from real visitors.</li>
+                        <li><strong style="color:#fff;">Research Agent (Perplexity)</strong> — Analyzed Nalu's market positioning, competitor landscape, and what makes the retreat unique. This informs tone and messaging.</li>
+                        <li><strong style="color:#fff;">Brief Generator</strong> — Synthesized the top 5 testimonials + research into a structured creative brief: target audience, emotional tone, visual direction, and script outline.</li>
                     </ul>
                 </div>
                 <div class="layer-card">
-                    <div class="layer-card-num">Layer 02</div>
-                    <h4>Coordination — Orchestration</h4>
+                    <div class="layer-card-num">Layer 02 — 1 Agent</div>
+                    <h4>Coordination — The Orchestrator</h4>
+                    <p>One central agent manages the entire production pipeline:</p>
                     <ul>
-                        <li>Routes tasks across all specialist agents and APIs</li>
-                        <li>Handles parallel execution — video, music, and voiceover generated simultaneously</li>
-                        <li>Manages dependencies between asset generation steps</li>
-                        <li>Tracks cost and quality across the entire pipeline</li>
-                    </ul>
-                </div>
-                <div class="layer-card">
-                    <div class="layer-card-num">Layer 03</div>
-                    <h4>Specialist Orchestrators — The Production Floor</h4>
-                    <ul>
-                        <li><strong style="color:#fff;">Video:</strong> 24 clips generated via Kling 2.5 from client photos. 92% static shots to reinforce meditative calm. Simulated camera movement on 8% of shots (opening aerials only)</li>
-                        <li><strong style="color:#fff;">Music:</strong> Suno V5 composed "Peaceful Awakening" — calm, continuous, 60–80 BPM, ambient/acoustic. 2 variations generated, best selected</li>
-                        <li><strong style="color:#fff;">Voiceover:</strong> ElevenLabs produced professional VO from a synthesized testimonial script with emotion tagging for natural delivery</li>
-                        <li><strong style="color:#fff;">Image:</strong> Nano Banana generated the end screen and signage elements</li>
-                    </ul>
-                </div>
-                <div class="layer-card">
-                    <div class="layer-card-num">Layer 04</div>
-                    <h4>Verification — Quality Control</h4>
-                    <ul>
-                        <li>Gemini 2.5 Flash + Pro analyzed every single generated clip</li>
-                        <li>24 individual clip analysis JSONs: visual description, location type, key elements</li>
-                        <li>Content-based clip mapping — Gemini matched clip content to voiceover sections (not sequential)</li>
-                        <li>Misalignment reports generated and corrected across 3 iterative cuts</li>
-                        <li>Total QC cost: ~$0.08</li>
+                        <li><strong style="color:#fff;">Orchestrator</strong> — Routes tasks to specialist agents, manages dependencies (voiceover must finish before beat markers can be placed), handles parallel execution (video and music generate simultaneously), and tracks cost across the entire project.</li>
                     </ul>
                 </div>
                 <div class="layer-card layer-card--full">
-                    <div class="layer-card-num">Layer 05</div>
-                    <h4>Assembly — Final Composition</h4>
+                    <div class="layer-card-num">Layer 03 — 8 Agents</div>
+                    <h4>Specialists — The Production Floor</h4>
+                    <p>This is where content gets made. Eight specialist agents, each handling one discipline — the same way a traditional production would have a DP, a composer, a sound designer, and an editor working in parallel:</p>
                     <ul>
-                        <li>FFmpeg-based composition — no Premiere, After Effects, or Pro Tools at any stage</li>
-                        <li>5+ iterative rough cuts refined through the verification loop</li>
-                        <li>Sound design and color correction from the creative brief's storyboard</li>
-                        <li>Final delivery: 4K master + 1080p versions</li>
+                        <li><strong style="color:#fff;">Video Orchestrator</strong> — Analyzes the brief's visual direction, selects the right generation provider, and manages the video pipeline end-to-end.</li>
+                        <li><strong style="color:#fff;">Video Prompt Engineer</strong> — Translates each scene from the storyboard into optimized prompts for Kling 2.5. Camera angle, lighting, mood — all encoded in the prompt.</li>
+                        <li><strong style="color:#fff;">Music Orchestrator</strong> — Determines genre, tempo, instrumentation based on the brief. For Nalu: calm, continuous, 60–80 BPM, ambient/acoustic.</li>
+                        <li><strong style="color:#fff;">Music Prompt Engineer</strong> — Formats the musical direction into Suno V5-optimized tags and structure. Generated 2 variations of "Peaceful Awakening."</li>
+                        <li><strong style="color:#fff;">Music Generator (Suno V5)</strong> — Executes the composition. Best variation selected by the producer.</li>
+                        <li><strong style="color:#fff;">Script Humanizer</strong> — Takes the raw testimonial script and adds emotion tagging — pauses, emphasis, warmth markers — so the voiceover sounds human, not robotic.</li>
+                        <li><strong style="color:#fff;">Voiceover Agent (ElevenLabs)</strong> — Generates professional voiceover from the humanized script. Natural pacing, warm delivery.</li>
+                        <li><strong style="color:#fff;">Image Generator (Nano Banana)</strong> — Created the end screen and any signage elements needed for the final composition.</li>
                     </ul>
+                    <p style="margin-top:1rem;"><strong style="color:#fff;">Result:</strong> 24 video clips from client photos (92% static shots, 8% simulated camera movement on aerials), 2 music variations, professional voiceover, and end screen graphics — all generated in parallel.</p>
+                </div>
+                <div class="layer-card">
+                    <div class="layer-card-num">Layer 04 — 3 Agents</div>
+                    <h4>Verification — Quality Control</h4>
+                    <p>Nothing goes to the final cut without passing QC. Three agents review every generated asset:</p>
+                    <ul>
+                        <li><strong style="color:#fff;">Clip Analyzer (Gemini Flash)</strong> — Analyzed all 24 video clips individually. Each one gets a JSON report: visual description, location type, key elements, quality score.</li>
+                        <li><strong style="color:#fff;">Content Mapper (Gemini Pro)</strong> — Matched clip content to voiceover sections based on meaning, not sequence. "When she talks about the sauna, show the sauna" — but figured out automatically.</li>
+                        <li><strong style="color:#fff;">Misalignment Detector</strong> — Compared the assembled edit against the brief's intent. Flagged 3 misalignments across iterative cuts, each corrected before final delivery.</li>
+                    </ul>
+                    <p style="margin-top:1rem;">Total QC cost: ~$0.08.</p>
+                </div>
+                <div class="layer-card">
+                    <div class="layer-card-num">Layer 05 — 2 Agents</div>
+                    <h4>Assembly — Final Composition</h4>
+                    <p>All assets converge into the final video — no traditional editing software at any stage:</p>
+                    <ul>
+                        <li><strong style="color:#fff;">Beat-Marker Processor</strong> — Converts the producer's JSON marker file (25 markers across 89 seconds) into an edit decision list with frame-accurate cut points.</li>
+                        <li><strong style="color:#fff;">Composition Agent (FFmpeg)</strong> — Assembles video clips, voiceover, music, sound design, and graphics into the final timeline. 5+ iterative rough cuts refined through the verification loop until the producer signs off.</li>
+                    </ul>
+                    <p style="margin-top:1rem;">Final delivery: 4K master (3840×2160) + 1080p versions.</p>
                 </div>
             </div>
         </div>
@@ -367,7 +371,7 @@
                         <div class="project-result-desc">No Premiere, After Effects, or Pro Tools used at any stage of production</div>
                     </div>
                     <div class="project-result-card">
-                        <div class="project-result-stat">1 Producer, 31 Agents</div>
+                        <div class="project-result-stat">1 Producer, 17 Agents</div>
                         <div class="project-result-desc">Traditional workflow would require a team of 5–8 people</div>
                     </div>
                 </div>
