@@ -865,6 +865,11 @@
         grid-template-columns: 1fr;
     }
 
+    .partners-deliverables-grid .partners-deliverable:last-child:nth-child(odd) {
+        max-width: 100%;
+        grid-column: auto;
+    }
+
     .partners-contact-form-wrapper {
         padding: var(--space-lg);
     }
