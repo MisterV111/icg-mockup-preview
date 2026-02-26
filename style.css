@@ -47,6 +47,10 @@
     /* Transitions */
     --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
     --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    
+    /* Shadows (DESIGN_TRUTH: colored shadows, not black) */
+    --shadow-card:       0 4px 16px rgba(0, 0, 0, 0.25);
+    --shadow-card-hover: 0 8px 32px rgba(0, 0, 0, 0.35);
 }
 
 
@@ -76,6 +80,25 @@ body {
     color: var(--color-gray-300);
     background-color: var(--color-black);
     overflow-x: hidden;
+}
+
+/* Film grain overlay — DESIGN_TRUTH: 2-5% noise = #1 pro-quality technique */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body::after {
+        display: none;
+    }
 }
 
 img {
@@ -716,6 +739,11 @@ ul {
     padding: var(--space-xl) var(--space-lg);
     position: relative;
     border-top: 3px solid var(--color-red);
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.stakes-card:hover {
+    box-shadow: var(--shadow-card-hover);
 }
 
 .stakes-card-icon {
@@ -761,12 +789,14 @@ ul {
     border-radius: 8px;
     padding: var(--space-2xl) var(--space-lg);
     position: relative;
-    transition: border-color 0.4s ease, transform 0.3s ease;
+    box-shadow: var(--shadow-card);
+    transition: border-color 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .value-prop-card:hover {
     border-color: var(--color-border-light);
     transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
 }
 
 .value-prop-card::before {
@@ -826,12 +856,14 @@ ul {
     border-radius: 8px;
     padding: var(--space-2xl) var(--space-lg);
     position: relative;
-    transition: border-color 0.4s ease, transform 0.3s ease;
+    box-shadow: var(--shadow-card);
+    transition: border-color 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .pillar-card:hover {
     border-color: var(--color-border-light);
     transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
 }
 
 .pillar-card::before {
@@ -1150,6 +1182,7 @@ ul {
     background: var(--color-surface);
     position: relative;
     overflow: hidden;
+    box-shadow: var(--shadow-card);
 }
 
 .service-block::before {
@@ -1642,6 +1675,7 @@ ul {
     border-radius: 8px;
     overflow: hidden;
     background: var(--color-surface);
+    box-shadow: var(--shadow-card);
     transition: border-color 0.4s ease, transform 0.3s ease, box-shadow 0.4s ease;
     cursor: pointer;
 }
@@ -1840,6 +1874,7 @@ a.work-card {
     border: 1px solid var(--color-border);
     border-radius: 8px;
     background: var(--color-dark);
+    box-shadow: var(--shadow-card);
     transition: border-color 0.3s ease;
     position: absolute;
     top: 0;
@@ -2245,6 +2280,7 @@ a.work-card {
     border: 1px solid var(--color-border);
     border-radius: 12px;
     background: var(--color-surface);
+    box-shadow: var(--shadow-card);
     position: relative;
     transition: border-color 0.3s ease, transform 0.3s ease;
 }
