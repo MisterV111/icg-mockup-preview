@@ -948,6 +948,7 @@ ul {
    ═══════════════════════════════════════════════════════════════ */
 .about {
     background: var(--color-dark);
+    overflow: hidden;
 }
 
 .about-story {
@@ -1132,6 +1133,7 @@ ul {
    ═══════════════════════════════════════════════════════════════ */
 .services {
     background: var(--color-surface);
+    overflow: hidden;
 }
 
 .services-grid {
@@ -1444,6 +1446,7 @@ ul {
 .ai-system {
     margin-top: var(--space-4xl);
     margin-bottom: var(--space-4xl);
+    overflow: hidden;
 }
 
 .ai-system-intro {
@@ -1939,6 +1942,10 @@ a.work-card {
 /* ═══════════════════════════════════════════════════════════════
    CONTACT
    ═══════════════════════════════════════════════════════════════ */
+.contact {
+    overflow: hidden;
+}
+
 .contact-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -3235,6 +3242,7 @@ a.pillar-card-link {
     background: var(--color-surface);
     border-top: 1px solid rgba(255,255,255,0.06);
     border-bottom: 1px solid rgba(255,255,255,0.06);
+    overflow: hidden;
 }
 
 .lead-gen-flow {

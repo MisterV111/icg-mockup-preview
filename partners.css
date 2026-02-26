@@ -198,6 +198,7 @@
 /* ─── PROCESS / STEPS ────────────────────────────────────────── */
 .partners-process {
     background: var(--color-surface);
+    overflow: hidden;
 }
 
 .partners-steps {
