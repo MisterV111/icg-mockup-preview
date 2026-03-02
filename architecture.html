@@ -322,6 +322,35 @@
         }
 
         /* ===== BRIDGE SECTION ===== */
+        /* ===== FLOW CONNECTORS ===== */
+        .arch-flow-connector {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0;
+            position: relative;
+        }
+        .arch-flow-line {
+            width: 2px;
+            height: 48px;
+            background: linear-gradient(to bottom, rgba(232, 0, 13, 0.6), rgba(232, 0, 13, 0.15));
+        }
+        .arch-flow-arrow {
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 8px solid rgba(232, 0, 13, 0.5);
+        }
+        .arch-flow-label {
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 0.8rem;
+            color: var(--color-gray-500, #777);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin: 8px 0;
+        }
+
         .arch-bridge {
             padding: 40px 1.5rem;
             text-align: center;
@@ -745,6 +774,13 @@
         </div>
     </section>
 
+    <!-- FLOW: Hero → Humans -->
+    <div class="arch-flow-connector gsap-animate">
+        <div class="arch-flow-line"></div>
+        <div class="arch-flow-label">Direction</div>
+        <div class="arch-flow-arrow"></div>
+    </div>
+
     <!-- ===== SECTION 2: THE HUMANS ===== -->
     <section class="arch-section" id="arch-humans">
         <p class="arch-section-label arch-centered gsap-animate">The Humans</p>
@@ -762,6 +798,13 @@
         <p class="arch-section-copy gsap-animate">Every output is directed, reviewed, and approved by senior creatives with 20+ years in production.</p>
     </section>
 
+    <!-- FLOW: Humans → Communication -->
+    <div class="arch-flow-connector gsap-animate">
+        <div class="arch-flow-line"></div>
+        <div class="arch-flow-label">Via Telegram</div>
+        <div class="arch-flow-arrow"></div>
+    </div>
+
     <!-- ===== SECTION 2b: COMMUNICATION LAYER ===== -->
     <section class="arch-section" id="arch-comm">
         <div class="arch-comm">
@@ -778,6 +821,13 @@
             </div>
         </div>
     </section>
+
+    <!-- FLOW: Communication → Coordination -->
+    <div class="arch-flow-connector gsap-animate">
+        <div class="arch-flow-line"></div>
+        <div class="arch-flow-label">Tasks Routed</div>
+        <div class="arch-flow-arrow"></div>
+    </div>
 
     <!-- ===== SECTION 3: COORDINATION LAYER ===== -->
     <section class="arch-section" id="arch-coordination">
@@ -824,6 +874,13 @@
         </div>
     </section>
 
+    <!-- FLOW: Execution → Pipelines -->
+    <div class="arch-flow-connector gsap-animate">
+        <div class="arch-flow-line"></div>
+        <div class="arch-flow-label">Workflows</div>
+        <div class="arch-flow-arrow"></div>
+    </div>
+
     <!-- ===== SECTION 6: PRODUCTION PIPELINES ===== -->
     <section class="arch-section" id="arch-pipelines">
         <p class="arch-section-label arch-centered gsap-animate">Production Pipelines</p>
@@ -832,6 +889,13 @@
             <!-- Pipeline cards injected by JS -->
         </div>
     </section>
+
+    <!-- FLOW: Pipelines → Memory -->
+    <div class="arch-flow-connector gsap-animate">
+        <div class="arch-flow-line"></div>
+        <div class="arch-flow-label">Context Stored</div>
+        <div class="arch-flow-arrow"></div>
+    </div>
 
     <!-- ===== SECTION 7: MEMORY ARCHITECTURE ===== -->
     <section class="arch-section" id="arch-memory">
