@@ -428,4 +428,19 @@
     });
   });
 
+  // ── Flow Connectors ──
+  document.querySelectorAll('.arch-flow-connector').forEach(function(el) {
+    gsap.from(el, {
+      scrollTrigger: { trigger: el, start: 'top 85%' },
+      autoAlpha: 0, y: 20, duration: 0.5, ease: ease, immediateRender: true
+    });
+    var line = el.querySelector('.arch-flow-line');
+    if (line) {
+      gsap.from(line, {
+        scrollTrigger: { trigger: el, start: 'top 85%' },
+        scaleY: 0, transformOrigin: 'top center', duration: 0.6, ease: ease, delay: 0.1
+      });
+    }
+  });
+
 })();
