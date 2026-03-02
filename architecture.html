@@ -333,19 +333,21 @@
         .arch-flow-line {
             width: 2px;
             height: 48px;
-            background: linear-gradient(to bottom, rgba(232, 0, 13, 0.6), rgba(232, 0, 13, 0.15));
+            background: linear-gradient(to bottom, var(--color-red, #E8000D), rgba(232, 0, 13, 0.3));
+            box-shadow: 0 0 8px rgba(232, 0, 13, 0.3);
         }
         .arch-flow-arrow {
             width: 0;
             height: 0;
-            border-left: 6px solid transparent;
-            border-right: 6px solid transparent;
-            border-top: 8px solid rgba(232, 0, 13, 0.5);
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 12px solid var(--color-red, #E8000D);
+            filter: drop-shadow(0 0 6px rgba(232, 0, 13, 0.5));
         }
         .arch-flow-label {
             font-family: var(--font-body, 'Inter', sans-serif);
             font-size: 0.8rem;
-            color: var(--color-gray-500, #777);
+            color: var(--color-gray-400, #999);
             letter-spacing: 0.08em;
             text-transform: uppercase;
             margin: 8px 0;
