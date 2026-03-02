@@ -2833,6 +2833,12 @@ a.pillar-card-link {
 }
 
 /* Mobile: keep animation, no manual scroll (iOS Safari conflicts with overflow-x + CSS animation) */
+/* Mobile-only line breaks */
+.mobile-br { display: none; }
+@media (max-width: 768px) {
+    .mobile-br { display: inline; }
+}
+
 @media (max-width: 768px) {
     .logo-carousel {
         overflow: hidden;
