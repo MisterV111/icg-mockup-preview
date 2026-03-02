@@ -3206,8 +3206,13 @@ a.pillar-card-link {
     }
     
     .filter-pill {
-        font-size: 0.7rem;
-        padding: 0.4rem 0.9rem;
+        font-size: 0.65rem;
+        padding: 0.4rem 0.7rem;
+        min-height: 36px;
+    }
+    .work-filters {
+        flex-wrap: nowrap;
+        gap: 0.35rem;
     }
     
     /* Improved mobile typography */
