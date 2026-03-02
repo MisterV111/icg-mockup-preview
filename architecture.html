@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Full Stack AI Production Architecture — Inspired Creative Group</title>
+    <meta name="description" content="50 AI agents across 2 MacBooks. Zero cloud. See how we produce video, music, design, and audio with human-directed AI." />
+
+    <!-- OG Meta -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Full Stack AI Production Architecture — Inspired Creative Group" />
+    <meta property="og:description" content="50 AI agents across 2 MacBooks. Zero cloud. See how we produce video, music, design, and audio with human-directed AI." />
+    <meta property="og:url" content="https://inspiredcreativegroupinc.com/architecture.html" />
+    <meta property="og:image" content="https://inspiredcreativegroupinc.com/assets/og-architecture.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Full Stack AI Production Architecture — Inspired Creative Group" />
+    <meta name="twitter:description" content="50 AI agents across 2 MacBooks. Zero cloud. See how we produce video, music, design, and audio with human-directed AI." />
+
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P07TX5YY6H"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-P07TX5YY6H');
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Existing Site Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Page-Specific Styles -->
+    <style>
+        /* GSAP visibility hide to prevent FOUC */
+        .gsap-animate { visibility: hidden; }
+
+        /* ===== HERO ===== */
+        .arch-hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 80px 1.5rem;
+        }
+        .arch-hero-content {
+            max-width: 800px;
+        }
+        .arch-section-label {
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-gray-400, #999);
+            margin-bottom: 1rem;
+        }
+        .arch-hero-heading {
+            font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            color: var(--color-white, #fff);
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+        .arch-hero-heading .arch-red {
+            color: var(--color-red, #E8000D);
+        }
+        .arch-hero-number {
+            font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+            font-size: clamp(5rem, 10vw, 8rem);
+            font-weight: 700;
+            color: var(--color-red, #E8000D);
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+        .arch-hero-agents-label {
+            font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+            font-size: 1rem;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            color: var(--color-gray-300, #ccc);
+            margin-bottom: 0.75rem;
+        }
+        .arch-hero-tagline {
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 1.1rem;
+            color: var(--color-gray-300, #ccc);
+            line-height: 1.7;
+        }
+        .arch-scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--color-gray-500, #777);
+            animation: arch-bounce 2s infinite;
+        }
+        .arch-scroll-indicator svg {
+            width: 24px;
+            height: 24px;
+        }
+        @keyframes arch-bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* ===== SHARED SECTION STYLES ===== */
+        .arch-section {
+            padding: 80px 1.5rem;
+            max-width: var(--max-width, 1200px);
+            margin: 0 auto;
+        }
+        .arch-section-full {
+            padding: 80px 1.5rem;
+        }
+        .arch-section-heading {
+            font-family: 'Space Grotesk', sans-serif !important;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: var(--color-white, #fff);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .arch-section-copy {
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--color-gray-300, #ccc);
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .arch-centered { text-align: center; }
+
+        /* ===== HARDWARE BADGE ===== */
+        .arch-hw-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--color-surface-2, #1A1A1A);
+            border: 1px solid var(--color-border-light, #333);
+            border-radius: 999px;
+            padding: 0.5rem 1.25rem;
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 0.875rem;
+            color: var(--color-gray-300, #ccc);
+            margin-bottom: 1.5rem;
+        }
+
+        /* ===== CARD BASE ===== */
+        .arch-card {
+            background: var(--color-surface, #111);
+            border: 1px solid var(--color-border-light, #333);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-card, 0 4px 16px rgba(0,0,0,0.25));
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .arch-card:hover {
+            box-shadow: var(--shadow-card-hover, 0 8px 32px rgba(0,0,0,0.35));
+            border-color: var(--color-red, #E8000D);
+        }
+        .arch-agent-card,
+        .arch-exec-card {
+            cursor: pointer;
+        }
+
+        /* ===== HUMANS SECTION ===== */
+        #arch-humans .arch-section-heading {
+            font-family: 'Space Grotesk', sans-serif !important;
+            font-weight: 700;
+        }
+        .arch-humans-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        .arch-human-card {
+            text-align: center;
+            padding: 2.5rem 2rem;
+        }
+        .arch-human-name {
+            font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-white, #fff);
+            margin-bottom: 0.5rem;
+        }
+        .arch-human-role {
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 0.9rem;
+            color: var(--color-gray-400, #999);
+            line-height: 1.5;
+        }
+
+        /* ===== COMMUNICATION LAYER ===== */
+        .arch-comm {
+            text-align: center;
+            padding: 0;
+            position: relative;
+        }
+        .arch-comm-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 1.5rem;
+            background: var(--color-surface-2, #1A1A1A);
+            border: 1px solid var(--color-border-light, #333);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .arch-comm-icon svg {
+            width: 32px;
+            height: 32px;
+            color: var(--color-red, #E8000D);
+        }
+        .arch-chat-bubbles {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-width: 440px;
+            margin: 1.5rem auto 0;
+        }
+        .arch-bubble {
+            padding: 0.75rem 1.25rem;
+            border-radius: 16px;
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            max-width: 80%;
+        }
+        .arch-bubble-out {
+            background: var(--color-red, #E8000D);
+            color: #fff;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .arch-bubble-in {
+            background: var(--color-surface-2, #1A1A1A);
+            border: 1px solid var(--color-border-light, #333);
+            color: var(--color-gray-300, #ccc);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        /* ===== AGENT GRID ===== */
+        .arch-agent-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .arch-agent-card {
+            cursor: pointer;
+            user-select: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .arch-agent-card[aria-expanded="true"] {
+            border-color: var(--color-border-light, #333);
+        }
+        .arch-agent-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .arch-agent-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .arch-agent-name {
+            font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--color-white, #fff);
+        }
+        .arch-agent-role {
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-gray-400, #999);
+            margin-left: auto;
+        }
+        .arch-card-detail {
+            overflow: hidden;
+            height: 0;
+            visibility: hidden;
+            opacity: 0;
+        }
+        .arch-card-detail-inner {
+            padding-top: 1rem;
+            margin-top: 1rem;
+            border-top: 1px solid var(--color-border-light, #333);
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--color-gray-300, #ccc);
+        }
+        .arch-agent-count {
+            font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+            font-size: 1.1rem;
+            color: var(--color-gray-400, #999);
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        /* ===== BRIDGE SECTION ===== */
+        .arch-bridge {
+            padding: 40px 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .arch-bridge-line-wrap {
+            position: relative;
+            height: 3px;
+            margin: 40px auto;
+            max-width: 80%;
+            overflow: visible;
+        }
+        .arch-bridge-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--color-red, #E8000D);
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: center;
+            box-shadow: 0 0 20px rgba(232, 0, 13, 0.4), 0 0 60px rgba(232, 0, 13, 0.15);
+        }
+        .arch-bridge-badge {
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 0.875rem;
+            color: var(--color-gray-300, #ccc);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* ===== EXECUTION GRID ===== */
+        .arch-exec-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .arch-exec-card {
+            cursor: pointer;
+            user-select: none;
+            text-align: center;
+            padding: 1.5rem 1rem;
+        }
+        .arch-exec-card[aria-expanded="true"] {
+            border-color: var(--color-border-light, #333);
+        }
+        .arch-exec-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin: 0 auto 0.75rem;
+        }
+        .arch-exec-name {
+            font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--color-white, #fff);
+            margin-bottom: 0.25rem;
+        }
+        .arch-exec-count {
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 0.875rem;
+            color: var(--color-gray-400, #999);
+        }
+
+        /* MCP Badges */
+        .arch-mcp-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 1rem;
+        }
+        .arch-mcp-badge {
+            background: var(--color-surface-2, #1A1A1A);
+            border: 1px solid var(--color-border-light, #333);
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 14px;
+            color: var(--color-gray-300, #ccc);
+        }
+        .arch-mcp-label {
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--color-gray-400, #999);
+            text-align: center;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* ===== PIPELINES ===== */
+        .arch-pipelines-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .arch-pipeline-card {
+            padding: 2rem;
+        }
+        .arch-pipeline-name {
+            font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--color-white, #fff);
+            margin-bottom: 1.25rem;
+        }
+        .arch-pipeline-steps {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .arch-pipeline-step {
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 0.875rem;
+            color: var(--color-gray-300, #ccc);
+            white-space: nowrap;
+        }
+        .arch-pipeline-arrow {
+            color: var(--color-red, #E8000D);
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+
+        /* ===== MEMORY LAYERS ===== */
+        .arch-memory-stack {
+            max-width: 600px;
+            margin: 2rem auto 0;
+            position: relative;
+        }
+        .arch-memory-layer {
+            background: var(--color-surface, #111);
+            border: 1px solid var(--color-border-light, #333);
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: -4px;
+            position: relative;
+            z-index: 1;
+            transition: border-color 0.3s ease;
+        }
+        .arch-memory-layer:hover {
+            border-color: var(--color-red, #E8000D);
+        }
+        .arch-memory-num {
+            font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--color-red, #E8000D);
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--color-red, #E8000D);
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+        .arch-memory-tool {
+            font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-white, #fff);
+            min-width: 140px;
+        }
+        .arch-memory-purpose {
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 0.875rem;
+            color: var(--color-gray-300, #ccc);
+            margin-left: auto;
+        }
+
+        /* ===== CTA / LEAD MAGNET ===== */
+        .arch-cta {
+            padding: 80px 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        .arch-cta-inner {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--color-surface, #111);
+            border: 1px solid var(--color-border, #222);
+            border-radius: 16px;
+            padding: 3rem 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .arch-cta-inner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--color-red, #E8000D);
+            box-shadow: 0 0 20px rgba(232, 0, 13, 0.3);
+        }
+        .arch-cta-heading {
+            font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            color: var(--color-white, #fff);
+            margin-bottom: 1rem;
+        }
+        .arch-cta-sub {
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 1rem;
+            color: var(--color-gray-300, #ccc);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        .arch-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .arch-form input[type="text"],
+        .arch-form input[type="email"] {
+            background: var(--color-surface-2, #1A1A1A);
+            border: 1px solid var(--color-border-light, #333);
+            border-radius: 8px;
+            padding: 0.85rem 1rem;
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 1rem;
+            color: var(--color-white, #fff);
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        .arch-form input::placeholder {
+            color: var(--color-gray-500, #777);
+        }
+        .arch-form input:focus {
+            border-color: var(--color-red, #E8000D);
+        }
+        .arch-form-honeypot {
+            position: absolute;
+            left: -9999px;
+            opacity: 0;
+            height: 0;
+            width: 0;
+            overflow: hidden;
+        }
+        .arch-form-btn {
+            background: var(--color-red, #E8000D);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.9rem 1.5rem;
+            font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        .arch-form-btn:hover {
+            background: #ff1a1a;
+            transform: translateY(-1px);
+        }
+        .arch-form-success {
+            display: none;
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 1.1rem;
+            color: #22C55E;
+            margin-top: 1rem;
+        }
+
+        /* ===== FOOTER ===== */
+        .arch-footer {
+            padding: 4rem 1.5rem 2rem;
+            border-top: 1px solid var(--color-border, #222);
+        }
+        .arch-footer-inner {
+            max-width: var(--max-width, 1200px);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+        }
+        .arch-footer-logo {
+            height: 32px;
+            margin-bottom: 1rem;
+        }
+        .arch-footer-tagline {
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 0.95rem;
+            color: var(--color-gray-400, #999);
+            line-height: 1.6;
+            max-width: 360px;
+        }
+        .arch-footer-heading {
+            font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--color-gray-400, #999);
+            margin-bottom: 1rem;
+        }
+        .arch-footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .arch-footer-links a {
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 0.95rem;
+            color: var(--color-gray-300, #ccc);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .arch-footer-links a:hover {
+            color: var(--color-white, #fff);
+        }
+        .arch-footer-bottom {
+            max-width: var(--max-width, 1200px);
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid var(--color-border, #222);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .arch-footer-copy {
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 0.875rem;
+            color: var(--color-gray-400, #999);
+        }
+        .arch-footer-locations {
+            font-family: var(--font-body, 'Inter', sans-serif);
+            font-size: 0.875rem;
+            color: var(--color-gray-400, #999);
+        }
+        .arch-footer-social a {
+            color: var(--color-gray-400, #999);
+            transition: color 0.2s ease;
+        }
+        .arch-footer-social a:hover {
+            color: var(--color-white, #fff);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .arch-section { padding: 60px 1.25rem; }
+            .arch-humans-grid { grid-template-columns: 1fr; }
+            .arch-agent-grid { grid-template-columns: 1fr 1fr; }
+            .arch-exec-grid { grid-template-columns: 1fr 1fr; }
+            .arch-pipelines-grid { grid-template-columns: 1fr; }
+            .arch-footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+            .arch-footer-bottom { flex-direction: column; text-align: center; }
+            .arch-memory-purpose { display: none; }
+        }
+        @media (max-width: 480px) {
+            .arch-agent-grid { grid-template-columns: 1fr; }
+            .arch-exec-grid { grid-template-columns: 1fr; }
+            .arch-cta-inner { padding: 2rem 1.5rem; }
+            .arch-memory-layer { padding: 1rem; }
+        }
+
+        /* ===== MOBILE NAV ===== */
+        .nav-open .nav-links,
+        .nav-links.open {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: var(--nav-height, 72px);
+            left: 0;
+            right: 0;
+            background: var(--color-dark, #0A0A0A);
+            border-bottom: 1px solid var(--color-border, #222);
+            padding: 1rem 1.5rem 1.5rem;
+            gap: 0.75rem;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== NAV ===== -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="/" class="nav-logo">
+                <img src="assets/logo.png" alt="Inspired Creative Group Inc." />
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="/#services">Services</a>
+                <a href="/#portfolio">Portfolio</a>
+                <a href="/#about">About</a>
+                <a href="/partners.html">Partners</a>
+                <a href="/architecture.html" class="active">Architecture</a>
+                <a href="/#contact" class="nav-cta">Get in Touch</a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ===== SECTION 1: HERO ===== -->
+    <section class="arch-hero" id="arch-hero">
+        <div class="arch-hero-content">
+            <p class="arch-section-label gsap-animate">Our System</p>
+            <h1 class="arch-hero-heading gsap-animate">Full Stack AI <span class="arch-red">Production</span> Architecture</h1>
+            <div class="arch-hero-number gsap-animate" id="archCounter">0</div>
+            <p class="arch-hero-agents-label gsap-animate">AGENTS</p>
+            <p class="arch-hero-tagline gsap-animate">Two MacBooks. Zero Cloud. Full Production.</p>
+        </div>
+        <div class="arch-scroll-indicator" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+    </section>
+
+    <!-- ===== SECTION 2: THE HUMANS ===== -->
+    <section class="arch-section" id="arch-humans">
+        <p class="arch-section-label arch-centered gsap-animate">The Humans</p>
+        <h2 class="arch-section-heading gsap-animate">Every Output Starts With Us</h2>
+        <div class="arch-humans-grid">
+            <div class="arch-card arch-human-card gsap-animate" id="arch-human-juan">
+                <div class="arch-human-name">Juan</div>
+                <div class="arch-human-role">Creative Director &amp; System Architect</div>
+            </div>
+            <div class="arch-card arch-human-card gsap-animate" id="arch-human-sandy">
+                <div class="arch-human-name">Sandy</div>
+                <div class="arch-human-role">Creative Director &amp; Art Director</div>
+            </div>
+        </div>
+        <p class="arch-section-copy gsap-animate">Every output is directed, reviewed, and approved by senior creatives with 20+ years in production.</p>
+    </section>
+
+    <!-- ===== SECTION 2b: COMMUNICATION LAYER ===== -->
+    <section class="arch-section" id="arch-comm">
+        <div class="arch-comm">
+            <div class="arch-comm-icon gsap-animate">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            </div>
+            <h2 class="arch-section-heading gsap-animate">Controlled Through Chat</h2>
+            <p class="arch-section-copy gsap-animate">The entire production system is directed through Telegram. Briefs, feedback, approvals — all in chat. No terminals, no dashboards. We text, agents produce.</p>
+            <div class="arch-chat-bubbles gsap-animate">
+                <div class="arch-bubble arch-bubble-out">Create a 30s promo video for the Halifax campaign</div>
+                <div class="arch-bubble arch-bubble-in">On it. Assigning Reel for video, Pixel for thumbnails, Buzz for social copy. ETA: 45 minutes.</div>
+                <div class="arch-bubble arch-bubble-out">Add cinematic grain and match the brand palette</div>
+                <div class="arch-bubble arch-bubble-in">Updated. Rendering now. Preview incoming.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SECTION 3: COORDINATION LAYER ===== -->
+    <section class="arch-section" id="arch-coordination">
+        <p class="arch-section-label arch-centered gsap-animate">Coordination Layer</p>
+        <div class="arch-centered" style="margin-bottom: 1.5rem;">
+            <span class="arch-hw-badge gsap-animate">MacBook &middot; OpenClaw &middot; Always On</span>
+        </div>
+        <h2 class="arch-section-heading gsap-animate">9 Specialized Agents</h2>
+        <div class="arch-agent-grid" id="archAgentGrid">
+            <!-- Agent cards injected by JS -->
+        </div>
+        <div class="arch-agent-count gsap-animate">9 Agents</div>
+    </section>
+
+    <!-- ===== SECTION 4: PRODUCTION BRIDGE ===== -->
+    <section class="arch-bridge" id="arch-bridge">
+        <p class="arch-section-label gsap-animate">Production Bridge</p>
+        <div class="arch-bridge-badge gsap-animate">Tailscale VPN &middot; Secure Local Network</div>
+        <div class="arch-bridge-line-wrap">
+            <div class="arch-bridge-line" id="archBridgeLine"></div>
+        </div>
+        <p class="arch-section-copy gsap-animate" style="margin-top: 1.5rem;">Tasks are dispatched with budgets and timeouts. Results flow back automatically. Both machines stay in sync — no cloud servers, no third-party processing.</p>
+    </section>
+
+    <!-- ===== SECTION 5: EXECUTION LAYER ===== -->
+    <section class="arch-section" id="arch-execution">
+        <p class="arch-section-label arch-centered gsap-animate">Execution Layer</p>
+        <div class="arch-centered" style="margin-bottom: 1.5rem;">
+            <span class="arch-hw-badge gsap-animate">MacBook Pro &middot; M4 Max &middot; 128GB &middot; Claude Code</span>
+        </div>
+        <h2 class="arch-section-heading gsap-animate">41 Production Agents</h2>
+        <div class="arch-exec-grid" id="archExecGrid">
+            <!-- Execution cards injected by JS -->
+        </div>
+        <div class="arch-agent-count gsap-animate">41 Agents</div>
+        <div class="arch-mcp-label gsap-animate">MCP Integrations</div>
+        <div class="arch-mcp-row gsap-animate">
+            <span class="arch-mcp-badge">Perplexity</span>
+            <span class="arch-mcp-badge">Brave Search</span>
+            <span class="arch-mcp-badge">Playwright</span>
+            <span class="arch-mcp-badge">ElevenLabs</span>
+            <span class="arch-mcp-badge">Apify</span>
+            <span class="arch-mcp-badge">X</span>
+        </div>
+    </section>
+
+    <!-- ===== SECTION 6: PRODUCTION PIPELINES ===== -->
+    <section class="arch-section" id="arch-pipelines">
+        <p class="arch-section-label arch-centered gsap-animate">Production Pipelines</p>
+        <h2 class="arch-section-heading gsap-animate">End-to-End Workflows</h2>
+        <div class="arch-pipelines-grid" id="archPipelinesGrid">
+            <!-- Pipeline cards injected by JS -->
+        </div>
+    </section>
+
+    <!-- ===== SECTION 7: MEMORY ARCHITECTURE ===== -->
+    <section class="arch-section" id="arch-memory">
+        <p class="arch-section-label arch-centered gsap-animate">Memory Architecture</p>
+        <h2 class="arch-section-heading gsap-animate">6 Synchronized Memory Layers</h2>
+        <p class="arch-section-copy gsap-animate">Every agent shares context. Decisions made Monday inform work Friday. No repeated mistakes, no lost context.</p>
+        <div class="arch-memory-stack" id="archMemoryStack">
+            <!-- Memory layers injected by JS -->
+        </div>
+    </section>
+
+    <!-- ===== SECTION 8: LEAD MAGNET CTA ===== -->
+    <section class="arch-cta" id="arch-cta">
+        <div class="arch-cta-inner gsap-animate">
+            <h2 class="arch-cta-heading">Start Building Your Own AI Workflow</h2>
+            <p class="arch-cta-sub">Download our free AI Image Toolkit — prompts, a guide, and a ready-to-use OpenClaw skill.</p>
+            <form class="arch-form" id="archForm" action="https://formspree.io/f/xdkodqbv" method="POST">
+                <input type="text" name="name" placeholder="First Name" required aria-label="First Name" />
+                <input type="email" name="email" placeholder="Email" required aria-label="Email" />
+                <input type="text" name="_gotcha" class="arch-form-honeypot" tabindex="-1" autocomplete="off" />
+                <button type="submit" class="arch-form-btn">Download Free Toolkit</button>
+            </form>
+            <div class="arch-form-success" id="archFormSuccess">Toolkit downloading!</div>
+        </div>
+    </section>
+
+    <!-- ===== SECTION 9: FOOTER ===== -->
+    <footer class="arch-footer" id="arch-footer">
+        <div class="arch-footer-inner">
+            <div>
+                <img src="assets/logo.png" alt="Inspired Creative Group Inc." class="arch-footer-logo" />
+                <p class="arch-footer-tagline">We direct our team of specialized AI agents to produce content that connects.</p>
+            </div>
+            <div>
+                <div class="arch-footer-heading">Navigation</div>
+                <div class="arch-footer-links">
+                    <a href="/#services">Services</a>
+                    <a href="/#portfolio">Portfolio</a>
+                    <a href="/#about">About</a>
+                    <a href="/partners.html">Partners</a>
+                    <a href="/architecture.html">Architecture</a>
+                    <a href="/#contact">Contact</a>
+                </div>
+            </div>
+            <div>
+                <div class="arch-footer-heading">Connect</div>
+                <div class="arch-footer-links">
+                    <a href="https://www.linkedin.com/in/maboroshi/" target="_blank" rel="noopener">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+        <div class="arch-footer-bottom">
+            <span class="arch-footer-copy">&copy; 2025 Inspired Creative Group Inc.</span>
+            <span class="arch-footer-locations">Halifax, Nova Scotia &middot; Toronto, Ontario</span>
+        </div>
+    </footer>
+
+    <!-- GSAP CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Architecture Animations -->
+    <script src="architecture-animations.js"></script>
+</body>
+</html>
