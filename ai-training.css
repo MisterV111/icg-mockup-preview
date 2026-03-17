@@ -1,0 +1,803 @@
+/* ═══════════════════════════════════════════════════════════════
+   AI Workshops — Landing Page Styles
+   DUPLICATES partners.css architecture exactly:
+   - All CSS variables from style.css
+   - var(--shadow-card) / var(--shadow-card-hover)
+   - Alternating --color-dark / --color-surface backgrounds
+   - SVG icons (not emojis), 40×40, stroke-based
+   - Proper card treatments with borders + shadows + hover
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── GSAP FOUC Prevention (same as partners.css) ────────────── */
+.gsap-animate,
+.gsap-animate-cta {
+    visibility: hidden;
+}
+
+
+/* ─── NAV (minimal standalone) ───────────────────────────────── */
+.workshop-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    height: var(--nav-height);
+    display: flex;
+    align-items: center;
+    transition: background 0.3s ease, border-color 0.3s ease;
+    border-bottom: 1px solid transparent;
+}
+.workshop-nav .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+    width: 100%;
+}
+.workshop-nav .nav-logo img {
+    height: 36px;
+    width: auto;
+}
+.workshop-back-link {
+    color: var(--color-gray-400);
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.workshop-back-link:hover {
+    color: var(--color-red);
+}
+.workshop-nav-cta {
+    font-size: 0.85rem;
+    padding: 0.5rem 1.25rem;
+}
+.workshop-nav.scrolled {
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+}
+
+
+/* ─── HERO ───────────────────────────────────────────────────── */
+.workshop-hero {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    padding-top: calc(var(--nav-height) + var(--space-2xl));
+    padding-bottom: var(--space-2xl);
+    overflow: hidden;
+}
+.workshop-hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 30% 50%, rgba(232, 0, 13, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 30%, rgba(232, 0, 13, 0.03) 0%, transparent 50%);
+    z-index: 1;
+}
+.workshop-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+}
+.workshop-badge {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-red);
+    border: 1px solid rgba(232, 0, 13, 0.3);
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    margin-bottom: var(--space-lg);
+}
+.workshop-hero-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--color-white);
+    margin-bottom: var(--space-md);
+}
+.workshop-hero-subtitle {
+    font-family: var(--font-heading);
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    font-weight: 500;
+    color: var(--color-gray-200);
+    margin-bottom: var(--space-sm);
+}
+.workshop-hero-description {
+    font-size: clamp(1rem, 1.8vw, 1.1rem);
+    color: var(--color-gray-300);
+    line-height: 1.7;
+    max-width: 580px;
+    margin-bottom: var(--space-xl);
+}
+.workshop-hero-ctas {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-md);
+}
+.workshop-hero-price {
+    font-size: 0.9rem;
+    color: var(--color-gray-400);
+    letter-spacing: 0.02em;
+}
+
+
+/* ─── PROBLEM SECTION ────────────────────────────────────────── */
+.workshop-problem {
+    background: var(--color-surface);
+}
+.workshop-problem-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+}
+.workshop-problem-card {
+    padding: var(--space-xl);
+    background: var(--color-dark);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: var(--shadow-card);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.workshop-problem-card:hover {
+    border-color: var(--color-border-light);
+    box-shadow: var(--shadow-card-hover);
+}
+.workshop-problem-icon {
+    margin-bottom: var(--space-md);
+    color: var(--color-red);
+    transition: color 0.3s ease;
+}
+.workshop-problem-card:hover .workshop-problem-icon {
+    color: var(--color-white);
+}
+.workshop-problem-icon svg {
+    width: 40px;
+    height: 40px;
+}
+.workshop-problem-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-white);
+    margin-bottom: var(--space-xs);
+}
+.workshop-problem-card p {
+    font-size: 0.95rem;
+    color: var(--color-gray-300);
+    line-height: 1.7;
+}
+
+
+/* ─── OUTLINE SECTION ────────────────────────────────────────── */
+.workshop-outline {
+    background: var(--color-dark);
+}
+.section-subtitle {
+    font-size: 1rem;
+    color: var(--color-gray-300);
+    line-height: 1.7;
+    max-width: 600px;
+    margin: var(--space-sm) auto 0;
+    text-align: center;
+}
+.workshop-outline-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+}
+.workshop-outline-card {
+    padding: var(--space-xl) var(--space-lg);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: var(--shadow-card);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.workshop-outline-card:hover {
+    border-color: rgba(232, 0, 13, 0.3);
+    box-shadow: var(--shadow-card-hover);
+}
+.outline-number {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--color-red);
+    display: block;
+    margin-bottom: var(--space-xs);
+}
+.workshop-outline-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-white);
+    margin-bottom: var(--space-xs);
+    line-height: 1.3;
+}
+.workshop-outline-card p {
+    font-size: 0.9rem;
+    color: var(--color-gray-300);
+    line-height: 1.65;
+}
+.outline-duration {
+    display: inline-block;
+    margin-top: var(--space-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-gray-400);
+    letter-spacing: 0.05em;
+    border: 1px solid var(--color-border);
+    border-radius: 100px;
+    padding: 0.2rem 0.75rem;
+}
+.workshop-outline-card-qa {
+    grid-column: 1 / -1;
+    text-align: center;
+    border-color: rgba(232, 0, 13, 0.15);
+}
+
+
+/* ─── FAILURE STAKES + MID CTA ───────────────────────────────── */
+.workshop-failure-stakes {
+    text-align: center;
+    max-width: 640px;
+    margin: var(--space-xl) auto 0;
+    font-size: 1rem;
+    color: var(--color-gray-300);
+    line-height: 1.7;
+    font-style: italic;
+}
+.workshop-mid-cta {
+    text-align: center;
+    margin-top: var(--space-lg);
+}
+
+/* ─── SUCCESS VISION ─────────────────────────────────────────── */
+.workshop-success {
+    background: var(--color-surface);
+}
+.workshop-success-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+}
+.workshop-success-item {
+    padding: var(--space-xl);
+    background: var(--color-dark);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: var(--shadow-card);
+}
+.workshop-success-item h3 {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-white);
+    margin-bottom: var(--space-xs);
+    line-height: 1.3;
+}
+.workshop-success-item p {
+    font-size: 0.9rem;
+    color: var(--color-gray-300);
+    line-height: 1.65;
+}
+
+/* ─── SOCIAL PROOF / TESTIMONIAL ─────────────────────────────── */
+.workshop-proof {
+    background: var(--color-dark);
+}
+.workshop-testimonial {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+.workshop-testimonial blockquote {
+    margin: 0;
+    padding: 0;
+}
+.workshop-testimonial blockquote p {
+    font-size: 1.15rem;
+    color: var(--color-gray-200);
+    line-height: 1.8;
+    font-style: italic;
+}
+.workshop-testimonial blockquote footer {
+    margin-top: var(--space-md);
+}
+.workshop-testimonial blockquote footer strong {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-white);
+    font-style: normal;
+}
+.workshop-testimonial blockquote footer span {
+    font-size: 0.85rem;
+    color: var(--color-gray-400);
+    font-style: normal;
+}
+
+/* ─── AUDIENCE SECTION ───────────────────────────────────────── */
+.workshop-audience {
+    background: var(--color-surface);
+}
+.workshop-audience-list {
+    max-width: 640px;
+    margin: var(--space-xl) auto 0;
+}
+.audience-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--color-border);
+}
+.audience-item:last-child {
+    border-bottom: none;
+}
+.audience-check {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--color-red);
+}
+.audience-check svg {
+    width: 20px;
+    height: 20px;
+}
+.audience-item p {
+    font-size: 1rem;
+    color: var(--color-gray-300);
+    line-height: 1.6;
+}
+.workshop-audience-note {
+    max-width: 640px;
+    margin: var(--space-lg) auto 0;
+    padding: var(--space-md) var(--space-lg);
+    background: var(--color-dark);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-red);
+    border-radius: 0 8px 8px 0;
+    box-shadow: var(--shadow-card);
+}
+.workshop-audience-note p {
+    font-size: 0.9rem;
+    color: var(--color-gray-300);
+    line-height: 1.65;
+    font-style: italic;
+}
+
+
+/* ─── INSTRUCTOR SECTION ─────────────────────────────────────── */
+.workshop-instructor {
+    background: var(--color-dark);
+}
+.workshop-instructor-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+}
+.workshop-instructor-photo img {
+    width: 100%;
+    border-radius: 12px;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    border: 2px solid var(--color-border);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+.workshop-instructor-bio .section-label {
+    display: block;
+    margin-bottom: var(--space-xs);
+}
+.workshop-instructor-bio .section-title {
+    text-align: left;
+    margin-bottom: var(--space-md);
+}
+.workshop-instructor-bio p {
+    font-size: 0.95rem;
+    color: var(--color-gray-300);
+    line-height: 1.7;
+    margin-bottom: var(--space-sm);
+}
+.instructor-callout {
+    margin-top: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    background: var(--color-surface);
+    border: 1px solid rgba(232, 0, 13, 0.15);
+    border-left: 3px solid var(--color-red);
+    border-radius: 0 8px 8px 0;
+    box-shadow: var(--shadow-card);
+}
+.instructor-callout p {
+    font-size: 0.9rem;
+    color: var(--color-gray-300);
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+
+/* ─── PRICING TIERS ──────────────────────────────────────────── */
+.workshop-pricing {
+    background: var(--color-surface);
+}
+.workshop-tiers-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+    align-items: start;
+}
+.workshop-tier-card {
+    padding: var(--space-xl) var(--space-lg);
+    background: var(--color-dark);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.workshop-tier-card:hover {
+    border-color: var(--color-border-light);
+    box-shadow: var(--shadow-card-hover);
+}
+.workshop-tier-featured {
+    border-color: rgba(232, 0, 13, 0.4);
+    box-shadow: 0 4px 24px rgba(232, 0, 13, 0.08);
+}
+.workshop-tier-featured:hover {
+    border-color: rgba(232, 0, 13, 0.6);
+    box-shadow: 0 8px 40px rgba(232, 0, 13, 0.12);
+}
+.tier-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-red);
+    color: var(--color-white);
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.3rem 1rem;
+    border-radius: 100px;
+    white-space: nowrap;
+}
+.tier-label {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-red);
+    margin-bottom: var(--space-sm);
+    display: block;
+}
+.tier-price {
+    margin-bottom: var(--space-md);
+}
+.tier-amount {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--color-white);
+    display: block;
+    line-height: 1;
+}
+.tier-unit {
+    font-size: 0.85rem;
+    color: var(--color-gray-400);
+    display: block;
+    margin-top: 0.25rem;
+}
+.tier-description {
+    font-size: 0.9rem;
+    color: var(--color-gray-300);
+    line-height: 1.65;
+    margin-bottom: var(--space-md);
+}
+.tier-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-lg) 0;
+    flex-grow: 1;
+}
+.tier-features li {
+    padding: 0.4rem 0;
+    font-size: 0.85rem;
+    color: var(--color-gray-300);
+    line-height: 1.5;
+    position: relative;
+    padding-left: 1.25rem;
+}
+.tier-features li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7rem;
+    width: 5px;
+    height: 5px;
+    background: var(--color-red);
+    border-radius: 50%;
+}
+.tier-cta {
+    width: 100%;
+    text-align: center;
+    margin-top: auto;
+}
+
+
+/* ─── VALUE ANCHOR ───────────────────────────────────────────── */
+.workshop-value-anchor {
+    text-align: center;
+    max-width: 600px;
+    margin: var(--space-lg) auto 0;
+    font-size: 0.9rem;
+    color: var(--color-gray-400);
+    line-height: 1.6;
+    font-style: italic;
+}
+
+/* ─── FAQ SECTION ────────────────────────────────────────────── */
+.workshop-faq {
+    background: var(--color-surface);
+}
+.workshop-faq-list {
+    max-width: 700px;
+    margin: var(--space-xl) auto 0;
+}
+.workshop-faq-item {
+    border-bottom: 1px solid var(--color-border);
+}
+.workshop-faq-toggle {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md) 0;
+    background: none;
+    border: none;
+    color: var(--color-white);
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.workshop-faq-toggle:hover {
+    color: var(--color-red);
+}
+.workshop-faq-icon {
+    font-size: 1.25rem;
+    color: var(--color-red);
+    flex-shrink: 0;
+    margin-left: var(--space-sm);
+    transition: transform 0.3s ease;
+}
+.workshop-faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+.workshop-faq-answer p {
+    padding-bottom: var(--space-md);
+    font-size: 0.95rem;
+    color: var(--color-gray-300);
+    line-height: 1.7;
+}
+
+/* ─── SIGNUP SECTION ─────────────────────────────────────────── */
+.workshop-signup {
+    background: var(--color-dark);
+}
+.workshop-signup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+}
+.workshop-signup-info .section-label {
+    display: block;
+    margin-bottom: var(--space-xs);
+}
+.workshop-signup-info .section-title {
+    text-align: left;
+}
+.workshop-signup-info p {
+    font-size: 0.95rem;
+    color: var(--color-gray-300);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+}
+/* Form container — slightly elevated for contrast */
+.workshop-signup-form-wrapper {
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-card);
+}
+
+
+/* ─── FORM SUCCESS (matches partners.css) ────────────────────── */
+.form-success {
+    text-align: center;
+    padding: var(--space-xl) 0;
+}
+.form-success-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(232, 0, 13, 0.1);
+    border: 2px solid var(--color-red);
+    color: var(--color-red);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-md);
+}
+.form-success h3 {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    color: var(--color-white);
+    margin-bottom: var(--space-xs);
+}
+.form-success p {
+    color: var(--color-gray-400);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+.form-success a {
+    color: var(--color-red);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.form-success a:hover {
+    color: var(--color-red-light);
+}
+
+/* ─── FOOTER ─────────────────────────────────────────────────── */
+.workshop-footer {
+    padding: var(--space-lg) 0;
+    border-top: 1px solid var(--color-border);
+}
+.workshop-footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+}
+.workshop-footer .nav-logo img {
+    height: 28px;
+    width: auto;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+.workshop-footer .nav-logo:hover img {
+    opacity: 1;
+}
+.workshop-footer-text {
+    font-size: 0.8rem;
+    color: var(--color-gray-500);
+}
+.workshop-footer-link {
+    font-size: 0.85rem;
+    color: var(--color-gray-400);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.workshop-footer-link:hover {
+    color: var(--color-red);
+}
+.workshop-footer-social {
+    display: flex;
+    gap: var(--space-sm);
+}
+.workshop-footer-social a {
+    color: var(--color-gray-400);
+    transition: color 0.2s;
+}
+.workshop-footer-social a:hover {
+    color: var(--color-white);
+}
+
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .workshop-problem-grid {
+        grid-template-columns: 1fr;
+    }
+    .workshop-success-grid {
+        grid-template-columns: 1fr;
+    }
+    .workshop-outline-grid {
+        grid-template-columns: 1fr;
+    }
+    .workshop-outline-card-qa {
+        grid-column: auto;
+    }
+    .workshop-instructor-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .workshop-instructor-photo {
+        max-width: 280px;
+        margin: 0 auto;
+    }
+    .workshop-instructor-bio .section-title {
+        text-align: center;
+    }
+    .workshop-tiers-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .workshop-signup-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+    .workshop-signup-info .section-title {
+        text-align: center;
+    }
+    .workshop-signup-info {
+        text-align: center;
+    }
+    .workshop-back-link {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .workshop-hero {
+        min-height: auto;
+        padding-top: calc(var(--nav-height) + var(--space-xl));
+        padding-bottom: var(--space-xl);
+    }
+    .workshop-hero-ctas {
+        flex-direction: column;
+    }
+    .workshop-tiers-grid {
+        grid-template-columns: 1fr;
+    }
+    .workshop-footer-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+    .workshop-nav-cta {
+        display: none;
+    }
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .gsap-animate,
+    .gsap-animate-cta {
+        visibility: visible;
+    }
+    .workshop-problem-card,
+    .workshop-outline-card {
+        transition: none;
+    }
+    .workshop-problem-card:hover {
+        transform: none;
+    }
+}
