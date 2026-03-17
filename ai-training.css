@@ -297,39 +297,11 @@
 }
 
 /* ─── SOCIAL PROOF / TESTIMONIAL ─────────────────────────────── */
+/* Workshop proof uses shared .testimonials, .testimonial-card,
+   .testimonial-dots etc from style.css — no overrides needed.
+   Background color set via .workshop-proof below. */
 .workshop-proof {
     background: var(--color-dark);
-}
-.workshop-testimonial {
-    max-width: 700px;
-    margin: 0 auto;
-    text-align: center;
-}
-.workshop-testimonial blockquote {
-    margin: 0;
-    padding: 0;
-}
-.workshop-testimonial blockquote p {
-    font-size: 1.15rem;
-    color: var(--color-gray-200);
-    line-height: 1.8;
-    font-style: italic;
-}
-.workshop-testimonial blockquote footer {
-    margin-top: var(--space-md);
-}
-.workshop-testimonial blockquote footer strong {
-    display: block;
-    font-family: var(--font-heading);
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-white);
-    font-style: normal;
-}
-.workshop-testimonial blockquote footer span {
-    font-size: 0.85rem;
-    color: var(--color-gray-400);
-    font-style: normal;
 }
 
 /* ─── AUDIENCE SECTION ───────────────────────────────────────── */

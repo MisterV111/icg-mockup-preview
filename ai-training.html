@@ -240,17 +240,34 @@
     <!-- ═══════════════════════════════════════ -->
     <!-- SECTION 3C: SOCIAL PROOF                -->
     <!-- ═══════════════════════════════════════ -->
-    <section class="section workshop-proof" id="workshop-proof">
+    <section class="section workshop-proof testimonials" id="workshop-proof" aria-roledescription="carousel" aria-label="Training testimonials">
         <img class="section-bg" src="assets/backgrounds/ai-training/proof-bg.jpg" alt="" loading="lazy" aria-hidden="true" style="opacity:0.16">
         <div class="container">
-            <div class="workshop-testimonial gsap-animate">
-                <blockquote>
-                    <p>"I would sign up for a workshop like this as soon as it pops in my email. I've never seen anything at this level. There are tons of people like me who are interested in AI but don't quite know where to go with it."</p>
-                    <footer>
-                        <strong>Kate Elliot</strong>
-                        <span>Up Public Relations, Halifax</span>
-                    </footer>
-                </blockquote>
+            <div class="section-header gsap-animate">
+                <span class="section-label">What People Are Saying</span>
+                <h2 class="section-title">Real Feedback From <span class="text-accent">Real People.</span></h2>
+            </div>
+            <div class="testimonials-grid" aria-live="polite">
+                <div class="testimonial-card testimonial-card--featured gsap-animate">
+                    <div class="testimonial-quote">"</div>
+                    <p class="testimonial-text">I would sign up for a workshop like this as soon as it pops in my email. I've never seen anything at this level. There are tons of people like me who are interested in AI but don't quite know where to go with it.</p>
+                    <div class="testimonial-author">
+                        <span class="testimonial-name">— Kate Elliot</span>
+                        <span class="testimonial-company">Up Public Relations, Halifax</span>
+                    </div>
+                </div>
+                <div class="testimonial-card testimonial-card--featured gsap-animate">
+                    <div class="testimonial-quote">"</div>
+                    <p class="testimonial-text">Every time I talk to Juan, I feel like I've just had a really good lesson. I always learn so much from him. The tips he shares have made my work workflows way better and easier. I really think a course or series of tutorials from him would help so many people in our industry, not just me.</p>
+                    <div class="testimonial-author">
+                        <span class="testimonial-name">— Liz Lulu</span>
+                        <span class="testimonial-company">G Adventures</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-dots" role="tablist" aria-label="Testimonial navigation">
+                <button class="testimonial-dot active" role="tab" aria-selected="true" aria-label="Show testimonial 1 of 2" data-index="0"></button>
+                <button class="testimonial-dot" role="tab" aria-selected="false" aria-label="Show testimonial 2 of 2" data-index="1"></button>
             </div>
         </div>
     </section>
