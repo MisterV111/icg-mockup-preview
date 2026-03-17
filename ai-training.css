@@ -528,6 +528,111 @@
     font-style: italic;
 }
 
+/* ─── COACHING PACKAGES (below pricing tiers) ────────────────── */
+.coaching-packages {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-border);
+}
+.coaching-packages-header {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+}
+.coaching-packages-header h3 {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--color-white);
+    margin-bottom: var(--space-xs);
+}
+.coaching-packages-header p {
+    font-size: 0.95rem;
+    color: var(--color-gray-400);
+    line-height: 1.6;
+}
+.coaching-packages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    max-width: 800px;
+    margin: 0 auto;
+}
+.coaching-package-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: var(--space-lg) var(--space-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    text-align: center;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.coaching-package-card:hover {
+    border-color: var(--color-border-light);
+    box-shadow: var(--shadow-card-hover);
+}
+.coaching-package-featured {
+    border-color: rgba(232, 0, 13, 0.3);
+}
+.coaching-package-featured:hover {
+    border-color: rgba(232, 0, 13, 0.5);
+}
+.package-name {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-red);
+}
+.package-sessions {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-gray-300);
+}
+.package-price {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    margin: 0.3rem 0;
+}
+.package-amount {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-white);
+}
+.package-per {
+    font-size: 0.8rem;
+    color: var(--color-gray-500);
+}
+.package-savings {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-red);
+    background: rgba(232, 0, 13, 0.1);
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+}
+.coaching-packages-note {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--color-gray-500);
+    margin-top: var(--space-md);
+}
+
+@media (max-width: 600px) {
+    .coaching-packages-grid {
+        grid-template-columns: 1fr;
+        max-width: 320px;
+    }
+}
+
+
 /* ─── FAQ SECTION ────────────────────────────────────────────── */
 .workshop-faq {
     background: var(--color-surface);
