@@ -205,15 +205,18 @@
 }
 
 .partners-steps {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: var(--space-lg);
 }
 
 .partners-step {
+    flex: 0 0 calc((100% - 2 * var(--space-lg)) / 3);
     text-align: center;
     padding: var(--space-lg) var(--space-sm);
     position: relative;
+    box-sizing: border-box;
 }
 
 /* Connector arrow between steps */
@@ -225,6 +228,11 @@
     font-size: 1.2rem;
     color: var(--color-red);
     opacity: 0.5;
+}
+
+/* Hide arrow at end of row 1 (3 on top, 2 on bottom) */
+.partners-step:nth-child(3)::after {
+    display: none;
 }
 
 .partners-step-num {
@@ -779,7 +787,11 @@
     }
 
     .partners-steps {
-        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-md);
+    }
+
+    .partners-step {
+        flex: 0 0 calc((100% - var(--space-md)) / 2);
     }
 
     .partners-step:not(:last-child)::after {
@@ -807,11 +819,11 @@
     }
 
     .partners-steps {
-        grid-template-columns: 1fr;
         gap: var(--space-md);
     }
 
     .partners-step {
+        flex: 0 0 100%;
         text-align: left;
         padding: var(--space-md);
         background: var(--color-dark);
