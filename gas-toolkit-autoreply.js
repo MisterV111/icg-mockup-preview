@@ -113,7 +113,7 @@ function sendToolkitReply(email) {
     + '</p>'
 
     + '<p>Cheers,<br>'
-    + '<strong>Juan Carlos Valencia</strong><br>'
+    + '<strong>Juan Valencia</strong><br>'
     + '<span style="color:#888;font-size:13px;">Inspired Creative Group Inc.</span></p>'
 
     + '</div>';
@@ -128,11 +128,11 @@ function sendToolkitReply(email) {
     + 'This is one piece of a 40+ agent system we built for creative production. '
     + 'If you\'re curious what that looks like at scale, I\'d love to show you.\n\n'
     + 'Schedule a call: https://www.inspiredcreativegroupinc.com/partners.html#partners-contact\n\n'
-    + 'Cheers,\nJuan Carlos Valencia\nInspired Creative Group Inc.';
+    + 'Cheers,\nJuan Valencia\nInspired Creative Group Inc.';
 
   GmailApp.sendEmail(email, subject, plainBody, {
     htmlBody: htmlBody,
-    name: 'Juan Carlos Valencia',
+    name: 'Juan Valencia',
     replyTo: 'info@inspiredcreativegroupinc.com'
   });
 
