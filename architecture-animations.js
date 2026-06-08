@@ -201,9 +201,17 @@
           a.click();
           document.body.removeChild(a);
 
-          // Fire GAS auto-reply
-          var gasUrl = 'https://script.google.com/macros/s/AKfycbyBt62avorESe_eb_nTW6QyCAN3LllspGAsl5bKW6pYltmnfA9GS9f_Y2TdiXWTrSwb/exec';
-          fetch(gasUrl + '?email=' + encodeURIComponent(email) + '&name=' + encodeURIComponent(name), { mode: 'no-cors' });
+          // Branded auto-reply via GAS, gated by a Cloudflare Turnstile token
+          // verified server-side (locked down 2026-06-08).
+          var cfToken = data.get('cf-turnstile-response') || '';
+          if (cfToken && email) {
+            var gasBody = new URLSearchParams({ email: email, name: name || '', 'cf-turnstile-response': cfToken });
+            fetch('https://script.google.com/macros/s/AKfycbyBt62avorESe_eb_nTW6QyCAN3LllspGAsl5bKW6pYltmnfA9GS9f_Y2TdiXWTrSwb/exec', {
+              method: 'POST', mode: 'no-cors',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: gasBody.toString()
+            });
+          }
         } else {
           btn.textContent = 'Download Free Toolkit';
           btn.disabled = false;

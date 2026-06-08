@@ -1,17 +1,79 @@
-// ═══════════════════════════════════════════════════════
-// ICG Toolkit Auto-Reply — Google Apps Script
-// Sends a confirmation email when someone downloads
-// the Image Prompt Engineer toolkit via lead magnet form.
+// ═══════════════════════════════════════════════════════════════
+// ICG TOOLKIT Auto-Reply — Google Apps Script
+// Project: "ICG Toolkit Auto-Reply"  (web app id begins AKfycbyB…)
+// Sends the toolkit-download confirmation email.
 //
-// Deployment: Add as a new function in the EXISTING
-// GAS project (same one as contact form auto-reply).
-// ═══════════════════════════════════════════════════════
+// SECURITY (2026-06-08): every send is gated behind a Cloudflare
+// Turnstile token verified server-side BEFORE any email is sent.
+// The old open `doGet` send path has been REMOVED — bots were
+// hammering it to mail fake addresses, flooding info@ with bounces.
+//
+// ── ONE-TIME SETUP ─────────────────────────────────────────────
+// 1. Apps Script editor → Project Settings (gear) → Script Properties
+//    → Add property:
+//        TURNSTILE_SECRET = <your Cloudflare Turnstile SECRET key>
+// 2. Deploy → Manage deployments → (edit the existing web app) →
+//    Version: "New version" → Deploy.  Keep the SAME deployment so
+//    the /exec URL the website calls does not change.
+// 3. Execute as: Me.  Who has access: Anyone.
+// ═══════════════════════════════════════════════════════════════
 
-/**
- * Called from the partners page after Formspree submission.
- * Uses doGet with ?action=toolkit&email=... to distinguish
- * from contact form auto-replies.
- */
+var ALLOWED_HOSTS = [
+  'inspiredcreativegroupinc.com',
+  'www.inspiredcreativegroupinc.com',
+  'localhost'
+];
+
+// doGet is now a HEALTH CHECK ONLY. It never sends email.
+function doGet(e) {
+  return jsonOut({ status: 'ok', message: 'ICG Toolkit Auto-Reply is active' });
+}
+
+function doPost(e) {
+  try {
+    var p = (e && e.parameter) ? e.parameter : {};
+    var token = p['cf-turnstile-response'] || '';
+    var email = p.email || p.to_email || '';
+
+    if (!verifyTurnstile(token)) {
+      return jsonOut({ status: 'rejected', reason: 'failed_verification' });
+    }
+    if (!isValidEmail(email)) {
+      return jsonOut({ status: 'rejected', reason: 'invalid_email' });
+    }
+    return sendToolkitReply(email);
+  } catch (error) {
+    return jsonOut({ status: 'error', message: error.toString() });
+  }
+}
+
+// ── Cloudflare Turnstile server-side verification ───────────────
+function verifyTurnstile(token) {
+  if (!token) return false;
+  var secret = PropertiesService.getScriptProperties().getProperty('TURNSTILE_SECRET');
+  if (!secret) return false; // fail CLOSED if not configured
+
+  var resp = UrlFetchApp.fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    method: 'post',
+    payload: { secret: secret, response: token },
+    muteHttpExceptions: true
+  });
+  var outcome = JSON.parse(resp.getContentText());
+  if (!outcome.success) return false;
+  if (outcome.hostname && ALLOWED_HOSTS.indexOf(outcome.hostname) === -1) return false;
+  return true;
+}
+
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email || '');
+}
+
+function jsonOut(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+// ── The branded confirmation email (unchanged) ──────────────────
 function sendToolkitReply(email) {
   var downloadUrl = 'https://www.inspiredcreativegroupinc.com/assets/downloads/ai-image-toolkit-2026.zip';
 
@@ -74,16 +136,14 @@ function sendToolkitReply(email) {
     replyTo: 'info@inspiredcreativegroupinc.com'
   });
 
-  return ContentService.createTextOutput(JSON.stringify({status: 'ok'}))
-    .setMimeType(ContentService.MimeType.JSON);
+  return jsonOut({ status: 'ok' });
 }
 
 
-// ═══════════════════════════════════════════════════════
-// TEST FUNCTION — Run this directly in Apps Script editor
-// to preview the email WITHOUT using Formspree.
-// Change the email address to your own.
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════
+// TEST FUNCTION — run directly in the Apps Script editor to preview
+// the email without going through the form. Change the address first.
+// ═══════════════════════════════════════════════════════════════
 function testToolkitReply() {
   sendToolkitReply('juan@inspiredcreativegroupinc.com');
   Logger.log('Test email sent!');

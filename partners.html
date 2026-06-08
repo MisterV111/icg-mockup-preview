@@ -98,6 +98,8 @@
         ]
     }
     </script>
+    <!-- Cloudflare Turnstile (bot protection for form auto-replies) -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body class="partners-page">
     <div class="scroll-progress" id="scrollProgress"></div>
@@ -568,10 +570,12 @@
                 <div class="lead-gen-form-wrap">
                     <form id="lead-gen-form" action="https://formspree.io/f/mbdaagjg" method="POST">
                         <input type="hidden" name="_source" value="partners-page-toolkit">
+                        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
                         <div class="lead-gen-form-row">
                             <input type="email" name="email" placeholder="Your work email" required class="lead-gen-input">
                             <button type="submit" class="btn btn-primary lead-gen-btn">Download Free</button>
                         </div>
+                        <div class="cf-turnstile" data-sitekey="0x4AAAAAADgzGd1p-2PHlr5a" data-theme="dark" data-size="flexible" style="margin:0.75rem 0;"></div>
                         <p class="lead-gen-privacy">No spam. Unsubscribe anytime.</p>
                     </form>
                     <div id="lead-gen-success" class="lead-gen-success" style="display: none;">
@@ -763,6 +767,7 @@
                     <form class="contact-form" id="partnersForm" action="https://formspree.io/f/mbdagppd" method="POST">
                         <input type="hidden" name="_subject" value="New Production System Inquiry">
                         <input type="hidden" name="inquiry_type" value="Production System Build">
+                        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="partnerName">Your Name *</label>
@@ -797,6 +802,7 @@
                             <label for="partnerMessage">Tell us about your team, your current production volume, and where time or quality is leaking.</label>
                             <textarea id="partnerMessage" name="message" rows="4" required placeholder="Team size, what you produce, how much, and where the pipeline breaks..."></textarea>
                         </div>
+                        <div class="cf-turnstile" data-sitekey="0x4AAAAAADgzGd1p-2PHlr5a" data-theme="dark" data-size="flexible" style="margin-bottom:1rem;"></div>
                         <button type="submit" class="btn btn-primary btn-submit" id="partnerSubmitBtn">Schedule the discovery call</button>
                     </form>
                     <div class="form-success" id="partnerFormSuccess" style="display:none;">
@@ -924,15 +930,22 @@
                         form.style.display = 'none';
                         success.style.display = 'block';
 
-                        // Send auto-reply via GAS
-                        var gasParams = new URLSearchParams({
-                            first_name: data.get('name') ? data.get('name').split(' ')[0] : '',
-                            to_email: data.get('email'),
-                            service: 'Production System Build',
-                            timeline: 'Not specified',
-                            budget: 'Not specified'
-                        });
-                        fetch('https://script.google.com/macros/s/AKfycbzB_Q9aauFWRbdOu9niF49uNrBcFQOXjQ0RnCs8DZTIWKy9JRPYDCCTTJ1QYp9DEY3U/exec?' + gasParams.toString(), {mode:'no-cors'});
+                        // Branded auto-reply via GAS, gated by a Cloudflare
+                        // Turnstile token verified server-side (locked 2026-06-08).
+                        var cfToken = data.get('cf-turnstile-response') || '';
+                        if (cfToken) {
+                            var gasBody = new URLSearchParams({
+                                first_name: data.get('name') ? data.get('name').split(' ')[0] : '',
+                                to_email: data.get('email') || '',
+                                service: 'Production System Build',
+                                'cf-turnstile-response': cfToken
+                            });
+                            fetch('https://script.google.com/macros/s/AKfycbzB_Q9aauFWRbdOu9niF49uNrBcFQOXjQ0RnCs8DZTIWKy9JRPYDCCTTJ1QYp9DEY3U/exec', {
+                                method: 'POST', mode: 'no-cors',
+                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                                body: gasBody.toString()
+                            });
+                        }
                     } else {
                         submitBtn.disabled = false;
                         submitBtn.textContent = 'Schedule the discovery call';
@@ -1391,11 +1404,17 @@
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
-                    // Send auto-reply email via GAS
-                    var email = data.get('email');
-                    if (email) {
-                        var gasUrl = 'https://script.google.com/macros/s/AKfycbyBt62avorESe_eb_nTW6QyCAN3LllspGAsl5bKW6pYltmnfA9GS9f_Y2TdiXWTrSwb/exec?email=' + encodeURIComponent(email);
-                        fetch(gasUrl, {mode: 'no-cors'});
+                    // Branded auto-reply via GAS, gated by a Cloudflare Turnstile
+                    // token verified server-side (locked down 2026-06-08).
+                    var cfToken = data.get('cf-turnstile-response') || '';
+                    var email = data.get('email') || '';
+                    if (cfToken && email) {
+                        var gasBody = new URLSearchParams({ email: email, 'cf-turnstile-response': cfToken });
+                        fetch('https://script.google.com/macros/s/AKfycbyBt62avorESe_eb_nTW6QyCAN3LllspGAsl5bKW6pYltmnfA9GS9f_Y2TdiXWTrSwb/exec', {
+                            method: 'POST', mode: 'no-cors',
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            body: gasBody.toString()
+                        });
                     }
                 } else {
                     btn.disabled = false;

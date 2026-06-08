@@ -167,6 +167,8 @@
         }
     }
     </script>
+    <!-- Cloudflare Turnstile (bot protection for form auto-replies) -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
     <div class="scroll-progress" id="scrollProgress"></div>
@@ -1177,6 +1179,7 @@
                             <input type="email" name="email" placeholder="Your work email" required class="lead-gen-input">
                             <button type="submit" class="btn btn-primary lead-gen-btn">Download Free</button>
                         </div>
+                        <div class="cf-turnstile" data-sitekey="0x4AAAAAADgzGd1p-2PHlr5a" data-theme="dark" data-size="flexible" style="margin:0.75rem 0;"></div>
                         <p class="lead-gen-privacy">No spam. Unsubscribe anytime.</p>
                     </form>
                     <div id="homepage-lead-gen-success" class="lead-gen-success" style="display: none;">
@@ -1337,6 +1340,7 @@
                             <label for="message">Tell us about your project</label>
                             <textarea id="message" name="message" rows="4" required placeholder="Brief description of what you're looking for..."></textarea>
                         </div>
+                        <div class="cf-turnstile" data-sitekey="0x4AAAAAADgzGd1p-2PHlr5a" data-theme="dark" data-size="flexible" style="margin-bottom:1rem;"></div>
                         <button type="submit" class="btn btn-primary btn-full" id="submitBtn">Schedule a Discovery Call</button>
                     </form>
                     <!-- Success message (hidden by default) -->
@@ -1424,13 +1428,24 @@
                 method: 'POST', body: data, headers: { 'Accept': 'application/json' }
             });
 
-            // Send branded auto-reply via Google Apps Script (GET workaround)
-            var gasParams = new URLSearchParams({
-                first_name: data.get('first_name'),
-                to_email: data.get('email'),
-                service: serviceLabels[data.get('service')] || data.get('service') || 'Not specified'
-            });
-            fetch('https://script.google.com/macros/s/AKfycbzB_Q9aauFWRbdOu9niF49uNrBcFQOXjQ0RnCs8DZTIWKy9JRPYDCCTTJ1QYp9DEY3U/exec?' + gasParams.toString(), {mode:'no-cors'});
+            // Send branded auto-reply via Google Apps Script, gated by a
+            // Cloudflare Turnstile token that GAS verifies server-side before
+            // sending (locked down 2026-06-08, replaces the old open GET that
+            // bots abused to mail fake addresses).
+            var cfToken = data.get('cf-turnstile-response') || '';
+            if (cfToken) {
+                var gasBody = new URLSearchParams({
+                    first_name: data.get('first_name') || '',
+                    to_email: data.get('email') || '',
+                    service: serviceLabels[data.get('service')] || data.get('service') || 'Not specified',
+                    'cf-turnstile-response': cfToken
+                });
+                fetch('https://script.google.com/macros/s/AKfycbzB_Q9aauFWRbdOu9niF49uNrBcFQOXjQ0RnCs8DZTIWKy9JRPYDCCTTJ1QYp9DEY3U/exec', {
+                    method: 'POST', mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: gasBody.toString()
+                });
+            }
 
             // Show success as soon as Formspree confirms
             formspreeOk.then(function(response) {
@@ -1549,9 +1564,17 @@
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
-                    var email = data.get('email');
-                    if (email) {
-                        fetch('https://script.google.com/macros/s/AKfycbyBt62avorESe_eb_nTW6QyCAN3LllspGAsl5bKW6pYltmnfA9GS9f_Y2TdiXWTrSwb/exec?email=' + encodeURIComponent(email), {mode:'no-cors'});
+                    // Branded auto-reply via GAS, gated by a Cloudflare Turnstile
+                    // token verified server-side (locked down 2026-06-08).
+                    var cfToken = data.get('cf-turnstile-response') || '';
+                    var email = data.get('email') || '';
+                    if (cfToken && email) {
+                        var gasBody = new URLSearchParams({ email: email, 'cf-turnstile-response': cfToken });
+                        fetch('https://script.google.com/macros/s/AKfycbyBt62avorESe_eb_nTW6QyCAN3LllspGAsl5bKW6pYltmnfA9GS9f_Y2TdiXWTrSwb/exec', {
+                            method: 'POST', mode: 'no-cors',
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            body: gasBody.toString()
+                        });
                     }
                 } else {
                     btn.disabled = false;

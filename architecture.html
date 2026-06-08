@@ -740,6 +740,8 @@
             z-index: 100;
         }
     </style>
+    <!-- Cloudflare Turnstile (bot protection for form auto-replies) -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
     <!-- ===== NAV ===== -->
@@ -929,6 +931,7 @@
                 <input type="text" name="name" placeholder="First Name" required aria-label="First Name" />
                 <input type="email" name="email" placeholder="Email" required aria-label="Email" />
                 <input type="text" name="_gotcha" class="arch-form-honeypot" tabindex="-1" autocomplete="off" />
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAADgzGd1p-2PHlr5a" data-theme="dark" data-size="flexible" style="margin:0.5rem 0;"></div>
                 <button type="submit" class="arch-form-btn">Download Free Toolkit</button>
             </form>
             <div class="arch-form-success" id="archFormSuccess">Toolkit downloading!</div>
